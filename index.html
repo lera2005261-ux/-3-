@@ -30,11 +30,10 @@
             padding: 0 5%;
             position: relative;
             overflow: hidden;
-            background: #1a1a1a;
         }
         
-        /* Фон с фотографией */
-        .photo-bg {
+        /* Фон с фотографией для первой секции */
+        .hero-bg {
             position: absolute;
             top: 0;
             left: 0;
@@ -48,8 +47,8 @@
             filter: brightness(0.8) contrast(1.1);
         }
         
-        /* Анимированные точки */
-        .floating-dots {
+        /* Анимированные точки для первой секции */
+        .hero-dots {
             position: absolute;
             top: 0;
             left: 0;
@@ -115,27 +114,6 @@
             margin-bottom: 30px;
             color: #b0b0b0;
             line-height: 1.6;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            padding: 14px 35px;
-            background: linear-gradient(135deg, #FF874E, #FF6B35);
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(255, 135, 78, 0.3);
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            margin: 0 10px 20px;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 135, 78, 0.5);
         }
         
         /* Компактная форма контактов */
@@ -282,13 +260,65 @@
             min-height: 100vh;
             padding: 80px 5%;
             position: relative;
-            background: #1a1a1a;
+            overflow: hidden;
+        }
+        
+        /* Фон с фотографией для второй секции */
+        .portfolio-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(26, 26, 26, 0.7), rgba(26, 26, 26, 0.8)),
+                url('я-10-23_21-44-13.jpg') center/cover no-repeat;
+            z-index: 1;
+            opacity: 0.4;
+            filter: brightness(0.8) contrast(1.1);
+        }
+        
+        /* Анимированные точки для второй секции */
+        .portfolio-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            overflow: hidden;
+        }
+        
+        .portfolio-dot {
+            position: absolute;
+            background: rgba(255, 135, 78, 0.4);
+            border-radius: 50%;
+            animation: floatDotReverse 18s linear infinite;
+        }
+        
+        @keyframes floatDotReverse {
+            0% {
+                transform: translateY(-100px) translateX(100px) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(100vh) translateX(0) scale(1.2);
+                opacity: 0;
+            }
         }
         
         .section-container {
             max-width: 1200px;
             width: 100%;
             margin: 0 auto;
+            position: relative;
+            z-index: 3;
         }
         
         .section-header {
@@ -317,16 +347,19 @@
         }
         
         .portfolio-item {
-            background: rgba(30, 30, 30, 0.8);
+            background: rgba(30, 30, 30, 0.85);
+            backdrop-filter: blur(10px);
             border-radius: 15px;
             overflow: hidden;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
         }
         
         .portfolio-item:hover {
             transform: translateY(-5px);
             border-color: rgba(255, 135, 78, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
         
         .portfolio-image {
@@ -417,12 +450,6 @@
                 font-size: 2rem;
             }
             
-            .cta-button {
-                display: block;
-                margin: 10px auto;
-                width: 200px;
-            }
-            
             .portfolio-grid {
                 grid-template-columns: 1fr;
             }
@@ -442,18 +469,14 @@
 <body>
     <!-- Секция 1: Герой -->
     <section class="hero-section" id="home">
-        <div class="photo-bg"></div>
-        <div class="floating-dots" id="floating-dots"></div>
+        <div class="hero-bg"></div>
+        <div class="hero-dots" id="hero-dots"></div>
         <div class="hero-content">
             <h1>Привет! Я Валерия Баранова — <span class="highlight">графический дизайнер</span></h1>
             <p class="description">
                 Специализируюсь на брендинге, айдентике и цифровой иллюстрации. Превращаю сложные идеи в чистые, 
                 эстетичные визуальные концепции.
             </p>
-            
-            <div>
-                <a href="#contact" class="cta-button">Связаться</a>
-            </div>
             
             <!-- Компактная форма контактов -->
             <div class="compact-contact" id="contact">
@@ -465,7 +488,7 @@
                     <div class="form-group">
                         <input type="email" class="form-input" placeholder="Email" required>
                     </div>
-                    <button type="submit" class="submit-btn">Отправить</button>
+                    <button type="submit" class="submit-btn">Отправить сообщение</button>
                 </form>
                 
                 <div class="social-links">
@@ -491,6 +514,8 @@
 
     <!-- Секция 2: Портфолио -->
     <section class="portfolio-section" id="portfolio">
+        <div class="portfolio-bg"></div>
+        <div class="portfolio-dots" id="portfolio-dots"></div>
         <div class="section-container">
             <div class="section-header">
                 <h2>Мои работы</h2>
@@ -581,9 +606,9 @@
     </section>
 
     <script>
-        // Создание плавающих точек
-        function createFloatingDots() {
-            const container = document.getElementById('floating-dots');
+        // Создание плавающих точек для первой секции
+        function createHeroDots() {
+            const container = document.getElementById('hero-dots');
             const dotCount = 15;
             
             for (let i = 0; i < dotCount; i++) {
@@ -606,6 +631,38 @@
                     'rgba(255, 135, 78, 0.6)',
                     'rgba(255, 107, 53, 0.5)',
                     'rgba(255, 167, 38, 0.4)'
+                ];
+                dot.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                container.appendChild(dot);
+            }
+        }
+
+        // Создание плавающих точек для второй секции
+        function createPortfolioDots() {
+            const container = document.getElementById('portfolio-dots');
+            const dotCount = 12;
+            
+            for (let i = 0; i < dotCount; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('portfolio-dot');
+                
+                const size = Math.random() * 5 + 1;
+                const left = Math.random() * 100;
+                const duration = Math.random() * 12 + 16;
+                const delay = Math.random() * 7;
+                
+                dot.style.width = `${size}px`;
+                dot.style.height = `${size}px`;
+                dot.style.left = `${left}%`;
+                dot.style.animationDuration = `${duration}s`;
+                dot.style.animationDelay = `${delay}s`;
+                
+                // Случайный цвет точки
+                const colors = [
+                    'rgba(255, 135, 78, 0.4)',
+                    'rgba(255, 107, 53, 0.3)',
+                    'rgba(255, 167, 38, 0.3)'
                 ];
                 dot.style.background = colors[Math.floor(Math.random() * colors.length)];
                 
@@ -647,7 +704,10 @@
         });
 
         // Инициализация при загрузке
-        window.addEventListener('load', createFloatingDots);
+        window.addEventListener('load', function() {
+            createHeroDots();
+            createPortfolioDots();
+        });
     </script>
 </body>
 </html>
