@@ -31,15 +31,94 @@
             overflow: hidden;
         }
         
-        /* Фон с пользовательской фотографией */
-        .custom-bg {
+        /* Динамичный фон с параллакс эффектом */
+        .dynamic-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.95)), url('я-10-23_21-44-13.jpg') center/cover no-repeat;
+            background: 
+                linear-gradient(45deg, 
+                    rgba(167, 255, 236, 0.4) 0%, 
+                    rgba(160, 223, 250, 0.4) 25%, 
+                    rgba(155, 165, 254, 0.4) 50%, 
+                    rgba(255, 167, 209, 0.4) 75%, 
+                    rgba(167, 255, 236, 0.4) 100%),
+                url('я-10-23_21-44-13.jpg') center/cover fixed;
+            background-blend-mode: overlay;
+            z-index: -2;
+            animation: gradientMove 8s ease-in-out infinite;
+        }
+        
+        /* Анимированные элементы фона */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: -1;
+            overflow: hidden;
+        }
+        
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .element-1 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .element-2 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+        
+        .element-3 {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+        
+        .element-4 {
+            width: 120px;
+            height: 120px;
+            top: 30%;
+            right: 20%;
+            animation-delay: 1s;
+        }
+        
+        @keyframes gradientMove {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 0.9;
+            }
         }
         
         .container {
@@ -53,6 +132,12 @@
         
         .content {
             padding-right: 20px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
         
         h1 {
@@ -66,6 +151,18 @@
         .highlight {
             color: #e84393;
             display: inline-block;
+            position: relative;
+        }
+        
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #e84393, #3498db);
+            border-radius: 2px;
         }
         
         .description {
@@ -78,22 +175,38 @@
         .cta-button {
             display: inline-block;
             padding: 14px 35px;
-            background-color: #e84393;
+            background: linear-gradient(45deg, #e84393, #3498db);
             color: white;
             text-decoration: none;
             border-radius: 8px;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(232, 67, 147, 0.3);
+            box-shadow: 0 4px 15px rgba(232, 67, 147, 0.4);
             border: none;
             cursor: pointer;
             font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
         }
         
         .cta-button:hover {
-            background-color: #e84393;
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 25px rgba(232, 67, 147, 0.6);
         }
         
         .image-container {
@@ -107,13 +220,16 @@
             width: 100%;
             max-width: 450px;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             transform: rotate(-2deg);
-            transition: transform 0.3s ease;
+            transition: all 0.5s ease;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            position: relative;
         }
         
         .profile-image:hover {
-            transform: rotate(0deg) scale(1.02);
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
         }
         
         .scroll-down {
@@ -128,6 +244,17 @@
             text-decoration: none;
             font-weight: 500;
             z-index: 10;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 15px 25px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .scroll-down:hover {
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateX(-50%) translateY(-5px);
         }
         
         .scroll-down span {
@@ -156,21 +283,55 @@
         .portfolio-section {
             min-height: 100vh;
             padding: 80px 5%;
-            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.95)), url('я-10-23_21-44-13.jpg') center/cover no-repeat;
-            color: #2d3436;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Фон для портфолио */
+        .portfolio-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(135deg, 
+                    rgba(167, 255, 236, 0.3) 0%, 
+                    rgba(160, 223, 250, 0.3) 25%, 
+                    rgba(155, 165, 254, 0.3) 50%, 
+                    rgba(255, 167, 209, 0.3) 75%, 
+                    rgba(167, 255, 236, 0.3) 100%),
+                url('я-10-23_21-44-13.jpg') center/cover fixed;
+            background-blend-mode: overlay;
+            z-index: -2;
+            animation: gradientMove 10s ease-in-out infinite;
+        }
+        
+        .portfolio-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
         }
         
         .section-container {
             max-width: 1200px;
             width: 100%;
+            position: relative;
+            z-index: 1;
         }
         
         .section-header {
             text-align: center;
             margin-bottom: 60px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
         
         .section-header h2 {
@@ -196,30 +357,51 @@
         
         /* Карточки работ */
         .portfolio-item {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(10px);
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid rgba(232, 67, 147, 0.2);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .portfolio-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(232, 67, 147, 0.1), rgba(52, 152, 219, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .portfolio-item:hover::before {
+            opacity: 1;
         }
         
         .portfolio-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
         }
         
         .portfolio-image {
             width: 100%;
             height: 280px;
             object-fit: cover;
-            border-bottom: 1px solid rgba(232, 67, 147, 0.2);
+            transition: transform 0.5s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-image {
+            transform: scale(1.1);
         }
         
         .portfolio-content {
             padding: 25px;
+            position: relative;
         }
         
         .portfolio-item h3 {
@@ -243,30 +425,52 @@
         
         .tag {
             background: rgba(232, 67, 147, 0.1);
-            padding: 4px 12px;
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 0.85rem;
             color: #e84393;
             border: 1px solid rgba(232, 67, 147, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .tag:hover {
+            background: rgba(232, 67, 147, 0.2);
+            transform: translateY(-2px);
         }
         
         .instagram-link {
             display: inline-block;
             margin-top: 40px;
             padding: 14px 35px;
-            background-color: #e84393;
+            background: linear-gradient(45deg, #e84393, #3498db);
             color: white;
             text-decoration: none;
             border-radius: 8px;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(232, 67, 147, 0.3);
+            box-shadow: 0 4px 15px rgba(232, 67, 147, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .instagram-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .instagram-link:hover::before {
+            left: 100%;
         }
         
         .instagram-link:hover {
-            background-color: #e84393;
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 25px rgba(232, 67, 147, 0.6);
         }
         
         /* Адаптивность */
@@ -307,6 +511,10 @@
             .portfolio-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .content, .section-header {
+                padding: 30px;
+            }
         }
         
         @media (max-width: 576px) {
@@ -318,7 +526,7 @@
                 font-size: 1rem;
             }
             
-            .cta-button {
+            .cta-button, .instagram-link {
                 padding: 12px 25px;
             }
             
@@ -347,7 +555,13 @@
 <body>
     <!-- Секция 1: Герой -->
     <section class="hero-section" id="home">
-        <div class="custom-bg"></div>
+        <div class="dynamic-bg"></div>
+        <div class="floating-elements">
+            <div class="floating-element element-1"></div>
+            <div class="floating-element element-2"></div>
+            <div class="floating-element element-3"></div>
+            <div class="floating-element element-4"></div>
+        </div>
         <div class="container">
             <div class="content">
                 <h1>Привет! Я Валерия Баранова — <span class="highlight">графический дизайнер</span></h1>
@@ -369,6 +583,13 @@
 
     <!-- Секция 2: Портфолио -->
     <section class="portfolio-section" id="portfolio">
+        <div class="portfolio-bg"></div>
+        <div class="portfolio-elements">
+            <div class="floating-element element-1"></div>
+            <div class="floating-element element-2"></div>
+            <div class="floating-element element-3"></div>
+            <div class="floating-element element-4"></div>
+        </div>
         <div class="section-container">
             <div class="section-header">
                 <h2>Мои работы</h2>
@@ -478,6 +699,20 @@
                     behavior: 'smooth'
                 });
             });
+        });
+
+        // Параллакс эффект для фона
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const dynamicBg = document.querySelector('.dynamic-bg');
+            const portfolioBg = document.querySelector('.portfolio-bg');
+            
+            if (dynamicBg) {
+                dynamicBg.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+            if (portfolioBg) {
+                portfolioBg.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
         });
     </script>
 </body>
