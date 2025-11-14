@@ -38,8 +38,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.95));
-            url('я-10-23_21-44-13.jpg') center/cover no-repeat;
+            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.95)), url('я-10-23_21-44-13.jpg') center/cover no-repeat;
             z-index: -1;
         }
         
@@ -103,7 +102,19 @@
             align-items: center;
             position: relative;
         }
+
+        .profile-image {
+            width: 100%;
+            max-width: 450px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: rotate(-2deg);
+            transition: transform 0.3s ease;
+        }
         
+        .profile-image:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
         
         .scroll-down {
             position: absolute;
@@ -145,8 +156,8 @@
         .portfolio-section {
             min-height: 100vh;
             padding: 80px 5%;
-            background: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
-            color: white;
+            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.95)), url('я-10-23_21-44-13.jpg') center/cover no-repeat;
+            color: #2d3436;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -165,14 +176,14 @@
         .section-header h2 {
             font-size: 2.8rem;
             margin-bottom: 15px;
-            color: #fff;
+            color: #2d3436;
         }
         
         .section-header p {
             font-size: 1.2rem;
             max-width: 600px;
             margin: 0 auto;
-            color: #bdc3c7;
+            color: #636e72;
         }
         
         /* Контейнер для работ */
@@ -185,25 +196,26 @@
         
         /* Карточки работ */
         .portfolio-item {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(232, 67, 147, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         
         .portfolio-item:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.95);
         }
         
         .portfolio-image {
             width: 100%;
-            height: 250px;
+            height: 280px;
             object-fit: cover;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(232, 67, 147, 0.2);
         }
         
         .portfolio-content {
@@ -213,11 +225,11 @@
         .portfolio-item h3 {
             font-size: 1.4rem;
             margin-bottom: 12px;
-            color: #fff;
+            color: #2d3436;
         }
         
         .portfolio-item p {
-            color: #ecf0f1;
+            color: #636e72;
             font-size: 1rem;
             line-height: 1.5;
         }
@@ -230,27 +242,31 @@
         }
         
         .tag {
-            background: rgba(52, 152, 219, 0.3);
+            background: rgba(232, 67, 147, 0.1);
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 0.85rem;
-            color: #ecf0f1;
+            color: #e84393;
+            border: 1px solid rgba(232, 67, 147, 0.3);
         }
         
         .instagram-link {
             display: inline-block;
             margin-top: 40px;
-            padding: 12px 25px;
-            background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+            padding: 14px 35px;
+            background-color: #e84393;
             color: white;
             text-decoration: none;
             border-radius: 8px;
             font-weight: 600;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(232, 67, 147, 0.3);
         }
         
         .instagram-link:hover {
+            background-color: #e84393;
             transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.8);
         }
         
         /* Адаптивность */
@@ -321,6 +337,10 @@
             .portfolio-item h3 {
                 font-size: 1.2rem;
             }
+            
+            .portfolio-image {
+                height: 220px;
+            }
         }
     </style>
 </head>
@@ -358,7 +378,7 @@
             <div class="portfolio-grid">
                 <!-- Работа 1 -->
                 <div class="portfolio-item">
-                    <img src="мелодио1.png">
+                    <img src="мелодио1.png" alt="Спонсорские посты" class="portfolio-image">
                     <div class="portfolio-content">
                         <h3>Спонсорские посты</h3>
                         <p>Разработка полного брендбука: логотип, цветовая палитра, типографика, дизайн упаковки и мерча.</p>
@@ -372,49 +392,49 @@
                 
                 <!-- Работа 2 -->
                 <div class="portfolio-item">
-                    <img src="афиша шаг в сс.png">
+                    <img src="афиша шаг в сс.png" alt="Афиши мероприятий" class="portfolio-image">
                     <div class="portfolio-content">
                         <h3>Афиши мероприятий</h3>
-                        <p>Создание стилизованных иллюстраций.</p>
+                        <p>Создание стилизованных иллюстраций для мероприятий и событий.</p>
                         <div class="portfolio-tags">
                             <span class="tag">Иллюстрация</span>
-                            <span class="tag">Digital Art</span>
-                            <span class="tag">UI/UX</span>
+                            <span class="tag">Афиши</span>
+                            <span class="tag">События</span>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Работа 3 -->
                 <div class="portfolio-item">
-                    <img src="Frame 1.png">
+                    <img src="Frame 1.png" alt="Дизайн дипломов" class="portfolio-image">
                     <div class="portfolio-content">
                         <h3>Дизайн дипломов</h3>
-                        <p>Разработка современного дизайна.</p>
+                        <p>Разработка современного дизайна дипломов и сертификатов.</p>
                         <div class="portfolio-tags">
-                            <span class="tag">Веб-дизайн</span>
-                            <span class="tag">UI/UX</span>
-                            <span class="tag">Адаптивность</span>
+                            <span class="tag">Полиграфия</span>
+                            <span class="tag">Дипломы</span>
+                            <span class="tag">Верстка</span>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Работа 4 -->
                 <div class="portfolio-item">
-                    <img src="близнецы.png">
+                    <img src="близнецы.png" alt="Дизайн для гороскопов" class="portfolio-image">
                     <div class="portfolio-content">
                         <h3>Дизайн для гороскопов</h3>
-                        <p>Только правдивые прогнозы.</p>
+                        <p>Создание визуального контента для астрологических прогнозов.</p>
                         <div class="portfolio-tags">
-                            <span class="tag">Полиграфия</span>
-                            <span class="tag">Верстка</span>
-                            <span class="tag">Печать</span>
+                            <span class="tag">Иллюстрация</span>
+                            <span class="tag">Гороскопы</span>
+                            <span class="tag">Графика</span>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Работа 5 -->
                 <div class="portfolio-item">
-                    <img src="буклет.png">
+                    <img src="буклет.png" alt="Контент для социальных сетей" class="portfolio-image">
                     <div class="portfolio-content">
                         <h3>Контент для социальных сетей</h3>
                         <p>Создание визуального контента и шаблонов для ведения Instagram бренда.</p>
@@ -428,14 +448,14 @@
                 
                 <!-- Работа 6 -->
                 <div class="portfolio-item">
-                    <img src="A5 - 2.png">
+                    <img src="A5 - 2.png" alt="Анимация" class="portfolio-image">
                     <div class="portfolio-content">
                         <h3>Анимация</h3>
-                        <p>Создание фотореалистичных мокапов и 3D моделей для презентации продуктов клиента.</p>
+                        <p>Создание анимированного контента для digital-проектов.</p>
                         <div class="portfolio-tags">
-                            <span class="tag">3D</span>
-                            <span class="tag">Мокапы</span>
-                            <span class="tag">Визуализация</span>
+                            <span class="tag">Анимация</span>
+                            <span class="tag">Motion</span>
+                            <span class="tag">Digital</span>
                         </div>
                     </div>
                 </div>
@@ -462,4 +482,3 @@
     </script>
 </body>
 </html>
-
