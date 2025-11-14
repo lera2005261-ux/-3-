@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Валерия Баранова - Графический дизайнер</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Основные стили */
+        /* Базовые стили */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
@@ -20,6 +21,7 @@
             overflow-x: hidden;
         }
         
+        /* Секция 1: Герой */
         .hero-section {
             min-height: 100vh;
             display: flex;
@@ -187,6 +189,7 @@
             color: #2d3436;
             text-decoration: none;
             font-weight: 500;
+            z-index: 10;
         }
         
         .scroll-down span {
@@ -211,6 +214,87 @@
             }
         }
         
+        /* Секция 2: Достижения */
+        .achievements-section {
+            min-height: 100vh;
+            padding: 80px 5%;
+            background: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .section-container {
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .section-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #bdc3c7;
+        }
+        
+        /* Контейнер для карточек */
+        .achievements-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        
+        /* Карточки достижений */
+        .achievement-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            flex: 1 1 300px;
+            max-width: 350px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .achievement-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .achievement-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #3498db;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .achievement-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+            text-align: center;
+        }
+        
+        .achievement-card p {
+            color: #ecf0f1;
+            text-align: center;
+            font-size: 1rem;
+        }
+        
         /* Адаптивность */
         @media (max-width: 992px) {
             .container {
@@ -230,6 +314,35 @@
             .description {
                 margin: 0 auto 35px;
             }
+            
+            .achievements-grid {
+                gap: 25px;
+            }
+            
+            .achievement-card {
+                flex: 1 1 45%;
+                max-width: 45%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .achievements-section {
+                padding: 60px 5%;
+            }
+            
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+            
+            .achievements-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .achievement-card {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
         }
         
         @media (max-width: 576px) {
@@ -248,11 +361,24 @@
             .cta-button {
                 padding: 12px 25px;
             }
+            
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-header p {
+                font-size: 1rem;
+            }
+            
+            .achievement-card {
+                padding: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <section class="hero-section">
+    <!-- Секция 1: Герой -->
+    <section class="hero-section" id="home">
         <div class="gradient-bg"></div>
         <div class="container">
             <div class="content">
@@ -262,20 +388,86 @@
                     Специализируюсь на брендинге, айдентике и цифровой иллюстрации. Превращаю сложные идеи в чистые, 
                     эстетичные визуальные концепции, которые помогают брендам выделяться и говорить со своей аудиторией на одном языке.
                 </p>
-                <a href="#portfolio" class="cta-button">Посмотреть работы</a>
+                <a href="#achievements" class="cta-button">Посмотреть работы</a>
             </div>
             <div class="image-container">
                 <div class="design-elements">
                     <div class="circle circle-1"></div>
                     <div class="circle circle-2"></div>
                 </div>
-                <img src="я-10-23_21-44-13.jpg" alt="Баранова Валерия - графический дизайнер" class="profile-image">
+                <img src="https://images.unsplash.com/photo-1585123388860-eac7d1277426?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Валерия Баранова - графический дизайнер" class="profile-image">
             </div>
         </div>
-        <a href="#section2" class="scroll-down">
-            <span>Узнать больше</span>
+        <a href="#achievements" class="scroll-down">
+            <span>Мои достижения</span>
             <i>↓</i>
         </a>
+    </section>
+
+    <!-- Секция 2: Достижения -->
+    <section class="achievements-section" id="achievements">
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Мои достижения</h2>
+                <p>Профессиональные успехи и ключевые проекты в сфере графического дизайна</p>
+            </div>
+            
+            <div class="achievements-grid">
+                <!-- Достижение 1 -->
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>Победитель международного конкурса Design Masters 2023</h3>
+                    <p>Заняла первое место в номинации "Лучший брендинг" среди 500+ участников из 30 стран. Разработала комплексную айдентику для экологического стартапа.</p>
+                </div>
+                
+                <!-- Достижение 2 -->
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Увеличение конверсии на 45% для e-commerce проекта</h3>
+                    <p>Разработала новый UX/UI дизайн интернет-магазина, что привело к значительному росту продаж и улучшению пользовательского опыта.</p>
+                </div>
+                
+                <!-- Достижение 3 -->
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Более 50 довольных клиентов</h3>
+                    <p>За 5 лет работы успешно завершила проекты для компаний из различных отраслей: от стартапов до крупных корпораций.</p>
+                </div>
+                
+                <!-- Достижение 4 -->
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Автор статей для профессиональных изданий</h3>
+                    <p>Публикую экспертные статьи о трендах в дизайне в ведущих отраслевых изданиях. Провела 10+ мастер-классов для начинающих дизайнеров.</p>
+                </div>
+                
+                <!-- Достижение 5 -->
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>15+ успешных мобильных приложений</h3>
+                    <p>Спроектировала и разработала интерфейсы для мобильных приложений с более чем 1 млн установок в App Store и Google Play.</p>
+                </div>
+                
+                <!-- Достижение 6 -->
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <h3>Премия "Дизайнер года 2022"</h3>
+                    <p>Получила награду от Ассоциации графических дизайнеров за инновационный подход и выдающийся вклад в развитие индустрии.</p>
+                </div>
+            </div>
+        </div>
     </section>
 </body>
 </html>
