@@ -21,34 +21,60 @@
             overflow-x: hidden;
         }
         
-        /* Секция 1: Герой */
-        .hero-section {
+        /* Общие стили для всех секций */
+        .section {
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 5%;
+            padding: 80px 5%;
             position: relative;
             overflow: hidden;
         }
         
-        /* Фон с фотографией для первой секции */
-        .hero-bg {
+        /* Единый стиль фона для всех секций */
+        .section-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: 
-                linear-gradient(rgba(26, 26, 26, 0.7), rgba(26, 26, 26, 0.8)),
+                linear-gradient(
+                    45deg,
+                    rgba(26, 26, 26, 0.85) 0%,
+                    rgba(255, 135, 78, 0.15) 50%,
+                    rgba(26, 26, 26, 0.85) 100%
+                ),
                 url('я-10-23_21-44-13.jpg') center/cover no-repeat;
             z-index: 1;
             opacity: 0.4;
-            filter: brightness(0.8) contrast(1.1);
+            filter: brightness(0.6) contrast(1.2) blur(8px);
+            animation: gradientShift 8s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background: 
+                    linear-gradient(
+                        45deg,
+                        rgba(26, 26, 26, 0.85) 0%,
+                        rgba(255, 135, 78, 0.15) 50%,
+                        rgba(26, 26, 26, 0.85) 100%
+                    ),
+                    url('я-10-23_21-44-13.jpg') center/cover no-repeat;
+            }
+            50% {
+                background: 
+                    linear-gradient(
+                        135deg,
+                        rgba(26, 26, 26, 0.85) 0%,
+                        rgba(255, 107, 53, 0.2) 50%,
+                        rgba(26, 26, 26, 0.85) 100%
+                    ),
+                    url('я-10-23_21-44-13.jpg') center/cover no-repeat;
+            }
         }
         
-        /* Анимированные точки для первой секции */
-        .hero-dots {
+        /* Анимированные точки для всех секций */
+        .section-dots {
             position: absolute;
             top: 0;
             left: 0;
@@ -63,6 +89,20 @@
             background: rgba(255, 135, 78, 0.6);
             border-radius: 50%;
             animation: floatDot 15s linear infinite;
+        }
+        
+        .portfolio-dot {
+            position: absolute;
+            background: rgba(255, 135, 78, 0.4);
+            border-radius: 50%;
+            animation: floatDotReverse 18s linear infinite;
+        }
+        
+        .technologies-dot {
+            position: absolute;
+            background: rgba(255, 135, 78, 0.3);
+            border-radius: 50%;
+            animation: floatDotDiagonal 20s linear infinite;
         }
         
         @keyframes floatDot {
@@ -80,6 +120,47 @@
                 transform: translateY(-100px) translateX(100px) scale(1.2);
                 opacity: 0;
             }
+        }
+        
+        @keyframes floatDotReverse {
+            0% {
+                transform: translateY(-100px) translateX(100px) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(100vh) translateX(0) scale(1.2);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes floatDotDiagonal {
+            0% {
+                transform: translateY(100vh) translateX(-100px) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100vw) scale(1.2);
+                opacity: 0;
+            }
+        }
+        
+        /* Секция 1: Герой */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .hero-content {
@@ -255,64 +336,6 @@
             }
         }
         
-        /* Секция 2: Портфолио */
-        .portfolio-section {
-            min-height: 100vh;
-            padding: 80px 5%;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* Фон с фотографией для второй секции */
-        .portfolio-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(rgba(26, 26, 26, 0.7), rgba(26, 26, 26, 0.8)),
-                url('я-10-23_21-44-13.jpg') center/cover no-repeat;
-            z-index: 1;
-            opacity: 0.4;
-            filter: brightness(0.8) contrast(1.1);
-        }
-        
-        /* Анимированные точки для второй секции */
-        .portfolio-dots {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-            overflow: hidden;
-        }
-        
-        .portfolio-dot {
-            position: absolute;
-            background: rgba(255, 135, 78, 0.4);
-            border-radius: 50%;
-            animation: floatDotReverse 18s linear infinite;
-        }
-        
-        @keyframes floatDotReverse {
-            0% {
-                transform: translateY(-100px) translateX(100px) scale(0.5);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.7;
-            }
-            90% {
-                opacity: 0.5;
-            }
-            100% {
-                transform: translateY(100vh) translateX(0) scale(1.2);
-                opacity: 0;
-            }
-        }
-        
         .section-container {
             max-width: 1200px;
             width: 100%;
@@ -340,6 +363,7 @@
             color: #b0b0b0;
         }
         
+        /* Секция 2: Портфолио */
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -516,6 +540,59 @@
             z-index: 1001;
         }
         
+        /* Секция 3: Технологии */
+        .technologies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .technology-card {
+            background: rgba(30, 30, 30, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .technology-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 135, 78, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .technology-icon {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(255, 135, 78, 0.2), rgba(255, 107, 53, 0.1));
+            border-radius: 50%;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            color: #FF874E;
+            border: 1px solid rgba(255, 135, 78, 0.2);
+        }
+        
+        .technology-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+        
+        .technology-card p {
+            color: #b0b0b0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
         /* Адаптивность */
         @media (max-width: 768px) {
             .hero-content {
@@ -559,6 +636,15 @@
                 height: 40px;
                 font-size: 30px;
             }
+            
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+            
+            .technologies-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
         }
         
         @media (max-width: 576px) {
@@ -583,14 +669,22 @@
             .modal-nav {
                 padding: 0 10px;
             }
+            
+            .technologies-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .technology-card {
+                padding: 25px 20px;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Секция 1: Герой -->
-    <section class="hero-section" id="home">
-        <div class="hero-bg"></div>
-        <div class="hero-dots" id="hero-dots"></div>
+    <section class="hero-section section" id="home">
+        <div class="section-bg"></div>
+        <div class="section-dots" id="hero-dots"></div>
         <div class="hero-content">
             <h1>Привет! Я Валерия Баранова — <span class="highlight">графический дизайнер</span></h1>
             <p class="description">
@@ -633,9 +727,9 @@
     </section>
 
     <!-- Секция 2: Портфолио -->
-    <section class="portfolio-section" id="portfolio">
-        <div class="portfolio-bg"></div>
-        <div class="portfolio-dots" id="portfolio-dots"></div>
+    <section class="portfolio-section section" id="portfolio">
+        <div class="section-bg"></div>
+        <div class="section-dots" id="portfolio-dots"></div>
         <div class="section-container">
             <div class="section-header">
                 <h2>Мои работы</h2>
@@ -721,6 +815,68 @@
                 <a href="https://www.instagram.com/st__au/" target="_blank" class="instagram-link">
                     <i class="fab fa-instagram"></i> Больше работ в Instagram
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция 3: Технологии -->
+    <section class="technologies-section section" id="technologies">
+        <div class="section-bg"></div>
+        <div class="section-dots" id="technologies-dots"></div>
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Технологии, которыми я владею</h2>
+                <p>Инструменты и технологии, которые помогают мне создавать качественный дизайн</p>
+            </div>
+            
+            <div class="technologies-grid">
+                <div class="technology-card">
+                    <div class="technology-icon">
+                        <i class="fab fa-adobe"></i>
+                    </div>
+                    <h3>Adobe Creative Suite</h3>
+                    <p>Профессиональное владение Adobe Photoshop, Illustrator, InDesign и After Effects для создания векторной и растровой графики, верстки и анимации.</p>
+                </div>
+                
+                <div class="technology-card">
+                    <div class="technology-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>Цифровая иллюстрация</h3>
+                    <p>Создание цифровых иллюстраций в Procreate и Adobe Fresco с использованием графических планшетов Wacom и iPad Pro.</p>
+                </div>
+                
+                <div class="technology-card">
+                    <div class="technology-icon">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <h3>3D моделирование</h3>
+                    <p>Базовые навыки работы в Blender и Cinema 4D для создания трехмерных объектов и визуализации концепций.</p>
+                </div>
+                
+                <div class="technology-card">
+                    <div class="technology-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>UI/UX дизайн</h3>
+                    <p>Проектирование пользовательских интерфейсов и опыта взаимодействия в Figma, создание прототипов и дизайн-систем.</p>
+                </div>
+                
+                <div class="technology-card">
+                    <div class="technology-icon">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <h3>Motion Design</h3>
+                    <p>Создание анимированной графики в Adobe After Effects, работа с ключевыми кадрами, эффектами и композитингом.</p>
+                </div>
+                
+                <div class="technology-card">
+                    <div class="technology-icon">
+                        <i class="fas fa-print"></i>
+                    </div>
+                    <h3>Полиграфия</h3>
+                    <p>Подготовка макетов к печати, знание процессов препресс, цветовых моделей и спецификаций для различных видов печати.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -875,6 +1031,38 @@
             }
         }
 
+        // Создание плавающих точек для третьей секции
+        function createTechnologiesDots() {
+            const container = document.getElementById('technologies-dots');
+            const dotCount = 10;
+            
+            for (let i = 0; i < dotCount; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('technologies-dot');
+                
+                const size = Math.random() * 3 + 1;
+                const left = Math.random() * 100;
+                const duration = Math.random() * 15 + 20;
+                const delay = Math.random() * 10;
+                
+                dot.style.width = `${size}px`;
+                dot.style.height = `${size}px`;
+                dot.style.left = `${left}%`;
+                dot.style.animationDuration = `${duration}s`;
+                dot.style.animationDelay = `${delay}s`;
+                
+                // Случайный цвет точки
+                const colors = [
+                    'rgba(255, 135, 78, 0.3)',
+                    'rgba(255, 107, 53, 0.2)',
+                    'rgba(255, 167, 38, 0.2)'
+                ];
+                dot.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                container.appendChild(dot);
+            }
+        }
+
         // Обработка формы
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -912,6 +1100,7 @@
         window.addEventListener('load', function() {
             createHeroDots();
             createPortfolioDots();
+            createTechnologiesDots();
         });
     </script>
 </body>
