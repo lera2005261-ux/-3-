@@ -806,6 +806,176 @@
             line-height: 1.7;
         }
         
+        /* СЕКЦИЯ ФОРМЫ ОБРАТНОЙ СВЯЗИ (НОВАЯ СЕКЦИЯ) */
+        .feedback-section {
+            background: linear-gradient(135deg, 
+                #0d0d0d 0%, 
+                #1a1a1a 25%, 
+                #2a1e1a 50%, 
+                #1a1a1a 75%, 
+                #0d0d0d 100%);
+            position: relative;
+            min-height: 100vh;
+            padding: 80px 5%;
+            padding-top: 120px;
+        }
+        
+        .feedback-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 135, 78, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 107, 53, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 167, 38, 0.05) 0%, transparent 50%);
+            z-index: 1;
+        }
+        
+        /* Контейнер формы */
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(30, 30, 30, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 50px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 3;
+        }
+        
+        /* Стили формы */
+        .feedback-form {
+            width: 100%;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #e8e6e3;
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px;
+            background: rgba(40, 40, 40, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: #e8e6e3;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #FF874E;
+            box-shadow: 0 0 0 3px rgba(255, 135, 78, 0.2);
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+        
+        .checkbox-group label {
+            margin-bottom: 0;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #FF874E, #FF6B35);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 135, 78, 0.5);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        /* Уведомление об успешной отправке */
+        #successMessage {
+            display: none;
+            background: rgba(46, 125, 50, 0.15);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        #successMessage i {
+            font-size: 3.5rem;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        
+        #successMessage h3 {
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+        
+        #successMessage p {
+            color: #b0b0b0;
+            font-size: 1.1rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fa-spinner {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
         /* Кнопка "Наверх" */
         .back-to-top {
             position: fixed;
@@ -920,6 +1090,16 @@
             .technology-card {
                 padding: 25px 20px;
             }
+            
+            .form-container {
+                padding: 30px 25px;
+            }
+            
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 14px;
+            }
         }
         
         @media (max-width: 576px) {
@@ -960,6 +1140,14 @@
             .hero-content {
                 padding: 30px 20px;
             }
+            
+            .form-container {
+                padding: 25px 20px;
+            }
+            
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
@@ -974,7 +1162,7 @@
             <li><a href="#home" class="nav-link active">Главная</a></li>
             <li><a href="#portfolio" class="nav-link">Портфолио</a></li>
             <li><a href="#technologies" class="nav-link">Технологии</a></li>
-            <li><a href="#contact" class="nav-link">Контакты</a></li>
+            <li><a href="#feedback" class="nav-link">Обратная связь</a></li>
         </ul>
         
         <div class="burger-menu" id="burgerMenu">
@@ -1194,6 +1382,68 @@
         </div>
     </section>
 
+    <!-- СЕКЦИЯ 4: ФОРМА ОБРАТНОЙ СВЯЗИ (НОВАЯ СЕКЦИЯ) -->
+    <section class="feedback-section section" id="feedback">
+        <div class="feedback-overlay"></div>
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Обратная связь</h2>
+                <p>Поделитесь своим мнением о моих работах, задайте вопрос или оставьте отзыв о сотрудничестве.</p>
+            </div>
+            
+            <!-- Уведомление об успешной отправке -->
+            <div id="successMessage">
+                <i class="fas fa-check-circle"></i>
+                <h3>Спасибо за ваш отзыв!</h3>
+                <p>Ваше сообщение успешно отправлено. Я обязательно рассмотрю его и свяжусь с вами при необходимости.</p>
+            </div>
+            
+            <!-- Форма обратной связи -->
+            <div class="form-container">
+                <form id="feedbackForm" class="feedback-form" action="https://getform.io/f/broxojla" method="POST">
+                    <!-- Скрытые поля -->
+                    <input type="hidden" name="form-name" value="portfolio-feedback">
+                    <input type="hidden" name="source" value="portfolio-website">
+                    
+                    <div class="form-group">
+                        <label for="name">Ваше имя *</label>
+                        <input type="text" id="name" name="name" required placeholder="Как к вам обращаться?">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Электронная почта *</label>
+                        <input type="email" id="email" name="email" required placeholder="example@mail.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="type">Тип обращения</label>
+                        <select id="type" name="type">
+                            <option value="" selected>Выберите тип...</option>
+                            <option value="feedback">Отзыв о работах</option>
+                            <option value="collaboration">Предложение о сотрудничестве</option>
+                            <option value="question">Вопрос по проекту</option>
+                            <option value="other">Другое</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Ваше сообщение *</label>
+                        <textarea id="message" name="message" rows="6" required placeholder="Расскажите, что вам понравилось в моих работах, задайте вопрос или предложите сотрудничество..."></textarea>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="consent" name="consent" required>
+                        <label for="consent">Я соглашаюсь на обработку моих персональных данных для ответа на мой запрос. *</label>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <i class="fas fa-paper-plane"></i> Отправить отзыв
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <!-- Кнопка "Наверх" -->
     <button class="back-to-top" id="backToTop">
         <i class="fas fa-arrow-up"></i>
@@ -1234,6 +1484,66 @@
         const socialLinks = document.querySelectorAll('.social-link');
         const portfolioItems = document.querySelectorAll('.portfolio-item');
         const technologyCards = document.querySelectorAll('.technology-card');
+
+        // ===== НОВЫЙ КОД ДЛЯ ФОРМЫ ОБРАТНОЙ СВЯЗИ =====
+        const feedbackForm = document.getElementById('feedbackForm');
+        const successMessage = document.getElementById('successMessage');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Обработчик отправки формы
+        if (feedbackForm) {
+            feedbackForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const originalBtnText = submitBtn.innerHTML;
+                
+                // Показываем состояние загрузки
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
+                submitBtn.disabled = true;
+                
+                try {
+                    // Создаем FormData из формы
+                    const formData = new FormData(feedbackForm);
+                    
+                    // Отправляем данные на Getform
+                    const response = await fetch(feedbackForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                    
+                    if (response.ok) {
+                        // Показываем сообщение об успехе
+                        successMessage.style.display = 'block';
+                        feedbackForm.style.display = 'none';
+                        
+                        // Прокрутка к сообщению
+                        successMessage.scrollIntoView({ behavior: 'smooth' });
+                        
+                        // Сброс формы
+                        feedbackForm.reset();
+                        
+                        // Автоматическое скрытие сообщения через 8 секунд
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                            feedbackForm.style.display = 'block';
+                        }, 8000);
+                    } else {
+                        throw new Error('Ошибка отправки формы');
+                    }
+                } catch (error) {
+                    alert('Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз или свяжитесь со мной через Instagram.');
+                    console.error('Form submission error:', error);
+                } finally {
+                    // Восстанавливаем кнопку
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+        // ===== КОНЕЦ НОВОГО КОДА =====
 
         // Функция открытия модального окна
         function openModal(index) {
