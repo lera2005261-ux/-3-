@@ -101,7 +101,7 @@
             width: 70%;
         }
         
-        /* Бургер-меню с палитрой */
+        /* Бургер-меню */
         .burger-menu {
             display: none;
             flex-direction: column;
@@ -118,66 +118,6 @@
             background: #FF874E;
             border-radius: 3px;
             transition: all 0.3s ease;
-        }
-        
-        /* Палитра в бургер-меню */
-        .burger-palette {
-            position: absolute;
-            top: 50px;
-            right: -10px;
-            width: 180px;
-            background: rgba(30, 30, 30, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 15px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-            z-index: 1002;
-        }
-        
-        .burger-menu.active .burger-palette {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        
-        .palette-title {
-            font-size: 1rem;
-            color: #FF874E;
-            margin-bottom: 15px;
-            text-align: center;
-            font-weight: 600;
-        }
-        
-        .palette-colors {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
-        
-        .palette-color {
-            width: 30px;
-            height: 30px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .palette-color:hover {
-            transform: scale(1.2);
-            border-color: #FF874E;
-            box-shadow: 0 0 10px rgba(255, 135, 78, 0.5);
-        }
-        
-        .palette-color.active {
-            transform: scale(1.1);
-            border-color: #FF874E;
-            box-shadow: 0 0 15px rgba(255, 135, 78, 0.7);
         }
         
         .burger-menu.active .burger-line:nth-child(1) {
@@ -199,71 +139,6 @@
             position: relative;
             overflow: hidden;
             padding-top: 120px;
-        }
-        
-        /* Анимированная палитра в герое */
-        .palette-animation {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            overflow: hidden;
-        }
-        
-        .palette {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border-radius: 20px;
-            transform-style: preserve-3d;
-            animation: floatPalette 25s ease-in-out infinite;
-            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
-            opacity: 0.7;
-        }
-        
-        .palette-front, .palette-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 20px;
-            backface-visibility: hidden;
-            display: flex;
-            flex-wrap: wrap;
-        }
-        
-        .palette-front {
-            background: rgba(30, 30, 30, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .palette-back {
-            background: rgba(40, 40, 40, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transform: rotateY(180deg);
-        }
-        
-        .color-swatch {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            margin: 5px;
-        }
-        
-        @keyframes floatPalette {
-            0%, 100% {
-                transform: translate(10%, 20%) rotateY(0deg) rotate(0deg);
-            }
-            25% {
-                transform: translate(70%, 40%) rotateY(180deg) rotate(90deg);
-            }
-            50% {
-                transform: translate(40%, 70%) rotateY(0deg) rotate(180deg);
-            }
-            75% {
-                transform: translate(20%, 30%) rotateY(180deg) rotate(270deg);
-            }
         }
         
         /* Секция 1: Герой */
@@ -988,16 +863,6 @@
                 font-size: 1.2rem;
                 padding: 12px 25px;
             }
-            
-            .palette {
-                width: 150px;
-                height: 150px;
-            }
-            
-            .color-swatch {
-                width: 30px;
-                height: 30px;
-            }
         }
         
         @media (max-width: 768px) {
@@ -1055,26 +920,6 @@
             .technology-card {
                 padding: 25px 20px;
             }
-            
-            .palette {
-                width: 120px;
-                height: 120px;
-            }
-            
-            .color-swatch {
-                width: 25px;
-                height: 25px;
-            }
-            
-            .burger-palette {
-                width: 160px;
-                padding: 15px;
-            }
-            
-            .palette-color {
-                width: 25px;
-                height: 25px;
-            }
         }
         
         @media (max-width: 576px) {
@@ -1115,24 +960,6 @@
             .hero-content {
                 padding: 30px 20px;
             }
-            
-            .palette {
-                display: none;
-            }
-            
-            .burger-palette {
-                width: 140px;
-                right: -5px;
-            }
-            
-            .palette-colors {
-                gap: 8px;
-            }
-            
-            .palette-color {
-                width: 22px;
-                height: 22px;
-            }
         }
     </style>
 </head>
@@ -1154,25 +981,6 @@
             <div class="burger-line"></div>
             <div class="burger-line"></div>
             <div class="burger-line"></div>
-            
-            <!-- Палитра в бургер-меню -->
-            <div class="burger-palette" id="burgerPalette">
-                <div class="palette-title">Моя палитра</div>
-                <div class="palette-colors">
-                    <div class="palette-color" style="background-color: #FF874E;" data-color="#FF874E"></div>
-                    <div class="palette-color" style="background-color: #FF6B35;" data-color="#FF6B35"></div>
-                    <div class="palette-color" style="background-color: #1a1a1a;" data-color="#1a1a1a"></div>
-                    <div class="palette-color" style="background-color: #ffffff;" data-color="#ffffff"></div>
-                    <div class="palette-color" style="background-color: #2A1E1A;" data-color="#2A1E1A"></div>
-                    <div class="palette-color" style="background-color: #FFD3B6;" data-color="#FFD3B6"></div>
-                    <div class="palette-color" style="background-color: #4A3A32;" data-color="#4A3A32"></div>
-                    <div class="palette-color" style="background-color: #0d0d0d;" data-color="#0d0d0d"></div>
-                    <div class="palette-color" style="background-color: #FF0000;" data-color="#FF0000"></div>
-                    <div class="palette-color" style="background-color: #00FF00;" data-color="#00FF00"></div>
-                    <div class="palette-color" style="background-color: #0000FF;" data-color="#0000FF"></div>
-                    <div class="palette-color" style="background-color: #FFFF00;" data-color="#FFFF00"></div>
-                </div>
-            </div>
         </div>
     </nav>
 
@@ -1180,8 +988,6 @@
     <section class="hero-section section" id="home">
         <div class="hero-bg"></div>
         <div class="hero-dots" id="hero-dots"></div>
-        <!-- Анимированная палитра -->
-        <div class="palette-animation" id="palette-animation"></div>
         
         <div class="hero-content">
             <h1>Привет! Я Валерия Баранова — <span class="highlight">графический дизайнер</span></h1>
@@ -1416,13 +1222,11 @@
         ];
 
         let currentImageIndex = 0;
-        let activeColor = '#FF874E'; // Активный цвет по умолчанию
 
         // Элементы DOM
         const navbar = document.getElementById('navbar');
         const navLinks = document.getElementById('navLinks');
         const burgerMenu = document.getElementById('burgerMenu');
-        const burgerPalette = document.getElementById('burgerPalette');
         const backToTop = document.getElementById('backToTop');
         const navItems = document.querySelectorAll('.nav-link');
         const sections = document.querySelectorAll('section');
@@ -1430,156 +1234,6 @@
         const socialLinks = document.querySelectorAll('.social-link');
         const portfolioItems = document.querySelectorAll('.portfolio-item');
         const technologyCards = document.querySelectorAll('.technology-card');
-        const paletteAnimation = document.getElementById('palette-animation');
-        const paletteColors = document.querySelectorAll('.palette-color');
-
-        // Обработчики для цветов палитры
-        paletteColors.forEach(color => {
-            color.addEventListener('click', function() {
-                // Убираем активный класс у всех цветов
-                paletteColors.forEach(c => c.classList.remove('active'));
-                
-                // Добавляем активный класс к выбранному цвету
-                this.classList.add('active');
-                
-                // Получаем выбранный цвет
-                const selectedColor = this.getAttribute('data-color');
-                activeColor = selectedColor;
-                
-                // Показываем всплывающее сообщение с выбранным цветом
-                showColorNotification(selectedColor);
-                
-                // Меняем основной цвет сайта (опционально)
-                // changeSiteColor(selectedColor);
-            });
-        });
-
-        // Функция для показа уведомления о выбранном цвете
-        function showColorNotification(color) {
-            // Создаем уведомление
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: rgba(30, 30, 30, 0.95);
-                color: white;
-                padding: 12px 20px;
-                border-radius: 10px;
-                border-left: 4px solid ${color};
-                z-index: 9999;
-                font-weight: 500;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-                animation: slideIn 0.3s ease;
-            `;
-            
-            // Добавляем ключевые кадры для анимации
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes slideIn {
-                    from { transform: translateX(100%); opacity: 0; }
-                    to { transform: translateX(0); opacity: 1; }
-                }
-                @keyframes slideOut {
-                    from { transform: translateX(0); opacity: 1; }
-                    to { transform: translateX(100%); opacity: 0; }
-                }
-            `;
-            document.head.appendChild(style);
-            
-            // Текст уведомления
-            const colorName = getColorName(color);
-            notification.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <div style="width: 20px; height: 20px; border-radius: 4px; background: ${color}; border: 1px solid rgba(255,255,255,0.2);"></div>
-                    <div>Выбран цвет: <strong>${colorName}</strong> (${color})</div>
-                </div>
-            `;
-            
-            document.body.appendChild(notification);
-            
-            // Удаляем уведомление через 3 секунды
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 300);
-            }, 3000);
-        }
-
-        // Функция для получения имени цвета
-        function getColorName(hex) {
-            const colors = {
-                '#FF874E': 'Основной оранжевый',
-                '#FF6B35': 'Темный оранжевый',
-                '#1a1a1a': 'Основной черный',
-                '#ffffff': 'Белый',
-                '#2A1E1A': 'Темно-коричневый',
-                '#FFD3B6': 'Светлый персиковый',
-                '#4A3A32': 'Средний коричневый',
-                '#0d0d0d': 'Глубокий черный',
-                '#FF0000': 'Красный',
-                '#00FF00': 'Зеленый',
-                '#0000FF': 'Синий',
-                '#FFFF00': 'Желтый'
-            };
-            
-            return colors[hex] || hex;
-        }
-
-        // Создание анимированных палитр
-        function createPalettes() {
-            const paletteColorsFront = [
-                ['#FF874E', '#FF6B35', '#FF9E6D', '#FFD3B6'],
-                ['#2A1E1A', '#4A3A32', '#6D5547', '#8F735F'],
-                ['#1A1A1A', '#2D2D2D', '#404040', '#535353']
-            ];
-            
-            const paletteColorsBack = [
-                ['#FF0000', '#00FF00', '#0000FF', '#FFFF00'],
-                ['#FF00FF', '#00FFFF', '#FFA500', '#800080'],
-                ['#008000', '#000080', '#800000', '#808000']
-            ];
-            
-            for (let i = 0; i < 3; i++) {
-                const palette = document.createElement('div');
-                palette.classList.add('palette');
-                
-                // Добавляем случайные задержки для разных палитр
-                const delay = i * 5;
-                palette.style.animationDelay = `${delay}s`;
-                
-                // Фронтальная сторона палитры
-                const paletteFront = document.createElement('div');
-                paletteFront.classList.add('palette-front');
-                
-                // Задняя сторона палитры
-                const paletteBack = document.createElement('div');
-                paletteBack.classList.add('palette-back');
-                
-                // Добавляем цветовые образцы на фронтальную сторону
-                paletteColorsFront[i].forEach(color => {
-                    const swatch = document.createElement('div');
-                    swatch.classList.add('color-swatch');
-                    swatch.style.backgroundColor = color;
-                    paletteFront.appendChild(swatch);
-                });
-                
-                // Добавляем цветовые образцы на заднюю сторону
-                paletteColorsBack[i].forEach(color => {
-                    const swatch = document.createElement('div');
-                    swatch.classList.add('color-swatch');
-                    swatch.style.backgroundColor = color;
-                    paletteBack.appendChild(swatch);
-                });
-                
-                palette.appendChild(paletteFront);
-                palette.appendChild(paletteBack);
-                paletteAnimation.appendChild(palette);
-            }
-        }
 
         // Функция открытия модального окна
         function openModal(index) {
@@ -1628,12 +1282,10 @@
                 closeModal();
             }
             
-            // Закрытие палитры при клике вне ее
-            if (!burgerMenu.contains(event.target) && !burgerPalette.contains(event.target)) {
+            // Закрытие меню при клике вне его
+            if (!burgerMenu.contains(event.target) && !navLinks.contains(event.target) && navLinks.classList.contains('active')) {
                 burgerMenu.classList.remove('active');
-                burgerPalette.style.opacity = '0';
-                burgerPalette.style.visibility = 'hidden';
-                burgerPalette.style.transform = 'translateY(-10px)';
+                navLinks.classList.remove('active');
                 document.body.style.overflow = 'auto';
             }
         };
@@ -1658,17 +1310,6 @@
             burgerMenu.classList.toggle('active');
             navLinks.classList.toggle('active');
             
-            // Показываем/скрываем палитру
-            if (burgerMenu.classList.contains('active')) {
-                burgerPalette.style.opacity = '1';
-                burgerPalette.style.visibility = 'visible';
-                burgerPalette.style.transform = 'translateY(0)';
-            } else {
-                burgerPalette.style.opacity = '0';
-                burgerPalette.style.visibility = 'hidden';
-                burgerPalette.style.transform = 'translateY(-10px)';
-            }
-            
             // Блокировка прокрутки при открытом меню
             if (navLinks.classList.contains('active')) {
                 document.body.style.overflow = 'hidden';
@@ -1682,9 +1323,6 @@
             link.addEventListener('click', function() {
                 burgerMenu.classList.remove('active');
                 navLinks.classList.remove('active');
-                burgerPalette.style.opacity = '0';
-                burgerPalette.style.visibility = 'hidden';
-                burgerPalette.style.transform = 'translateY(-10px)';
                 document.body.style.overflow = 'auto';
                 
                 // Обновление активного пункта меню
@@ -1904,13 +1542,6 @@
             createHeroDots();
             createPortfolioDots();
             createTechnologiesDots();
-            createPalettes(); // Создаем анимированные палитры
-            
-            // Устанавливаем активный цвет по умолчанию
-            const defaultColor = document.querySelector('.palette-color[data-color="#FF874E"]');
-            if (defaultColor) {
-                defaultColor.classList.add('active');
-            }
             
             // Инициализация активного пункта меню
             navItems[0].classList.add('active');
