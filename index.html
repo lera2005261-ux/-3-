@@ -139,6 +139,71 @@
             padding-top: 120px;
         }
         
+        /* Анимированная палитра */
+        .palette-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .palette {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            transform-style: preserve-3d;
+            animation: floatPalette 25s ease-in-out infinite;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+            opacity: 0.7;
+        }
+        
+        .palette-front, .palette-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            backface-visibility: hidden;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .palette-front {
+            background: rgba(30, 30, 30, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .palette-back {
+            background: rgba(40, 40, 40, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: rotateY(180deg);
+        }
+        
+        .color-swatch {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            margin: 5px;
+        }
+        
+        @keyframes floatPalette {
+            0%, 100% {
+                transform: translate(10%, 20%) rotateY(0deg) rotate(0deg);
+            }
+            25% {
+                transform: translate(70%, 40%) rotateY(180deg) rotate(90deg);
+            }
+            50% {
+                transform: translate(40%, 70%) rotateY(0deg) rotate(180deg);
+            }
+            75% {
+                transform: translate(20%, 30%) rotateY(180deg) rotate(270deg);
+            }
+        }
+        
         /* Секция 1: Герой */
         .hero-section {
             display: flex;
@@ -741,6 +806,31 @@
             background: linear-gradient(135deg, rgba(255, 135, 78, 0.3), rgba(255, 107, 53, 0.2));
         }
         
+        /* Специальная иконка Adobe */
+        .adobe-icon {
+            position: relative;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.8rem;
+            color: #FF0000;
+            background: white;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        
+        .adobe-icon::after {
+            content: "Adobe";
+            position: absolute;
+            font-size: 0.7rem;
+            bottom: 5px;
+            color: #FF0000;
+            font-weight: bold;
+        }
+        
         .technology-card h3 {
             font-size: 1.5rem;
             margin-bottom: 15px;
@@ -836,6 +926,16 @@
                 font-size: 1.2rem;
                 padding: 12px 25px;
             }
+            
+            .palette {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .color-swatch {
+                width: 30px;
+                height: 30px;
+            }
         }
         
         @media (max-width: 768px) {
@@ -893,6 +993,16 @@
             .technology-card {
                 padding: 25px 20px;
             }
+            
+            .palette {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .color-swatch {
+                width: 25px;
+                height: 25px;
+            }
         }
         
         @media (max-width: 576px) {
@@ -933,6 +1043,10 @@
             .hero-content {
                 padding: 30px 20px;
             }
+            
+            .palette {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -961,6 +1075,9 @@
     <section class="hero-section section" id="home">
         <div class="hero-bg"></div>
         <div class="hero-dots" id="hero-dots"></div>
+        <!-- Анимированная палитра -->
+        <div class="palette-animation" id="palette-animation"></div>
+        
         <div class="hero-content">
             <h1>Привет! Я Валерия Баранова — <span class="highlight">графический дизайнер</span></h1>
             <p class="description">
@@ -1115,8 +1232,9 @@
             
             <div class="technologies-grid">
                 <div class="technology-card">
-                    <div class="technology-icon">
-                        <i class="fab fa-adobe"></i>
+                    <div class="technology-icon adobe-icon">
+                        <!-- Специальная иконка Adobe -->
+                        <span style="font-weight: bold; color: #FF0000; font-size: 2rem;">A</span>
                     </div>
                     <h3>Adobe Creative Suite</h3>
                     <p>Профессиональное владение Adobe Photoshop, Illustrator, InDesign и After Effects для создания векторной и растровой графики, верстки и анимации. Глубокое понимание возможностей каждого инструмента для решения конкретных задач.</p>
@@ -1205,6 +1323,59 @@
         const socialLinks = document.querySelectorAll('.social-link');
         const portfolioItems = document.querySelectorAll('.portfolio-item');
         const technologyCards = document.querySelectorAll('.technology-card');
+        const paletteAnimation = document.getElementById('palette-animation');
+
+        // Создание анимированных палитр
+        function createPalettes() {
+            const paletteColorsFront = [
+                ['#FF874E', '#FF6B35', '#FF9E6D', '#FFD3B6'],
+                ['#2A1E1A', '#4A3A32', '#6D5547', '#8F735F'],
+                ['#1A1A1A', '#2D2D2D', '#404040', '#535353']
+            ];
+            
+            const paletteColorsBack = [
+                ['#FF0000', '#00FF00', '#0000FF', '#FFFF00'],
+                ['#FF00FF', '#00FFFF', '#FFA500', '#800080'],
+                ['#008000', '#000080', '#800000', '#808000']
+            ];
+            
+            for (let i = 0; i < 3; i++) {
+                const palette = document.createElement('div');
+                palette.classList.add('palette');
+                
+                // Добавляем случайные задержки для разных палитр
+                const delay = i * 5;
+                palette.style.animationDelay = `${delay}s`;
+                
+                // Фронтальная сторона палитры
+                const paletteFront = document.createElement('div');
+                paletteFront.classList.add('palette-front');
+                
+                // Задняя сторона палитры
+                const paletteBack = document.createElement('div');
+                paletteBack.classList.add('palette-back');
+                
+                // Добавляем цветовые образцы на фронтальную сторону
+                paletteColorsFront[i].forEach(color => {
+                    const swatch = document.createElement('div');
+                    swatch.classList.add('color-swatch');
+                    swatch.style.backgroundColor = color;
+                    paletteFront.appendChild(swatch);
+                });
+                
+                // Добавляем цветовые образцы на заднюю сторону
+                paletteColorsBack[i].forEach(color => {
+                    const swatch = document.createElement('div');
+                    swatch.classList.add('color-swatch');
+                    swatch.style.backgroundColor = color;
+                    paletteBack.appendChild(swatch);
+                });
+                
+                palette.appendChild(paletteFront);
+                palette.appendChild(paletteBack);
+                paletteAnimation.appendChild(palette);
+            }
+        }
 
         // Функция открытия модального окна
         function openModal(index) {
@@ -1505,6 +1676,7 @@
             createHeroDots();
             createPortfolioDots();
             createTechnologiesDots();
+            createPalettes(); // Создаем анимированные палитры
             
             // Инициализация активного пункта меню
             navItems[0].classList.add('active');
