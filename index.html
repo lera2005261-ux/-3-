@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Валерия Баранова - Графический дизайнер</title>
+    
+    <!-- Подключение jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- Подключение Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         /* Базовые стили */
         * {
@@ -1480,7 +1486,7 @@
             
             <div class="portfolio-grid">
                 <!-- Работы с возможностью просмотра -->
-                <div class="portfolio-item" onclick="openModal(0)">
+                <div class="portfolio-item" data-image-index="0">
                     <img src="мелодио1.png" alt="Спонсорские посты" class="portfolio-image">
                     <div class="portfolio-content">
                         <h3>Спонсорские посты</h3>
@@ -1493,7 +1499,7 @@
                     </div>
                 </div>
                 
-                <div class="portfolio-item" onclick="openModal(1)">
+                <div class="portfolio-item" data-image-index="1">
                     <img src="афиша шаг в сс.png" alt="Афиши мероприятий" class="portfolio-image">
                     <div class="portfolio-content">
                         <h3>Афиши мероприятий</h3>
@@ -1506,7 +1512,7 @@
                     </div>
                 </div>
                 
-                <div class="portfolio-item" onclick="openModal(2)">
+                <div class="portfolio-item" data-image-index="2">
                     <img src="Frame 1.png" alt="Дизайн дипломов" class="portfolio-image">
                     <div class="portfolio-content">
                         <h3>Дизайн дипломов</h3>
@@ -1519,7 +1525,7 @@
                     </div>
                 </div>
                 
-                <div class="portfolio-item" onclick="openModal(3)">
+                <div class="portfolio-item" data-image-index="3">
                     <img src="близнецы.png" alt="Дизайн для гороскопов" class="portfolio-image">
                     <div class="portfolio-content">
                         <h3>Дизайн для гороскопов</h3>
@@ -1532,7 +1538,7 @@
                     </div>
                 </div>
                 
-                <div class="portfolio-item" onclick="openModal(4)">
+                <div class="portfolio-item" data-image-index="4">
                     <img src="буклет.png" alt="Контент для социальных сетей" class="portfolio-image">
                     <div class="portfolio-content">
                         <h3>Контент для соцсетей</h3>
@@ -1545,7 +1551,7 @@
                     </div>
                 </div>
                 
-                <div class="portfolio-item" onclick="openModal(5)">
+                <div class="portfolio-item" data-image-index="5">
                     <img src="A5 - 2.png" alt="Анимация" class="portfolio-image">
                     <div class="portfolio-content">
                         <h3>Анимация</h3>
@@ -1635,7 +1641,7 @@
         </div>
     </section>
 
-    <!-- СЕКЦИЯ 4: МЕСТОПОЛОЖЕНИЕ И КОНТАКТЫ (НОВАЯ СЕКЦИЯ) -->
+    <!-- СЕКЦИЯ 4: МЕСТОПОЛОЖЕНИЕ И КОНТАКТЫ -->
     <section class="location-section section" id="location">
         <div class="location-overlay"></div>
         <div class="section-container">
@@ -1798,16 +1804,18 @@
 
     <!-- Модальное окно для просмотра фотографий -->
     <div id="imageModal" class="modal">
-        <span class="close" onclick="closeModal()">&times;</span>
+        <span class="close">&times;</span>
         <div class="modal-nav">
-            <button class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</button>
-            <button class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</button>
+            <button class="nav-btn prev-btn">&#10094;</button>
+            <button class="nav-btn next-btn">&#10095;</button>
         </div>
         <img class="modal-content" id="modalImage">
         <div class="image-counter" id="imageCounter"></div>
     </div>
 
     <script>
+        // ===== ОСНОВНОЙ КОД НА JQUERY =====
+        
         // Массив с изображениями для галереи
         const portfolioImages = [
             'мелодио1.png',
@@ -1820,136 +1828,22 @@
 
         let currentImageIndex = 0;
 
-        // Элементы DOM
-        const navbar = document.getElementById('navbar');
-        const navLinks = document.getElementById('navLinks');
-        const burgerMenu = document.getElementById('burgerMenu');
-        const backToTop = document.getElementById('backToTop');
-        const navItems = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('section');
-        const instagramBtn = document.getElementById('instagramBtn');
-        const socialLinks = document.querySelectorAll('.social-link');
-        const portfolioItems = document.querySelectorAll('.portfolio-item');
-        const technologyCards = document.querySelectorAll('.technology-card');
-        
-        // ===== НОВЫЕ ЭЛЕМЕНТЫ ДЛЯ СЕКЦИИ МЕСТОПОЛОЖЕНИЯ =====
-        const openMapBtn = document.getElementById('openMapBtn');
-        const mapPlaceholder = document.getElementById('mapPlaceholder');
-
-        // ===== ОБРАБОТКА КАРТЫ =====
-        if (openMapBtn) {
-            openMapBtn.addEventListener('click', function() {
-                // Координаты для Москвы (Тверская, 25)
-                const latitude = 55.761590;
-                const longitude = 37.609466;
-                const zoom = 15;
-                
-                // Открываем Google Maps в новом окне
-                const mapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}&z=${zoom}`;
-                window.open(mapsUrl, '_blank');
-                
-                // Можно также показать встроенную карту
-                // showEmbeddedMap(latitude, longitude);
-            });
-        }
-
-        // Функция для показа встроенной карты (опционально)
-        function showEmbeddedMap(lat, lng) {
-            // Если хотите использовать встроенную карту, раскомментируйте этот код
-            /*
-            mapPlaceholder.innerHTML = `
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.372949944435!2d${lng}!3d${lat}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTXCsDQ1JzQxLjciTiAzN8KwMzYnMzQuMSJF!5e0!3m2!1sru!2sru!4v1620000000000!5m2!1sru!2sru" 
-                    width="100%" 
-                    height="100%" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy">
-                </iframe>
-            `;
-            */
-        }
-
-        // ===== ОБРАБОТКА ФОРМЫ ОБРАТНОЙ СВЯЗИ =====
-        const feedbackForm = document.getElementById('feedbackForm');
-        const successMessage = document.getElementById('successMessage');
-        const submitBtn = document.getElementById('submitBtn');
-
-        // Обработчик отправки формы
-        if (feedbackForm) {
-            feedbackForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                const originalBtnText = submitBtn.innerHTML;
-                
-                // Показываем состояние загрузки
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
-                submitBtn.disabled = true;
-                
-                try {
-                    // Создаем FormData из формы
-                    const formData = new FormData(feedbackForm);
-                    
-                    // Отправляем данные на Getform
-                    const response = await fetch(feedbackForm.action, {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    });
-                    
-                    if (response.ok) {
-                        // Показываем сообщение об успехе
-                        successMessage.style.display = 'block';
-                        feedbackForm.style.display = 'none';
-                        
-                        // Прокрутка к сообщению
-                        successMessage.scrollIntoView({ behavior: 'smooth' });
-                        
-                        // Сброс формы
-                        feedbackForm.reset();
-                        
-                        // Автоматическое скрытие сообщения через 8 секунд
-                        setTimeout(() => {
-                            successMessage.style.display = 'none';
-                            feedbackForm.style.display = 'block';
-                        }, 8000);
-                    } else {
-                        throw new Error('Ошибка отправки формы');
-                    }
-                } catch (error) {
-                    alert('Произошла ошибка при отправке формы. Пожалуйста, попробуйте еще раз или свяжитесь со мной через Instagram.');
-                    console.error('Form submission error:', error);
-                } finally {
-                    // Восстанавливаем кнопку
-                    submitBtn.innerHTML = originalBtnText;
-                    submitBtn.disabled = false;
-                }
-            });
-        }
-        // ===== КОНЕЦ НОВОГО КОДА =====
-
         // Функция открытия модального окна
         function openModal(index) {
             currentImageIndex = index;
-            const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('modalImage');
-            const counter = document.getElementById('imageCounter');
             
-            modal.style.display = 'block';
-            modalImg.src = portfolioImages[currentImageIndex];
-            counter.textContent = `${currentImageIndex + 1} / ${portfolioImages.length}`;
+            $('#modalImage').attr('src', portfolioImages[currentImageIndex]);
+            $('#imageCounter').text(`${currentImageIndex + 1} / ${portfolioImages.length}`);
+            $('#imageModal').fadeIn();
             
             // Блокировка прокрутки body при открытом модальном окне
-            document.body.style.overflow = 'hidden';
+            $('body').css('overflow', 'hidden');
         }
 
         // Функция закрытия модального окна
         function closeModal() {
-            const modal = document.getElementById('imageModal');
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
+            $('#imageModal').fadeOut();
+            $('body').css('overflow', 'auto');
         }
 
         // Функция переключения изображений
@@ -1963,296 +1857,375 @@
                 currentImageIndex = portfolioImages.length - 1;
             }
             
-            const modalImg = document.getElementById('modalImage');
-            const counter = document.getElementById('imageCounter');
-            
-            modalImg.src = portfolioImages[currentImageIndex];
-            counter.textContent = `${currentImageIndex + 1} / ${portfolioImages.length}`;
+            $('#modalImage').attr('src', portfolioImages[currentImageIndex]);
+            $('#imageCounter').text(`${currentImageIndex + 1} / ${portfolioImages.length}`);
         }
 
-        // Закрытие модального окна при клике вне изображения
-        window.onclick = function(event) {
-            const modal = document.getElementById('imageModal');
-            if (event.target === modal) {
-                closeModal();
-            }
+        // ===== ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ =====
+        $(document).ready(function() {
+            // 1. Создание плавающих точек для всех секций
+            createHeroDots();
+            createPortfolioDots();
+            createTechnologiesDots();
             
-            // Закрытие меню при клике вне его
-            if (!burgerMenu.contains(event.target) && !navLinks.contains(event.target) && navLinks.classList.contains('active')) {
-                burgerMenu.classList.remove('active');
-                navLinks.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        };
-
-        // Управление клавиатурой для модального окна
-        document.addEventListener('keydown', function(event) {
-            const modal = document.getElementById('imageModal');
-            if (modal.style.display === 'block') {
-                if (event.key === 'Escape') {
+            // 2. Настройка бургер-меню
+            $('#burgerMenu').on('click', function(e) {
+                e.stopPropagation();
+                $(this).toggleClass('active');
+                $('#navLinks').toggleClass('active');
+                
+                // Блокировка прокрутки при открытом меню
+                if ($('#navLinks').hasClass('active')) {
+                    $('body').css('overflow', 'hidden');
+                } else {
+                    $('body').css('overflow', 'auto');
+                }
+            });
+            
+            // 3. Плавная прокрутка по якорным ссылкам
+            $(document).on('click', 'a[href^="#"]', function(e) {
+                // Не применяем к ссылкам с пустым href
+                if ($(this).attr('href') === '#') return;
+                
+                e.preventDefault();
+                var targetId = $(this).attr('href');
+                var $targetElement = $(targetId);
+                
+                if ($targetElement.length) {
+                    // Закрываем меню на мобильных устройствах
+                    $('#burgerMenu').removeClass('active');
+                    $('#navLinks').removeClass('active');
+                    $('body').css('overflow', 'auto');
+                    
+                    // Обновление активного пункта меню
+                    $('.nav-link').removeClass('active');
+                    $(this).addClass('active');
+                    
+                    // Плавная прокрутка
+                    $('html, body').animate({
+                        scrollTop: $targetElement.offset().top - 80
+                    }, 800);
+                }
+            });
+            
+            // 4. Изменение стиля навбара при прокрутке
+            $(window).on('scroll', function() {
+                // Изменение навбара
+                if ($(this).scrollTop() > 50) {
+                    $('#navbar').addClass('scrolled');
+                } else {
+                    $('#navbar').removeClass('scrolled');
+                }
+                
+                // Показать/скрыть кнопку "Наверх"
+                if ($(this).scrollTop() > 500) {
+                    $('#backToTop').css('display', 'flex');
+                } else {
+                    $('#backToTop').css('display', 'none');
+                }
+                
+                // Обновление активного пункта меню при прокрутке
+                updateActiveNavOnScroll();
+            });
+            
+            // 5. Кнопка "Наверх"
+            $('#backToTop').on('click', function() {
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 800);
+            });
+            
+            // 6. Обработчики для модального окна с изображениями
+            $('.portfolio-item').on('click', function() {
+                var imageIndex = $(this).data('image-index');
+                openModal(imageIndex);
+            });
+            
+            $('.close').on('click', closeModal);
+            
+            $('.prev-btn').on('click', function() {
+                changeImage(-1);
+            });
+            
+            $('.next-btn').on('click', function() {
+                changeImage(1);
+            });
+            
+            // 7. Закрытие модального окна при клике вне изображения
+            $(window).on('click', function(event) {
+                if ($(event.target).is('#imageModal')) {
                     closeModal();
-                } else if (event.key === 'ArrowLeft') {
-                    changeImage(-1);
-                } else if (event.key === 'ArrowRight') {
-                    changeImage(1);
                 }
-            }
-        });
-
-        // Бургер-меню: переключение состояния
-        burgerMenu.addEventListener('click', function(e) {
-            e.stopPropagation();
-            burgerMenu.classList.toggle('active');
-            navLinks.classList.toggle('active');
-            
-            // Блокировка прокрутки при открытом меню
-            if (navLinks.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = 'auto';
-            }
-        });
-
-        // Закрытие меню при клике на ссылку
-        navItems.forEach(link => {
-            link.addEventListener('click', function() {
-                burgerMenu.classList.remove('active');
-                navLinks.classList.remove('active');
-                document.body.style.overflow = 'auto';
                 
-                // Обновление активного пункта меню
-                navItems.forEach(item => item.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-
-        // Прокрутка к секциям с плавным скроллом
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Изменение стиля навбара при прокрутке
-        window.addEventListener('scroll', function() {
-            // Изменение навбара
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-            
-            // Показать/скрыть кнопку "Наверх"
-            if (window.scrollY > 500) {
-                backToTop.style.display = 'flex';
-            } else {
-                backToTop.style.display = 'none';
-            }
-            
-            // Обновление активного пункта меню при прокрутке
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100;
-                const sectionHeight = section.clientHeight;
-                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
-                    current = section.getAttribute('id');
+                // Закрытие меню при клике вне его
+                if (!$('#burgerMenu').is(event.target) && 
+                    !$('#navLinks').is(event.target) && 
+                    $('#navLinks').has(event.target).length === 0 &&
+                    $('#navLinks').hasClass('active')) {
+                    $('#burgerMenu').removeClass('active');
+                    $('#navLinks').removeClass('active');
+                    $('body').css('overflow', 'auto');
                 }
             });
             
-            navItems.forEach(item => {
-                item.classList.remove('active');
-                if (item.getAttribute('href') === `#${current}`) {
-                    item.classList.add('active');
+            // 8. Управление клавиатурой для модального окна
+            $(document).on('keydown', function(event) {
+                if ($('#imageModal').is(':visible')) {
+                    if (event.key === 'Escape') {
+                        closeModal();
+                    } else if (event.key === 'ArrowLeft') {
+                        changeImage(-1);
+                    } else if (event.key === 'ArrowRight') {
+                        changeImage(1);
+                    }
                 }
             });
-        });
-
-        // Кнопка "Наверх"
-        backToTop.addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Обработчики для интерактивных элементов
-        instagramBtn.addEventListener('click', function(e) {
-            if (!this.getAttribute('href') || this.getAttribute('href') === '#') {
-                e.preventDefault();
-                alert('Переход на Instagram профиль! В реальном проекте здесь будет ссылка на ваш аккаунт.');
-            }
-        });
-
-        // Обработчики для социальных ссылок
-        socialLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
+            
+            // 9. Обработчики для социальных ссылок
+            $('.social-link').on('click', function(e) {
+                var href = $(this).attr('href');
                 
                 if (!href || href === '#') {
                     e.preventDefault();
-                    const iconClass = this.querySelector('i').className;
-                    let platform = '';
+                    var iconClass = $(this).find('i').attr('class');
+                    var platform = '';
                     
                     if (iconClass.includes('instagram')) platform = 'Instagram';
                     else if (iconClass.includes('telegram')) platform = 'Telegram';
                     else if (iconClass.includes('envelope')) platform = 'Email';
                     else if (iconClass.includes('behance')) platform = 'Behance';
+                    else if (iconClass.includes('whatsapp')) platform = 'WhatsApp';
                     
                     alert(`Открывается ${platform} профиль`);
                 }
             });
-        });
-
-        // Анимация при наведении на карточки портфолио
-        portfolioItems.forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-8px) scale(1.02)';
+            
+            // 10. Обработчик для кнопки Instagram
+            $('#instagramBtn').on('click', function(e) {
+                if (!$(this).attr('href') || $(this).attr('href') === '#') {
+                    e.preventDefault();
+                    alert('Переход на Instagram профиль! В реальном проекте здесь будет ссылка на ваш аккаунт.');
+                }
             });
             
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        // Анимация при наведении на карточки технологий
-        technologyCards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-8px) scale(1.02)';
+            // 11. Анимация при наведении на карточки портфолио
+            $('.portfolio-item').hover(
+                function() { // mouseenter
+                    $(this).css({
+                        'transform': 'translateY(-8px) scale(1.02)',
+                        'border-color': 'rgba(255, 135, 78, 0.4)'
+                    });
+                    
+                    $(this).find('.portfolio-image').css('transform', 'scale(1.08)');
+                },
+                function() { // mouseleave
+                    $(this).css({
+                        'transform': 'translateY(0) scale(1)',
+                        'border-color': 'rgba(255, 255, 255, 0.1)'
+                    });
+                    
+                    $(this).find('.portfolio-image').css('transform', 'scale(1)');
+                }
+            );
+            
+            // 12. Анимация при наведении на карточки технологий
+            $('.technology-card').hover(
+                function() { // mouseenter
+                    $(this).css({
+                        'transform': 'translateY(-8px) scale(1.02)',
+                        'border-color': 'rgba(255, 135, 78, 0.4)'
+                    });
+                    
+                    $(this).find('.technology-icon').css({
+                        'transform': 'scale(1.1)',
+                        'background': 'linear-gradient(135deg, rgba(255, 135, 78, 0.3), rgba(255, 107, 53, 0.2))'
+                    });
+                },
+                function() { // mouseleave
+                    $(this).css({
+                        'transform': 'translateY(0) scale(1)',
+                        'border-color': 'rgba(255, 255, 255, 0.1)'
+                    });
+                    
+                    $(this).find('.technology-icon').css({
+                        'transform': 'scale(1)',
+                        'background': 'linear-gradient(135deg, rgba(255, 135, 78, 0.2), rgba(255, 107, 53, 0.1))'
+                    });
+                }
+            );
+            
+            // 13. Обработчик для кнопки карты
+            $('#openMapBtn').on('click', function() {
+                // Координаты для Москвы (Тверская, 25)
+                const latitude = 55.761590;
+                const longitude = 37.609466;
+                const zoom = 15;
+                
+                // Открываем Google Maps в новом окне
+                const mapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}&z=${zoom}`;
+                window.open(mapsUrl, '_blank');
             });
             
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
+            // 14. Обработчик отправки формы обратной связи
+            $('#feedbackForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                var originalBtnText = $('#submitBtn').html();
+                var $submitBtn = $('#submitBtn');
+                
+                // Показываем состояние загрузки
+                $submitBtn.html('<i class="fas fa-spinner fa-spin"></i> Отправка...');
+                $submitBtn.prop('disabled', true);
+                
+                // В реальном проекте здесь будет AJAX-запрос
+                // Для демонстрации имитируем отправку
+                setTimeout(function() {
+                    // Показываем сообщение об успехе
+                    $('#successMessage').fadeIn();
+                    $('#feedbackForm').fadeOut();
+                    
+                    // Прокрутка к сообщению
+                    $('html, body').animate({
+                        scrollTop: $('#successMessage').offset().top - 100
+                    }, 800);
+                    
+                    // Сброс формы
+                    $('#feedbackForm')[0].reset();
+                    
+                    // Автоматическое скрытие сообщения через 8 секунд
+                    setTimeout(function() {
+                        $('#successMessage').fadeOut();
+                        $('#feedbackForm').fadeIn();
+                    }, 8000);
+                    
+                    // Восстанавливаем кнопку
+                    $submitBtn.html(originalBtnText);
+                    $submitBtn.prop('disabled', false);
+                }, 1500);
+            });
+            
+            // 15. Анимация нажатия для всех кнопок
+            $('button').on('mousedown', function() {
+                $(this).css('transform', 'scale(0.95)');
+            }).on('mouseup mouseleave', function() {
+                $(this).css('transform', '');
             });
         });
-
-        // Создание плавающих точек для первой секции
+        
+        // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
+        
+        // Функция обновления активного пункта меню при прокрутке
+        function updateActiveNavOnScroll() {
+            var scrollPosition = $(window).scrollTop();
+            var windowHeight = $(window).height();
+            
+            $('.section').each(function() {
+                var sectionTop = $(this).offset().top - 100;
+                var sectionHeight = $(this).outerHeight();
+                var sectionId = $(this).attr('id');
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    $('.nav-link').removeClass('active');
+                    $('.nav-link[href="#' + sectionId + '"]').addClass('active');
+                }
+            });
+        }
+        
+        // Функция создания плавающих точек для первой секции
         function createHeroDots() {
-            const container = document.getElementById('hero-dots');
-            const dotCount = 15;
+            var container = $('#hero-dots');
+            var dotCount = 15;
             
-            for (let i = 0; i < dotCount; i++) {
-                const dot = document.createElement('div');
-                dot.classList.add('dot');
-                
-                const size = Math.random() * 4 + 2;
-                const left = Math.random() * 100;
-                const duration = Math.random() * 10 + 15;
-                const delay = Math.random() * 5;
-                
-                dot.style.width = `${size}px`;
-                dot.style.height = `${size}px`;
-                dot.style.left = `${left}%`;
-                dot.style.animationDuration = `${duration}s`;
-                dot.style.animationDelay = `${delay}s`;
+            for (var i = 0; i < dotCount; i++) {
+                var size = Math.random() * 4 + 2;
+                var left = Math.random() * 100;
+                var duration = Math.random() * 10 + 15;
+                var delay = Math.random() * 5;
                 
                 // Случайный цвет точки
-                const colors = [
+                var colors = [
                     'rgba(255, 135, 78, 0.6)',
                     'rgba(255, 107, 53, 0.5)',
                     'rgba(255, 167, 38, 0.4)'
                 ];
-                dot.style.background = colors[Math.floor(Math.random() * colors.length)];
+                var color = colors[Math.floor(Math.random() * colors.length)];
                 
-                container.appendChild(dot);
+                var dot = $('<div>').addClass('dot').css({
+                    'width': size + 'px',
+                    'height': size + 'px',
+                    'left': left + '%',
+                    'animation-duration': duration + 's',
+                    'animation-delay': delay + 's',
+                    'background': color
+                });
+                
+                container.append(dot);
             }
         }
-
-        // Создание плавающих точек для второй секции
+        
+        // Функция создания плавающих точек для второй секции
         function createPortfolioDots() {
-            const container = document.getElementById('portfolio-dots');
-            const dotCount = 12;
+            var container = $('#portfolio-dots');
+            var dotCount = 12;
             
-            for (let i = 0; i < dotCount; i++) {
-                const dot = document.createElement('div');
-                dot.classList.add('portfolio-dot');
-                
-                const size = Math.random() * 5 + 1;
-                const left = Math.random() * 100;
-                const duration = Math.random() * 12 + 16;
-                const delay = Math.random() * 7;
-                
-                dot.style.width = `${size}px`;
-                dot.style.height = `${size}px`;
-                dot.style.left = `${left}%`;
-                dot.style.animationDuration = `${duration}s`;
-                dot.style.animationDelay = `${delay}s`;
+            for (var i = 0; i < dotCount; i++) {
+                var size = Math.random() * 5 + 1;
+                var left = Math.random() * 100;
+                var duration = Math.random() * 12 + 16;
+                var delay = Math.random() * 7;
                 
                 // Случайный цвет точки
-                const colors = [
+                var colors = [
                     'rgba(255, 135, 78, 0.4)',
                     'rgba(255, 107, 53, 0.3)',
                     'rgba(255, 167, 38, 0.3)'
                 ];
-                dot.style.background = colors[Math.floor(Math.random() * colors.length)];
+                var color = colors[Math.floor(Math.random() * colors.length)];
                 
-                container.appendChild(dot);
+                var dot = $('<div>').addClass('portfolio-dot').css({
+                    'width': size + 'px',
+                    'height': size + 'px',
+                    'left': left + '%',
+                    'animation-duration': duration + 's',
+                    'animation-delay': delay + 's',
+                    'background': color
+                });
+                
+                container.append(dot);
             }
         }
-
-        // Создание плавающих точек для третьей секции
+        
+        // Функция создания плавающих точек для третьей секции
         function createTechnologiesDots() {
-            const container = document.getElementById('technologies-dots');
-            const dotCount = 10;
+            var container = $('#technologies-dots');
+            var dotCount = 10;
             
-            for (let i = 0; i < dotCount; i++) {
-                const dot = document.createElement('div');
-                dot.classList.add('technologies-dot');
-                
-                const size = Math.random() * 3 + 1;
-                const left = Math.random() * 100;
-                const duration = Math.random() * 15 + 20;
-                const delay = Math.random() * 10;
-                
-                dot.style.width = `${size}px`;
-                dot.style.height = `${size}px`;
-                dot.style.left = `${left}%`;
-                dot.style.animationDuration = `${duration}s`;
-                dot.style.animationDelay = `${delay}s`;
+            for (var i = 0; i < dotCount; i++) {
+                var size = Math.random() * 3 + 1;
+                var left = Math.random() * 100;
+                var duration = Math.random() * 15 + 20;
+                var delay = Math.random() * 10;
                 
                 // Случайный цвет точки
-                const colors = [
+                var colors = [
                     'rgba(255, 135, 78, 0.3)',
                     'rgba(255, 107, 53, 0.2)',
                     'rgba(255, 167, 38, 0.2)'
                 ];
-                dot.style.background = colors[Math.floor(Math.random() * colors.length)];
+                var color = colors[Math.floor(Math.random() * colors.length)];
                 
-                container.appendChild(dot);
+                var dot = $('<div>').addClass('technologies-dot').css({
+                    'width': size + 'px',
+                    'height': size + 'px',
+                    'left': left + '%',
+                    'animation-duration': duration + 's',
+                    'animation-delay': delay + 's',
+                    'background': color
+                });
+                
+                container.append(dot);
             }
         }
-
-        // Инициализация при загрузке
-        window.addEventListener('load', function() {
-            createHeroDots();
-            createPortfolioDots();
-            createTechnologiesDots();
-            
-            // Инициализация активного пункта меню
-            navItems[0].classList.add('active');
-            
-            // Инициализация обработчиков для всех кнопок
-            const allButtons = document.querySelectorAll('button');
-            allButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Анимация нажатия
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 150);
-                });
-            });
-        });
     </script>
 </body>
 </html>
