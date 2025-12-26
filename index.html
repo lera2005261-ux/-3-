@@ -816,6 +816,297 @@
             align-items: flex-start;
         }
         
+        /* Секция 4: Местоположение */
+        .location-section {
+            background: linear-gradient(135deg, 
+                #1a1a1a 0%, 
+                #2a1e1a 25%, 
+                #3a2e1a 50%, 
+                #2a1e1a 75%, 
+                #1a1a1a 100%);
+            position: relative;
+        }
+        
+        .location-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            overflow: hidden;
+        }
+        
+        .location-dot {
+            position: absolute;
+            background: rgba(255, 135, 78, 0.35);
+            border-radius: 50%;
+            animation: floatDot 22s linear infinite;
+        }
+        
+        /* Секция 5: Обратная связь */
+        .feedback-section {
+            background: #0d0d0d;
+            position: relative;
+        }
+        
+        .feedback-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(
+                    135deg,
+                    rgba(13, 13, 13, 0.95) 0%,
+                    rgba(255, 135, 78, 0.15) 50%,
+                    rgba(13, 13, 13, 0.95) 100%
+                ),
+                url('я-10-23_21-44-13.jpg') center/cover no-repeat;
+            z-index: 1;
+            opacity: 0.4;
+            filter: brightness(0.5) contrast(1.2) blur(8px);
+            animation: gradientShift 8s ease-in-out infinite;
+        }
+        
+        .feedback-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            overflow: hidden;
+        }
+        
+        .feedback-dot {
+            position: absolute;
+            background: rgba(255, 135, 78, 0.25);
+            border-radius: 50%;
+            animation: floatDotReverse 25s linear infinite;
+        }
+        
+        /* ФОРМА ОБРАТНОЙ СВЯЗИ В СТЕКЛЯННОМ СТИЛЕ */
+        .feedback-form {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border-radius: 28px;
+            padding: 50px;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 3;
+        }
+        
+        .form-group {
+            margin-bottom: 30px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 12px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 18px 22px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: rgba(255, 135, 78, 0.4);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 
+                0 0 0 3px rgba(255, 135, 78, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+        
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+        
+        textarea.form-control {
+            min-height: 180px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, 
+                rgba(255, 135, 78, 0.2), 
+                rgba(255, 107, 53, 0.15));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: #ffffff;
+            border: 1px solid rgba(255, 135, 78, 0.3);
+            padding: 18px 45px;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+            box-shadow: 
+                0 10px 30px rgba(255, 135, 78, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(135deg, 
+                rgba(255, 135, 78, 0.3), 
+                rgba(255, 107, 53, 0.25));
+            transform: translateY(-3px);
+            border-color: rgba(255, 135, 78, 0.5);
+            box-shadow: 
+                0 20px 40px rgba(255, 135, 78, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+        
+        /* КАРТА МЕСТОПОЛОЖЕНИЯ В СТЕКЛЯННОМ СТИЛЕ */
+        .location-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border-radius: 28px;
+            padding: 50px;
+            max-width: 900px;
+            margin: 0 auto;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 3;
+            text-align: center;
+        }
+        
+        .location-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .location-item {
+            text-align: center;
+        }
+        
+        .location-icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 135, 78, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 20px;
+            margin: 0 auto 25px;
+            font-size: 2rem;
+            color: #FF874E;
+            border: 1px solid rgba(255, 135, 78, 0.2);
+            box-shadow: 
+                0 10px 25px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+        
+        .location-item h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        
+        .location-item p {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+        
+        .map-placeholder {
+            width: 100%;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .map-placeholder i {
+            font-size: 4rem;
+            color: rgba(255, 135, 78, 0.3);
+            margin-bottom: 20px;
+        }
+        
+        .map-placeholder span {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        /* Подвал */
+        .footer {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 50px 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: #FF874E;
+            transform: translateY(-2px);
+        }
+        
+        .copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.95rem;
+            margin-top: 30px;
+        }
+        
         /* Кнопка "Наверх" в стеклянном стиле */
         .back-to-top {
             position: fixed;
@@ -898,6 +1189,11 @@
             .section-header h2 {
                 font-size: 2.5rem;
             }
+            
+            .feedback-form,
+            .location-card {
+                padding: 40px 30px;
+            }
         }
         
         @media (max-width: 768px) {
@@ -952,6 +1248,15 @@
             .technology-card p {
                 min-height: 80px;
             }
+            
+            .location-info {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .map-placeholder {
+                height: 300px;
+            }
         }
         
         @media (max-width: 576px) {
@@ -1004,6 +1309,24 @@
             
             .section-header h2 {
                 font-size: 1.9rem;
+            }
+            
+            .feedback-form,
+            .location-card {
+                padding: 30px 20px;
+            }
+            
+            .form-control {
+                padding: 16px 18px;
+            }
+            
+            .map-placeholder {
+                height: 250px;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 20px;
             }
             
             /* На мобильных устройствах сбрасываем выравнивание */
@@ -1248,6 +1571,149 @@
         </div>
     </section>
 
+    <!-- Секция 4: Местоположение -->
+    <section class="location-section section" id="location">
+        <div class="location-dots" id="location-dots"></div>
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Местоположение и контакты</h2>
+                <p>Я работаю с клиентами по всему миру, но базируюсь в России. Вот как вы можете со мной связаться.</p>
+            </div>
+            
+            <div class="location-card">
+                <div class="location-info">
+                    <div class="location-item">
+                        <div class="location-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>Базирование</h3>
+                        <p>Россия, работаю с клиентами по всему миру. Доступна для удаленного сотрудничества и выездных проектов.</p>
+                    </div>
+                    
+                    <div class="location-item">
+                        <div class="location-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Часы работы</h3>
+                        <p>Пн-Пт: 10:00 - 19:00 (МСК)<br>Сб: 11:00 - 16:00 (МСК)<br>Вс: выходной</p>
+                    </div>
+                    
+                    <div class="location-item">
+                        <div class="location-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3>Часовой пояс</h3>
+                        <p>Московское время (UTC+3)<br>Гибкий график для международных проектов</p>
+                    </div>
+                </div>
+                
+                <div class="map-placeholder">
+                    <i class="fas fa-map"></i>
+                    <span>Интерактивная карта местоположения</span>
+                    <p style="color: rgba(255, 255, 255, 0.5); margin-top: 10px; font-size: 0.9rem;">Работаю удаленно по всему миру</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция 5: Обратная связь -->
+    <section class="feedback-section section" id="feedback">
+        <div class="feedback-bg"></div>
+        <div class="feedback-dots" id="feedback-dots"></div>
+        <div class="section-container">
+            <div class="section-header">
+                <h2>Обратная связь</h2>
+                <p>Готовы начать проект или хотите обсудить сотрудничество? Заполните форму ниже, и я свяжусь с вами в ближайшее время.</p>
+            </div>
+            
+            <div class="feedback-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Ваше имя *</label>
+                        <input type="text" id="name" class="form-control" placeholder="Введите ваше имя" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Ваш email *</label>
+                        <input type="email" id="email" class="form-control" placeholder="Введите ваш email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Номер телефона</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="Введите номер телефона">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="project">Тип проекта *</label>
+                        <select id="project" class="form-control" required>
+                            <option value="" disabled selected>Выберите тип проекта</option>
+                            <option value="branding">Брендинг и айдентика</option>
+                            <option value="illustration">Иллюстрация</option>
+                            <option value="social">Дизайн для соцсетей</option>
+                            <option value="printing">Полиграфия</option>
+                            <option value="uiux">UI/UX дизайн</option>
+                            <option value="animation">Motion дизайн</option>
+                            <option value="other">Другое</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="budget">Бюджет проекта</label>
+                        <select id="budget" class="form-control">
+                            <option value="" disabled selected>Укажите примерный бюджет</option>
+                            <option value="small">До 30 000 ₽</option>
+                            <option value="medium">30 000 - 100 000 ₽</option>
+                            <option value="large">100 000 - 300 000 ₽</option>
+                            <option value="enterprise">Более 300 000 ₽</option>
+                            <option value="discuss">Требует обсуждения</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Опишите ваш проект *</label>
+                        <textarea id="message" class="form-control" placeholder="Расскажите о вашем проекте, целях, сроках и пожеланиях..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Отправить заявку
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://www.instagram.com/st__au/" class="social-link" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="#" class="social-link">
+                    <i class="far fa-envelope"></i>
+                </a>
+                <a href="#" class="social-link">
+                    <i class="fab fa-behance"></i>
+                </a>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#home" class="footer-link">Главная</a>
+                <a href="#portfolio" class="footer-link">Портфолио</a>
+                <a href="#technologies" class="footer-link">Технологии</a>
+                <a href="#location" class="footer-link">Местоположение</a>
+                <a href="#feedback" class="footer-link">Обратная связь</a>
+            </div>
+            
+            <p class="copyright">
+                © 2024 Валерия Баранова. Графический дизайнер. Все права защищены.
+            </p>
+        </div>
+    </footer>
+
     <!-- Кнопка "Наверх" -->
     <button class="back-to-top" id="backToTop">
         <i class="fas fa-arrow-up"></i>
@@ -1261,6 +1727,8 @@
             createHeroDots();
             createPortfolioDots();
             createTechnologiesDots();
+            createLocationDots();
+            createFeedbackDots();
             
             // 2. Настройка бургер-меню
             $('#burgerMenu').on('click', function(e) {
@@ -1352,6 +1820,29 @@
                     $('#navLinks').removeClass('active');
                     $('body').css('overflow', 'auto');
                 }
+            });
+            
+            // 9. Обработка формы обратной связи
+            $('#contactForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Простая валидация формы
+                var name = $('#name').val();
+                var email = $('#email').val();
+                var project = $('#project').val();
+                var message = $('#message').val();
+                
+                if (!name || !email || !project || !message) {
+                    alert('Пожалуйста, заполните все обязательные поля (помеченные *)');
+                    return;
+                }
+                
+                // Здесь обычно отправка формы на сервер
+                // Для демонстрации просто покажем сообщение
+                alert('Спасибо за вашу заявку, ' + name + '! Я свяжусь с вами в ближайшее время по email: ' + email);
+                
+                // Очистка формы
+                $('#contactForm')[0].reset();
             });
         });
         
@@ -1599,6 +2090,70 @@
                 var color = colors[Math.floor(Math.random() * colors.length)];
                 
                 var dot = $('<div>').addClass('technologies-dot').css({
+                    'width': size + 'px',
+                    'height': size + 'px',
+                    'left': left + '%',
+                    'animation-duration': duration + 's',
+                    'animation-delay': delay + 's',
+                    'background': color
+                });
+                
+                container.append(dot);
+            }
+        }
+        
+        // Функция создания плавающих точек для четвертой секции
+        function createLocationDots() {
+            var container = $('#location-dots');
+            var dotCount = 8;
+            
+            for (var i = 0; i < dotCount; i++) {
+                var size = Math.random() * 4 + 1;
+                var left = Math.random() * 100;
+                var duration = Math.random() * 18 + 22;
+                var delay = Math.random() * 8;
+                
+                // Случайный цвет точки
+                var colors = [
+                    'rgba(255, 135, 78, 0.35)',
+                    'rgba(255, 107, 53, 0.25)',
+                    'rgba(255, 167, 38, 0.25)'
+                ];
+                var color = colors[Math.floor(Math.random() * colors.length)];
+                
+                var dot = $('<div>').addClass('location-dot').css({
+                    'width': size + 'px',
+                    'height': size + 'px',
+                    'left': left + '%',
+                    'animation-duration': duration + 's',
+                    'animation-delay': delay + 's',
+                    'background': color
+                });
+                
+                container.append(dot);
+            }
+        }
+        
+        // Функция создания плавающих точек для пятой секции
+        function createFeedbackDots() {
+            var container = $('#feedback-dots');
+            var dotCount = 6;
+            
+            for (var i = 0; i < dotCount; i++) {
+                var size = Math.random() * 3 + 1;
+                var left = Math.random() * 100;
+                var duration = Math.random() * 20 + 25;
+                var delay = Math.random() * 12;
+                
+                // Случайный цвет точки
+                var colors = [
+                    'rgba(255, 135, 78, 0.25)',
+                    'rgba(255, 107, 53, 0.15)',
+                    'rgba(255, 167, 38, 0.15)'
+                ];
+                var color = colors[Math.floor(Math.random() * colors.length)];
+                
+                var dot = $('<div>').addClass('feedback-dot').css({
                     'width': size + 'px',
                     'height': size + 'px',
                     'left': left + '%',
