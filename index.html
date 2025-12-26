@@ -985,7 +985,7 @@
             -webkit-backdrop-filter: blur(40px) saturate(180%);
             border-radius: 28px;
             padding: 50px;
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 
@@ -993,7 +993,6 @@
                 inset 0 1px 0 rgba(255, 255, 255, 0.05);
             position: relative;
             z-index: 3;
-            text-align: center;
         }
         
         .location-info {
@@ -1040,30 +1039,550 @@
             font-weight: 400;
         }
         
-        .map-placeholder {
+        /* ИНТЕРАКТИВНАЯ КАРТА - СТИЛИЗОВАННАЯ ВЕРСИЯ */
+        .interactive-map {
             width: 100%;
-            height: 400px;
+            height: 600px;
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 20px;
+            border-radius: 24px;
             border: 1px solid rgba(255, 255, 255, 0.08);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             position: relative;
+            overflow: hidden;
+            margin-bottom: 50px;
+        }
+        
+        .map-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+        
+        .map-background {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(20, 20, 20, 0.9) 0%, 
+                rgba(40, 30, 25, 0.8) 50%, 
+                rgba(20, 20, 20, 0.9) 100%);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        
+        .map-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 2;
+            opacity: 0.3;
+        }
+        
+        .map-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+        }
+        
+        .map-continent {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
             overflow: hidden;
         }
         
-        .map-placeholder i {
-            font-size: 4rem;
-            color: rgba(255, 135, 78, 0.3);
+        .map-continent::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(255, 135, 78, 0.1), 
+                rgba(255, 107, 53, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .map-continent:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 135, 78, 0.3);
+            transform: scale(1.02);
+            box-shadow: 
+                0 10px 30px rgba(255, 135, 78, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+        
+        .map-continent:hover::before {
+            opacity: 1;
+        }
+        
+        .map-continent.active {
+            background: rgba(255, 135, 78, 0.15);
+            border-color: rgba(255, 135, 78, 0.5);
+            box-shadow: 
+                0 15px 40px rgba(255, 135, 78, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .continent-label {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            background: rgba(26, 26, 26, 0.8);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #FF874E;
+            border: 1px solid rgba(255, 135, 78, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 4;
+            transition: all 0.3s ease;
+        }
+        
+        .map-continent:hover .continent-label {
+            background: rgba(255, 135, 78, 0.2);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+        
+        /* Континенты */
+        .europe {
+            top: 20%;
+            left: 40%;
+            width: 180px;
+            height: 220px;
+        }
+        
+        .asia {
+            top: 25%;
+            left: 60%;
+            width: 250px;
+            height: 280px;
+        }
+        
+        .belarus {
+            top: 30%;
+            left: 45%;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 135, 78, 0.2);
+            border: 2px solid rgba(255, 135, 78, 0.4);
+            border-radius: 50%;
+            z-index: 5;
+            box-shadow: 
+                0 0 0 4px rgba(255, 135, 78, 0.1),
+                0 10px 25px rgba(255, 135, 78, 0.3);
+        }
+        
+        .belarus::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: #FF874E;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 0 4px rgba(255, 135, 78, 0.4);
+            animation: pulse 2s infinite;
+        }
+        
+        .north-america {
+            top: 25%;
+            left: 10%;
+            width: 200px;
+            height: 250px;
+        }
+        
+        .south-america {
+            top: 50%;
+            left: 20%;
+            width: 120px;
+            height: 200px;
+        }
+        
+        .africa {
+            top: 40%;
+            left: 42%;
+            width: 150px;
+            height: 220px;
+        }
+        
+        .australia {
+            top: 60%;
+            left: 75%;
+            width: 180px;
+            height: 150px;
+        }
+        
+        .work-zone {
+            position: absolute;
+            border: 2px dashed rgba(255, 135, 78, 0.4);
+            border-radius: 50%;
+            z-index: 4;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .zone-1 {
+            top: 25%;
+            left: 40%;
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 135, 78, 0.1);
+        }
+        
+        .zone-2 {
+            top: 20%;
+            left: 35%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 135, 78, 0.08);
+        }
+        
+        .zone-3 {
+            top: 15%;
+            left: 30%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 135, 78, 0.06);
+        }
+        
+        .zone-4 {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 135, 78, 0.03);
+            border: 2px dashed rgba(255, 135, 78, 0.2);
+        }
+        
+        .zone-label {
+            position: absolute;
+            background: rgba(26, 26, 26, 0.9);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #FF874E;
+            border: 1px solid rgba(255, 135, 78, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            white-space: nowrap;
+        }
+        
+        .zone-1-label {
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .zone-2-label {
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .zone-3-label {
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .zone-4-label {
+            bottom: 20px;
+            right: 20px;
+        }
+        
+        .map-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        
+        .map-control-btn {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(26, 26, 26, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .map-control-btn:hover {
+            background: rgba(255, 135, 78, 0.2);
+            border-color: rgba(255, 135, 78, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 135, 78, 0.3);
+        }
+        
+        .zone-info-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(26, 26, 26, 0.9);
+            border-radius: 16px;
+            padding: 25px;
+            width: 350px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transform: translateX(120%);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10;
+        }
+        
+        .zone-info-panel.active {
+            transform: translateX(0);
+        }
+        
+        .zone-info-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .zone-info-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 135, 78, 0.15);
+            border-radius: 12px;
+            font-size: 1.5rem;
+            color: #FF874E;
+        }
+        
+        .zone-info-title {
+            font-size: 1.4rem;
+            color: #ffffff;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        
+        .zone-info-desc {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            line-height: 1.5;
             margin-bottom: 20px;
         }
         
-        .map-placeholder span {
+        .zone-info-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .zone-stat {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .zone-stat-label {
+            display: block;
+            font-size: 0.85rem;
             color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 5px;
+        }
+        
+        .zone-stat-value {
             font-size: 1.1rem;
-            font-weight: 500;
+            color: #FF874E;
+            font-weight: 600;
+        }
+        
+        .zone-info-action {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .zone-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(76, 175, 80, 0.15);
+            color: #4CAF50;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+        
+        .zone-status-dot {
+            width: 8px;
+            height: 8px;
+            background: #4CAF50;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .zone-contact-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, 
+                rgba(255, 135, 78, 0.2), 
+                rgba(255, 107, 53, 0.15));
+            border: 1px solid rgba(255, 135, 78, 0.3);
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .zone-contact-btn:hover {
+            background: linear-gradient(135deg, 
+                rgba(255, 135, 78, 0.3), 
+                rgba(255, 107, 53, 0.25));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 135, 78, 0.3);
+        }
+        
+        /* ЗОНЫ РАБОТЫ */
+        .work-zones {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+        
+        .work-zone-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        
+        .work-zone-card:hover {
+            background: rgba(255, 135, 78, 0.1);
+            border-color: rgba(255, 135, 78, 0.3);
+            transform: translateY(-5px);
+        }
+        
+        .work-zone-card.active {
+            background: rgba(255, 135, 78, 0.15);
+            border-color: rgba(255, 135, 78, 0.5);
+            box-shadow: 0 10px 30px rgba(255, 135, 78, 0.2);
+        }
+        
+        .work-zone-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .work-zone-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 135, 78, 0.15);
+            border-radius: 12px;
+            font-size: 1.5rem;
+            color: #FF874E;
+        }
+        
+        .work-zone-title {
+            font-size: 1.3rem;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        
+        .work-zone-desc {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .work-zone-status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .status-available {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+        
+        .status-limited {
+            background: rgba(255, 193, 7, 0.2);
+            color: #FFC107;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+        
+        .status-unavailable {
+            background: rgba(244, 67, 54, 0.2);
+            color: #F44336;
+            border: 1px solid rgba(244, 67, 54, 0.3);
         }
         
         /* Подвал */
@@ -1143,6 +1662,16 @@
         }
         
         /* Адаптивность */
+        @media (max-width: 1200px) {
+            .interactive-map {
+                height: 500px;
+            }
+            
+            .zone-info-panel {
+                width: 320px;
+            }
+        }
+        
         @media (max-width: 992px) {
             .nav-links {
                 position: fixed;
@@ -1193,6 +1722,25 @@
             .feedback-form,
             .location-card {
                 padding: 40px 30px;
+            }
+            
+            .interactive-map {
+                height: 450px;
+            }
+            
+            .zone-info-panel {
+                width: 300px;
+                padding: 20px;
+            }
+            
+            .europe {
+                width: 150px;
+                height: 180px;
+            }
+            
+            .asia {
+                width: 200px;
+                height: 230px;
             }
         }
         
@@ -1254,8 +1802,45 @@
                 gap: 30px;
             }
             
-            .map-placeholder {
-                height: 300px;
+            .interactive-map {
+                height: 400px;
+            }
+            
+            .zone-info-panel {
+                width: 280px;
+                padding: 15px;
+                top: 10px;
+                right: 10px;
+            }
+            
+            .zone-info-title {
+                font-size: 1.2rem;
+            }
+            
+            .zone-info-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .work-zones {
+                grid-template-columns: 1fr;
+            }
+            
+            .europe {
+                width: 120px;
+                height: 150px;
+                left: 35%;
+            }
+            
+            .asia {
+                width: 160px;
+                height: 190px;
+                left: 55%;
+            }
+            
+            .belarus {
+                width: 60px;
+                height: 60px;
+                left: 40%;
             }
         }
         
@@ -1320,8 +1905,33 @@
                 padding: 16px 18px;
             }
             
-            .map-placeholder {
-                height: 250px;
+            .interactive-map {
+                height: 350px;
+            }
+            
+            .zone-info-panel {
+                position: relative;
+                top: 0;
+                right: 0;
+                width: 100%;
+                margin-top: 20px;
+                transform: none;
+                display: none;
+            }
+            
+            .zone-info-panel.active {
+                display: block;
+            }
+            
+            .map-controls {
+                bottom: 10px;
+                left: 10px;
+            }
+            
+            .map-control-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
             }
             
             .footer-links {
@@ -1342,6 +1952,35 @@
             
             .technology-card p {
                 min-height: auto !important;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .interactive-map {
+                height: 300px;
+            }
+            
+            .europe {
+                width: 90px;
+                height: 110px;
+                left: 30%;
+            }
+            
+            .asia {
+                width: 120px;
+                height: 150px;
+                left: 50%;
+            }
+            
+            .belarus {
+                width: 50px;
+                height: 50px;
+                left: 35%;
+            }
+            
+            .continent-label {
+                font-size: 0.8rem;
+                padding: 6px 10px;
             }
         }
     </style>
@@ -1576,8 +2215,8 @@
         <div class="location-dots" id="location-dots"></div>
         <div class="section-container">
             <div class="section-header">
-                <h2>Местоположение и контакты</h2>
-                <p>Я работаю с клиентами по всему миру, но базируюсь в России. Вот как вы можете со мной связаться.</p>
+                <h2>Местоположение и зоны работы</h2>
+                <p>Я работаю с клиентами по всему миру, но базируюсь в Беларуси. Выберите вашу зону, чтобы узнать условия сотрудничества.</p>
             </div>
             
             <div class="location-card">
@@ -1587,7 +2226,7 @@
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <h3>Базирование</h3>
-                        <p>Россия, работаю с клиентами по всему миру. Доступна для удаленного сотрудничества и выездных проектов.</p>
+                        <p>Беларусь, работаю с клиентами по всему миру. Доступна для удаленного сотрудничества и выездных проектов.</p>
                     </div>
                     
                     <div class="location-item">
@@ -1607,10 +2246,141 @@
                     </div>
                 </div>
                 
-                <div class="map-placeholder">
-                    <i class="fas fa-map"></i>
-                    <span>Интерактивная карта местоположения</span>
-                    <p style="color: rgba(255, 255, 255, 0.5); margin-top: 10px; font-size: 0.9rem;">Работаю удаленно по всему миру</p>
+                <!-- Интерактивная карта - СТИЛИЗОВАННАЯ ВЕРСИЯ -->
+                <div class="interactive-map">
+                    <div class="map-container">
+                        <div class="map-background"></div>
+                        <div class="map-grid"></div>
+                        
+                        <div class="map-content">
+                            <!-- Зоны работы -->
+                            <div class="work-zone zone-4">
+                                <div class="zone-label zone-4-label">Зона 4: Весь мир</div>
+                            </div>
+                            <div class="work-zone zone-3">
+                                <div class="zone-label zone-3-label">Зона 3: СНГ и Азия</div>
+                            </div>
+                            <div class="work-zone zone-2">
+                                <div class="zone-label zone-2-label">Зона 2: Европа</div>
+                            </div>
+                            <div class="work-zone zone-1">
+                                <div class="zone-label zone-1-label">Зона 1: Беларусь +</div>
+                            </div>
+                            
+                            <!-- Континенты -->
+                            <div class="map-continent europe" data-zone="2">
+                                <div class="continent-label">Европа</div>
+                            </div>
+                            
+                            <div class="map-continent asia" data-zone="3">
+                                <div class="continent-label">Азия</div>
+                            </div>
+                            
+                            <div class="map-continent north-america" data-zone="4">
+                                <div class="continent-label">Северная Америка</div>
+                            </div>
+                            
+                            <div class="map-continent south-america" data-zone="4">
+                                <div class="continent-label">Южная Америка</div>
+                            </div>
+                            
+                            <div class="map-continent africa" data-zone="4">
+                                <div class="continent-label">Африка</div>
+                            </div>
+                            
+                            <div class="map-continent australia" data-zone="4">
+                                <div class="continent-label">Австралия</div>
+                            </div>
+                            
+                            <!-- Местоположение (Беларусь) -->
+                            <div class="belarus" data-zone="1"></div>
+                            
+                            <!-- Панель информации о зоне -->
+                            <div class="zone-info-panel" id="zoneInfoPanel">
+                                <div class="zone-info-header">
+                                    <div class="zone-info-icon" id="zoneIcon">
+                                        <i class="fas fa-home"></i>
+                                    </div>
+                                    <div class="zone-info-title" id="zoneTitle">Выберите зону</div>
+                                </div>
+                                
+                                <p class="zone-info-desc" id="zoneDescription">
+                                    Нажмите на континент или зону работы, чтобы увидеть детали
+                                </p>
+                                
+                                <div class="zone-info-stats" id="zoneStats">
+                                    <!-- Статистика будет заполняться JavaScript -->
+                                </div>
+                                
+                                <div class="zone-info-action">
+                                    <div class="zone-status" id="zoneStatus">
+                                        <div class="zone-status-dot"></div>
+                                        <span>Доступно</span>
+                                    </div>
+                                    <button class="zone-contact-btn" id="zoneContactBtn">
+                                        Связаться
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Элементы управления картой -->
+                            <div class="map-controls">
+                                <button class="map-control-btn" id="resetMapBtn">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                                <button class="map-control-btn" id="infoMapBtn">
+                                    <i class="fas fa-info"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Карточки зон работы -->
+                <div class="work-zones">
+                    <div class="work-zone-card" data-zone="1">
+                        <div class="work-zone-header">
+                            <div class="work-zone-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div class="work-zone-title">Зона 1: Беларусь и соседние страны</div>
+                        </div>
+                        <p class="work-zone-desc">Ближайшие страны: Россия, Украина, Польша, Литва, Латвия</p>
+                        <span class="work-zone-status status-available">Доступно</span>
+                    </div>
+                    
+                    <div class="work-zone-card" data-zone="2">
+                        <div class="work-zone-header">
+                            <div class="work-zone-icon">
+                                <i class="fas fa-globe-europe"></i>
+                            </div>
+                            <div class="work-zone-title">Зона 2: Европа</div>
+                        </div>
+                        <p class="work-zone-desc">Страны Европейского союза и Западной Европы</p>
+                        <span class="work-zone-status status-available">Доступно</span>
+                    </div>
+                    
+                    <div class="work-zone-card" data-zone="3">
+                        <div class="work-zone-header">
+                            <div class="work-zone-icon">
+                                <i class="fas fa-flag"></i>
+                            </div>
+                            <div class="work-zone-title">Зона 3: СНГ и Азия</div>
+                        </div>
+                        <p class="work-zone-desc">Страны СНГ, Ближний Восток, Юго-Восточная Азия</p>
+                        <span class="work-zone-status status-available">Доступно</span>
+                    </div>
+                    
+                    <div class="work-zone-card" data-zone="4">
+                        <div class="work-zone-header">
+                            <div class="work-zone-icon">
+                                <i class="fas fa-satellite"></i>
+                            </div>
+                            <div class="work-zone-title">Зона 4: Весь мир</div>
+                        </div>
+                        <p class="work-zone-desc">Удаленная работа по всему миру (Северная и Южная Америка, Австралия, Африка)</p>
+                        <span class="work-zone-status status-available">Доступно</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1709,7 +2479,7 @@
             </div>
             
             <p class="copyright">
-                © 2024 Валерия Баранова. Графический дизайнер. Все права защищены.
+                © 2025 Валерия Баранова. Графический дизайнер. Все права защищены.
             </p>
         </div>
     </footer>
@@ -1801,7 +2571,7 @@
             setTimeout(function() {
                 equalizePortfolioCardHeights();
                 equalizeTechnologyCardHeights();
-            }, 300); // Увеличил задержку для полной загрузки изображений
+            }, 300);
             
             // 7. Ресайз окна - перевыравнивание карточек
             var resizeTimer;
@@ -1844,6 +2614,12 @@
                 // Очистка формы
                 $('#contactForm')[0].reset();
             });
+            
+            // 10. ИНТЕРАКТИВНАЯ КАРТА - Инициализация
+            initStyledMap();
+            
+            // 11. Карточки зон работы
+            initWorkZones();
         });
         
         // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
@@ -2164,6 +2940,258 @@
                 
                 container.append(dot);
             }
+        }
+        
+        // ===== СТИЛИЗОВАННАЯ КАРТА =====
+        
+        // Данные о зонах работы для стилизованной карты
+        var styledZoneData = {
+            1: {
+                title: "Зона 1: Беларусь и соседние страны",
+                description: "Оптимальные условия для сотрудничества. Быстрая коммуникация, общий часовой пояс, возможность личных встреч.",
+                icon: "fas fa-home",
+                stats: [
+                    { label: "Страны", value: "Беларусь, Россия, Украина, Польша, Литва, Латвия" },
+                    { label: "Время ответа", value: "1-2 часа" },
+                    { label: "Формат работы", value: "Удаленно + возможны встречи" },
+                    { label: "Коммуникация", value: "Telegram, Zoom, WhatsApp" }
+                ],
+                status: "Доступно",
+                statusClass: "status-available"
+            },
+            2: {
+                title: "Зона 2: Европа",
+                description: "Комфортное сотрудничество с европейскими клиентами. Учет культурных особенностей и европейских стандартов дизайна.",
+                icon: "fas fa-globe-europe",
+                stats: [
+                    { label: "Страны", value: "ЕС, Великобритания, Швейцария, Норвегия" },
+                    { label: "Время ответа", value: "2-4 часа" },
+                    { label: "Формат работы", value: "Удаленно (возможны выезды)" },
+                    { label: "Коммуникация", value: "Email, Zoom, Slack" }
+                ],
+                status: "Доступно",
+                statusClass: "status-available"
+            },
+            3: {
+                title: "Зона 3: СНГ и Азия",
+                description: "Работа со странами Содружества и азиатского региона. Понимание локальных особенностей рынков.",
+                icon: "fas fa-flag",
+                stats: [
+                    { label: "Страны", value: "СНГ, Турция, ОАЭ, Китай, Индия" },
+                    { label: "Время ответа", value: "2-6 часов" },
+                    { label: "Формат работы", value: "Удаленно" },
+                    { label: "Коммуникация", value: "Email, WhatsApp, WeChat" }
+                ],
+                status: "Доступно",
+                statusClass: "status-available"
+            },
+            4: {
+                title: "Зона 4: Весь мир",
+                description: "Удаленная работа с клиентами из любых стран мира. Гибкий график для разных часовых поясов.",
+                icon: "fas fa-satellite",
+                stats: [
+                    { label: "Страны", value: "США, Канада, Австралия, Южная Америка, Африка" },
+                    { label: "Время ответа", value: "4-12 часов" },
+                    { label: "Формат работы", value: "Только удаленно" },
+                    { label: "Коммуникация", value: "Email, Zoom (по предварительной записи)" }
+                ],
+                status: "Доступно",
+                statusClass: "status-available"
+            }
+        };
+        
+        // Инициализация стилизованной карты
+        function initStyledMap() {
+            var currentActiveZone = 1;
+            var isPanelVisible = true;
+            
+            // Изначально показываем информацию о первой зоне
+            updateZonePanel(1);
+            
+            // Обработка кликов по континентам
+            $('.map-continent').on('click', function() {
+                var zoneId = $(this).data('zone');
+                selectZone(zoneId);
+            });
+            
+            // Обработка кликов по зонам работы (круги)
+            $('.work-zone').on('click', function() {
+                var zoneClass = $(this).attr('class').split(' ')[1]; // zone-1, zone-2 и т.д.
+                var zoneId = zoneClass.split('-')[1];
+                selectZone(zoneId);
+            });
+            
+            // Обработка клика по Беларуси
+            $('.belarus').on('click', function() {
+                selectZone(1);
+            });
+            
+            // Кнопка сброса
+            $('#resetMapBtn').on('click', function() {
+                selectZone(1);
+                if (!isPanelVisible) {
+                    $('#zoneInfoPanel').addClass('active');
+                    isPanelVisible = true;
+                }
+            });
+            
+            // Кнопка информации
+            $('#infoMapBtn').on('click', function() {
+                $('#zoneInfoPanel').toggleClass('active');
+                isPanelVisible = !isPanelVisible;
+            });
+            
+            // Кнопка связи в панели
+            $('#zoneContactBtn').on('click', function() {
+                // Прокручиваем к форме обратной связи
+                $('html, body').animate({
+                    scrollTop: $('#feedback').offset().top - 80
+                }, 800);
+            });
+            
+            // Функция выбора зоны
+            function selectZone(zoneId) {
+                currentActiveZone = zoneId;
+                
+                // Снимаем активный класс со всех континентов
+                $('.map-continent').removeClass('active');
+                $('.work-zone-card').removeClass('active');
+                
+                // Добавляем активный класс соответствующим элементам
+                $('.map-continent[data-zone="' + zoneId + '"]').addClass('active');
+                $('.work-zone-card[data-zone="' + zoneId + '"]').addClass('active');
+                
+                // Обновляем панель информации
+                updateZonePanel(zoneId);
+                
+                // Показываем панель, если она скрыта
+                if (!isPanelVisible) {
+                    $('#zoneInfoPanel').addClass('active');
+                    isPanelVisible = true;
+                }
+            }
+            
+            // Функция обновления панели информации
+            function updateZonePanel(zoneId) {
+                var zone = styledZoneData[zoneId];
+                if (!zone) return;
+                
+                // Обновляем иконку
+                $('#zoneIcon').html('<i class="' + zone.icon + '"></i>');
+                
+                // Обновляем заголовок
+                $('#zoneTitle').text(zone.title);
+                
+                // Обновляем описание
+                $('#zoneDescription').text(zone.description);
+                
+                // Обновляем статистику
+                $('#zoneStats').empty();
+                
+                zone.stats.forEach(function(stat) {
+                    var statHtml = `
+                        <div class="zone-stat">
+                            <span class="zone-stat-label">${stat.label}</span>
+                            <div class="zone-stat-value">${stat.value}</div>
+                        </div>
+                    `;
+                    $('#zoneStats').append(statHtml);
+                });
+                
+                // Обновляем статус
+                $('#zoneStatus span').text(zone.status);
+                $('#zoneStatus').removeClass().addClass('zone-status ' + zone.statusClass);
+                
+                // Обновляем точку статуса
+                $('#zoneStatus .zone-status-dot').css('background', 
+                    zone.statusClass === 'status-available' ? '#4CAF50' : 
+                    zone.statusClass === 'status-limited' ? '#FFC107' : '#F44336'
+                );
+            }
+            
+            // Добавляем hover эффекты для континентов
+            $('.map-continent').on('mouseenter', function() {
+                var zoneId = $(this).data('zone');
+                $(this).css({
+                    'background': 'rgba(255, 255, 255, 0.05)',
+                    'border-color': 'rgba(255, 135, 78, 0.3)'
+                });
+            }).on('mouseleave', function() {
+                var zoneId = $(this).data('zone');
+                if (!$(this).hasClass('active')) {
+                    $(this).css({
+                        'background': 'rgba(255, 255, 255, 0.02)',
+                        'border-color': 'rgba(255, 255, 255, 0.05)'
+                    });
+                }
+            });
+            
+            // Автоматическое переключение зон каждые 8 секунд
+            var autoSwitchInterval = setInterval(function() {
+                currentActiveZone = currentActiveZone < 4 ? currentActiveZone + 1 : 1;
+                selectZone(currentActiveZone);
+            }, 8000);
+            
+            // Останавливаем авто-переключение при взаимодействии
+            $('.map-continent, .work-zone, .belarus, .map-control-btn').on('click', function() {
+                clearInterval(autoSwitchInterval);
+            });
+        }
+        
+        // Инициализация карточек зон работы
+        function initWorkZones() {
+            // Добавляем hover эффекты для карточек
+            $('.work-zone-card').on('mouseenter', function() {
+                var zoneId = $(this).data('zone');
+                $('.map-continent[data-zone="' + zoneId + '"]').css({
+                    'background': 'rgba(255, 255, 255, 0.05)',
+                    'border-color': 'rgba(255, 135, 78, 0.3)'
+                });
+            }).on('mouseleave', function() {
+                var zoneId = $(this).data('zone');
+                if (!$('.map-continent[data-zone="' + zoneId + '"]').hasClass('active')) {
+                    $('.map-continent[data-zone="' + zoneId + '"]').css({
+                        'background': 'rgba(255, 255, 255, 0.02)',
+                        'border-color': 'rgba(255, 255, 255, 0.05)'
+                    });
+                }
+            });
+            
+            // Обработка кликов по карточкам зон
+            $('.work-zone-card').on('click', function() {
+                var zoneId = $(this).data('zone');
+                
+                // Снимаем активный класс со всех карточек и континентов
+                $('.work-zone-card').removeClass('active');
+                $('.map-continent').removeClass('active');
+                
+                // Добавляем активный класс выбранной карточке и соответствующим континентам
+                $(this).addClass('active');
+                $('.map-continent[data-zone="' + zoneId + '"]').addClass('active');
+                
+                // Обновляем панель информации
+                var zone = styledZoneData[zoneId];
+                if (zone) {
+                    $('#zoneIcon').html('<i class="' + zone.icon + '"></i>');
+                    $('#zoneTitle').text(zone.title);
+                    $('#zoneDescription').text(zone.description);
+                    
+                    // Обновляем статистику
+                    $('#zoneStats').empty();
+                    zone.stats.forEach(function(stat) {
+                        var statHtml = `
+                            <div class="zone-stat">
+                                <span class="zone-stat-label">${stat.label}</span>
+                                <div class="zone-stat-value">${stat.value}</div>
+                            </div>
+                        `;
+                        $('#zoneStats').append(statHtml);
+                    });
+                }
+                
+                // Показываем панель, если она скрыта
+                $('#zoneInfoPanel').addClass('active');
+            });
         }
     </script>
 </body>
