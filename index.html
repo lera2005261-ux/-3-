@@ -472,7 +472,7 @@
             backdrop-filter: blur(10px);
             border-radius: 15px;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease; /* Только трансформация */
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
             cursor: pointer;
@@ -530,10 +530,9 @@
             font-weight: 500;
         }
         
+        /* ИСПРАВЛЕНО: Только зум без подъема */
         .portfolio-item:hover {
-            transform: translateY(-8px) scale(1.02);
-            border-color: rgba(255, 135, 78, 0.4);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            transform: scale(1.02); /* Только масштабирование */
         }
         
         .portfolio-item:hover .portfolio-image {
@@ -729,7 +728,7 @@
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 30px;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease; /* Только трансформация */
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
             display: flex;
@@ -738,10 +737,9 @@
             text-align: center;
         }
         
+        /* ИСПРАВЛЕНО: Только зум без подъема */
         .technology-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            border-color: rgba(255, 135, 78, 0.4);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            transform: scale(1.02); /* Только масштабирование */
         }
         
         .technology-icon {
@@ -756,37 +754,50 @@
             font-size: 2.2rem;
             color: #FF874E;
             border: 1px solid rgba(255, 135, 78, 0.2);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
         }
         
+        /* ИСПРАВЛЕНО: Только зум иконки */
         .technology-card:hover .technology-icon {
             transform: scale(1.1);
-            background: linear-gradient(135deg, rgba(255, 135, 78, 0.3), rgba(255, 107, 53, 0.2));
         }
         
-        /* Специальная иконка Adobe */
+        /* ИСПРАВЛЕНО: Иконка Adobe в оранжевых тонах */
         .adobe-icon {
             position: relative;
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: linear-gradient(135deg, rgba(255, 135, 78, 0.2), rgba(255, 107, 53, 0.1));
+            border-radius: 50%;
+            color: #FF874E;
             font-weight: bold;
-            font-size: 1.8rem;
-            color: #FF0000;
-            background: white;
-            border-radius: 8px;
-            font-family: Arial, sans-serif;
+            font-size: 2rem;
+            border: 1px solid rgba(255, 135, 78, 0.2);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .adobe-icon::before {
+            content: "A";
+            position: absolute;
+            font-size: 2.5rem;
+            font-weight: 900;
+            font-family: 'Arial', sans-serif;
         }
         
         .adobe-icon::after {
-            content: "Adobe";
+            content: "";
             position: absolute;
-            font-size: 0.7rem;
-            bottom: 5px;
-            color: #FF0000;
-            font-weight: bold;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-bottom: 15px solid #FF874E;
+            border-radius: 0 0 0 5px;
         }
         
         .technology-card h3 {
@@ -1620,8 +1631,7 @@
             <div class="technologies-grid">
                 <div class="technology-card">
                     <div class="technology-icon adobe-icon">
-                        <!-- Специальная иконка Adobe -->
-                        <span style="font-weight: bold; color: #FF0000; font-size: 2rem;">A</span>
+                        <!-- Обновленная иконка Adobe в оранжевых тонах -->
                     </div>
                     <h3>Adobe Creative Suite</h3>
                     <p>Профессиональное владение Adobe Photoshop, Illustrator, InDesign и After Effects для создания векторной и растровой графики, верстки и анимации. Глубокое понимание возможностей каждого инструмента для решения конкретных задач.</p>
@@ -1764,7 +1774,7 @@
         </div>
     </section>
 
-    <!-- СЕКЦИЯ 5: ФОРМА ОБРАТНОЙ СВЯЗИ -->
+    <!-- СЕКЦИЯ 5: ФОРМЫ ОБРАТНОЙ СВЯЗИ -->
     <section class="feedback-section section" id="feedback">
         <div class="feedback-overlay"></div>
         <div class="section-container">
@@ -2037,48 +2047,42 @@
                 }
             });
             
-            // 11. Анимация при наведении на карточки портфолио
+            // 11. Анимация при наведении на карточки портфолио (ТОЛЬКО ЗУМ)
             $('.portfolio-item').hover(
                 function() { // mouseenter
                     $(this).css({
-                        'transform': 'translateY(-8px) scale(1.02)',
-                        'border-color': 'rgba(255, 135, 78, 0.4)'
+                        'transform': 'scale(1.02)' // Только масштабирование
                     });
                     
                     $(this).find('.portfolio-image').css('transform', 'scale(1.08)');
                 },
                 function() { // mouseleave
                     $(this).css({
-                        'transform': 'translateY(0) scale(1)',
-                        'border-color': 'rgba(255, 255, 255, 0.1)'
+                        'transform': 'scale(1)' // Возвращаем масштаб
                     });
                     
                     $(this).find('.portfolio-image').css('transform', 'scale(1)');
                 }
             );
             
-            // 12. Анимация при наведении на карточки технологий
+            // 12. Анимация при наведении на карточки технологий (ТОЛЬКО ЗУМ)
             $('.technology-card').hover(
                 function() { // mouseenter
                     $(this).css({
-                        'transform': 'translateY(-8px) scale(1.02)',
-                        'border-color': 'rgba(255, 135, 78, 0.4)'
+                        'transform': 'scale(1.02)' // Только масштабирование
                     });
                     
                     $(this).find('.technology-icon').css({
-                        'transform': 'scale(1.1)',
-                        'background': 'linear-gradient(135deg, rgba(255, 135, 78, 0.3), rgba(255, 107, 53, 0.2))'
+                        'transform': 'scale(1.1)'
                     });
                 },
                 function() { // mouseleave
                     $(this).css({
-                        'transform': 'translateY(0) scale(1)',
-                        'border-color': 'rgba(255, 255, 255, 0.1)'
+                        'transform': 'scale(1)' // Возвращаем масштаб
                     });
                     
                     $(this).find('.technology-icon').css({
-                        'transform': 'scale(1)',
-                        'background': 'linear-gradient(135deg, rgba(255, 135, 78, 0.2), rgba(255, 107, 53, 0.1))'
+                        'transform': 'scale(1)'
                     });
                 }
             );
