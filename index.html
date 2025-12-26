@@ -812,6 +812,8 @@
             font-weight: 400;
             flex: 1;
             min-height: 100px;
+            display: flex;
+            align-items: flex-start;
         }
         
         /* Кнопка "Наверх" в стеклянном стиле */
@@ -1002,6 +1004,21 @@
             
             .section-header h2 {
                 font-size: 1.9rem;
+            }
+            
+            /* На мобильных устройствах сбрасываем выравнивание */
+            .portfolio-item {
+                min-height: auto !important;
+                height: auto !important;
+            }
+            
+            .technology-card {
+                min-height: auto !important;
+                height: auto !important;
+            }
+            
+            .technology-card p {
+                min-height: auto !important;
             }
         }
     </style>
@@ -1312,18 +1329,29 @@
                 }, 800);
             });
             
-            // 6. Выравнивание высоты карточек
+            // 6. Выравнивание высоты карточек ПРИ ЗАГРУЗКЕ
             setTimeout(function() {
-                equalizeHeights('.portfolio-item');
-                equalizeHeights('.technology-card');
-            }, 100);
+                equalizePortfolioCardHeights();
+                equalizeTechnologyCardHeights();
+            }, 300); // Увеличил задержку для полной загрузки изображений
             
             // 7. Ресайз окна - перевыравнивание карточек
+            var resizeTimer;
             $(window).on('resize', function() {
-                setTimeout(function() {
-                    equalizeHeights('.portfolio-item');
-                    equalizeHeights('.technology-card');
-                }, 100);
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(function() {
+                    equalizePortfolioCardHeights();
+                    equalizeTechnologyCardHeights();
+                }, 250);
+            });
+            
+            // 8. Закрытие меню при клике вне его
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('#navLinks, #burgerMenu').length) {
+                    $('#burgerMenu').removeClass('active');
+                    $('#navLinks').removeClass('active');
+                    $('body').css('overflow', 'auto');
+                }
             });
         });
         
@@ -1346,30 +1374,145 @@
             });
         }
         
-        // Функция выравнивания высоты элементов
-        function equalizeHeights(selector) {
-            var maxHeight = 0;
-            var elements = $(selector);
+        // Функция выравнивания высоты карточек портфолио
+        function equalizePortfolioCardHeights() {
+            // Получаем все карточки портфолио
+            var portfolioCards = $('.portfolio-item');
             
             // Сброс высоты для пересчета
-            elements.css('min-height', '');
-            elements.css('height', '');
+            portfolioCards.css('min-height', 'auto');
             
-            // Находим максимальную высоту
-            elements.each(function() {
-                var height = $(this).outerHeight();
-                if (height > maxHeight) {
-                    maxHeight = height;
+            // Если мобильная версия (одна колонка), не выравниваем
+            if ($(window).width() < 576) {
+                portfolioCards.css('height', 'auto');
+                return;
+            }
+            
+            // Разделяем карточки по строкам (по 3 в строке)
+            var rows = [];
+            var currentRow = [];
+            var previousTop = null;
+            
+            portfolioCards.each(function(index) {
+                var top = $(this).offset().top;
+                
+                if (previousTop !== null && Math.abs(top - previousTop) > 10) {
+                    rows.push(currentRow);
+                    currentRow = [];
                 }
+                
+                currentRow.push(this);
+                previousTop = top;
             });
             
-            // Устанавливаем одинаковую высоту для всех элементов
-            elements.css('min-height', maxHeight + 'px');
-            
-            // Для технологии карточек устанавливаем и высоту
-            if (selector === '.technology-card') {
-                elements.css('height', maxHeight + 'px');
+            if (currentRow.length > 0) {
+                rows.push(currentRow);
             }
+            
+            // Для каждой строки находим максимальную высоту
+            rows.forEach(function(row) {
+                var maxHeight = 0;
+                
+                // Находим максимальную высоту в строке
+                row.forEach(function(card) {
+                    var $card = $(card);
+                    $card.css('transform', 'none'); // Временное отключение трансформации
+                    var height = $card.outerHeight();
+                    if (height > maxHeight) {
+                        maxHeight = height;
+                    }
+                });
+                
+                // Устанавливаем максимальную высоту для всех карточек в строке
+                row.forEach(function(card) {
+                    $(card).css('min-height', maxHeight + 'px');
+                });
+            });
+            
+            // Для каждой карточки выравниваем высоту контента
+            portfolioCards.each(function() {
+                var content = $(this).find('.portfolio-content');
+                var tags = $(this).find('.portfolio-tags');
+                
+                // Устанавливаем высоту контента для правильного распределения
+                content.css('display', 'flex');
+                content.css('flex-direction', 'column');
+                
+                // Выталкиваем теги вниз
+                if (tags.length) {
+                    tags.css('margin-top', 'auto');
+                }
+            });
+        }
+        
+        // Функция выравнивания высоты карточек технологий
+        function equalizeTechnologyCardHeights() {
+            // Получаем все карточки технологий
+            var techCards = $('.technology-card');
+            
+            // Сброс высоты для пересчета
+            techCards.css('min-height', 'auto');
+            techCards.css('height', 'auto');
+            
+            // Если мобильная версия (одна колонка), не выравниваем
+            if ($(window).width() < 576) {
+                return;
+            }
+            
+            // Разделяем карточки по строкам (по 3 в строке)
+            var rows = [];
+            var currentRow = [];
+            var previousTop = null;
+            
+            techCards.each(function(index) {
+                var top = $(this).offset().top;
+                
+                if (previousTop !== null && Math.abs(top - previousTop) > 10) {
+                    rows.push(currentRow);
+                    currentRow = [];
+                }
+                
+                currentRow.push(this);
+                previousTop = top;
+            });
+            
+            if (currentRow.length > 0) {
+                rows.push(currentRow);
+            }
+            
+            // Для каждой строки находим максимальную высоту
+            rows.forEach(function(row) {
+                var maxHeight = 0;
+                
+                // Находим максимальную высоту в строке
+                row.forEach(function(card) {
+                    var $card = $(card);
+                    $card.css('transform', 'none'); // Временное отключение трансформации
+                    var height = $card.outerHeight();
+                    if (height > maxHeight) {
+                        maxHeight = height;
+                    }
+                });
+                
+                // Устанавливаем максимальную высоту для всех карточек в строке
+                row.forEach(function(card) {
+                    $(card).css('min-height', maxHeight + 'px');
+                });
+            });
+            
+            // Для каждой карточки выравниваем высоту контента
+            techCards.each(function() {
+                var paragraph = $(this).find('p');
+                
+                // Устанавливаем высоту контента для правильного распределения
+                $(this).css('display', 'flex');
+                $(this).css('flex-direction', 'column');
+                
+                // Растягиваем параграф
+                if (paragraph.length) {
+                    paragraph.css('flex-grow', '1');
+                }
+            });
         }
         
         // Функция создания плавающих точек для первой секции
