@@ -456,14 +456,17 @@
             }
         }
         
+        /* ИСПРАВЛЕННАЯ СЕТКА ПОРТФОЛИО */
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
             position: relative;
             z-index: 3;
+            align-items: stretch; /* Растягиваем элементы по высоте */
         }
         
+        /* ИСПРАВЛЕННЫЙ СТИЛЬ КАРТОЧЕК */
         .portfolio-item {
             background: rgba(30, 30, 30, 0.85);
             backdrop-filter: blur(10px);
@@ -473,27 +476,25 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* Важно для выравнивания */
         }
         
-        .portfolio-item:hover {
-            transform: translateY(-8px) scale(1.02);
-            border-color: rgba(255, 135, 78, 0.4);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-        }
-        
+        /* Фиксированная высота изображений */
         .portfolio-image {
             width: 100%;
-            height: 250px;
-            object-fit: cover;
+            height: 250px; /* Одинаковая высота для всех */
+            object-fit: cover; /* Обрезаем изображения чтобы вписывались */
             transition: transform 0.3s ease;
         }
         
-        .portfolio-item:hover .portfolio-image {
-            transform: scale(1.08);
-        }
-        
+        /* Контент карточки с flexbox для выравнивания */
         .portfolio-content {
             padding: 25px;
+            flex-grow: 1; /* Растягиваем контент */
+            display: flex;
+            flex-direction: column;
         }
         
         .portfolio-item h3 {
@@ -502,17 +503,21 @@
             color: #ffffff;
         }
         
+        /* Описание растягивается для заполнения пространства */
         .portfolio-item p {
             color: #b0b0b0;
             font-size: 0.95rem;
             margin-bottom: 15px;
             line-height: 1.6;
+            flex-grow: 1; /* Растягиваем описание */
         }
         
+        /* Теги прижимаются к низу */
         .portfolio-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
+            margin-top: auto; /* Прижимаем к низу */
         }
         
         .tag {
@@ -523,6 +528,16 @@
             color: #FF874E;
             border: 1px solid rgba(255, 135, 78, 0.3);
             font-weight: 500;
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(255, 135, 78, 0.4);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .portfolio-item:hover .portfolio-image {
+            transform: scale(1.08);
         }
         
         .instagram-link {
@@ -1308,6 +1323,11 @@
             
             .portfolio-grid {
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 25px;
+            }
+            
+            .portfolio-image {
+                height: 220px;
             }
             
             .technologies-grid {
@@ -1351,6 +1371,15 @@
             
             .portfolio-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .portfolio-image {
+                height: 200px;
+            }
+            
+            .portfolio-content {
+                padding: 20px;
             }
             
             .scroll-down {
@@ -2110,6 +2139,11 @@
             }).on('mouseup mouseleave', function() {
                 $(this).css('transform', '');
             });
+            
+            // 16. Выравнивание высоты карточек портфолио
+            setTimeout(function() {
+                equalizePortfolioHeights();
+            }, 100);
         });
         
         // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
@@ -2128,6 +2162,31 @@
                     $('.nav-link').removeClass('active');
                     $('.nav-link[href="#' + sectionId + '"]').addClass('active');
                 }
+            });
+        }
+        
+        // Функция выравнивания высоты карточек портфолио
+        function equalizePortfolioHeights() {
+            var maxHeight = 0;
+            var portfolioItems = $('.portfolio-item');
+            
+            // Сброс высоты для пересчета
+            portfolioItems.css('min-height', '');
+            
+            // Находим максимальную высоту
+            portfolioItems.each(function() {
+                var height = $(this).outerHeight();
+                if (height > maxHeight) {
+                    maxHeight = height;
+                }
+            });
+            
+            // Устанавливаем минимальную высоту для всех карточек
+            portfolioItems.css('min-height', maxHeight + 'px');
+            
+            // Пересчитываем при изменении размера окна
+            $(window).on('resize', function() {
+                setTimeout(equalizePortfolioHeights, 100);
             });
         }
         
