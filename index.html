@@ -21,57 +21,10 @@
         }
         
         body {
-            background: linear-gradient(135deg, 
-                #0a0a0a 0%, 
-                #111111 25%, 
-                #1a1a1a 50%, 
-                #111111 75%, 
-                #0a0a0a 100%);
+            background: #0a0a0a;
             color: #ffffff;
             line-height: 1.6;
             overflow-x: hidden;
-            min-height: 100vh;
-            position: relative;
-        }
-        
-        /* Стеклянный фон с градиентами */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(255, 135, 78, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 107, 53, 0.06) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(255, 167, 38, 0.04) 0%, transparent 50%);
-            z-index: -2;
-            pointer-events: none;
-        }
-        
-        /* Эффект градиентного сияния */
-        .glow-effect {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 80vw;
-            height: 80vh;
-            background: radial-gradient(circle, 
-                rgba(255, 135, 78, 0.15) 0%,
-                rgba(255, 107, 53, 0.1) 25%,
-                rgba(255, 135, 78, 0.05) 50%,
-                transparent 70%);
-            filter: blur(60px);
-            transform: translate(-50%, -50%);
-            z-index: -1;
-            pointer-events: none;
-            animation: glowPulse 8s ease-in-out infinite;
-        }
-        
-        @keyframes glowPulse {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.6; }
         }
         
         /* Навигационное меню в стеклянном стиле */
@@ -168,7 +121,7 @@
             box-shadow: 0 4px 20px rgba(255, 135, 78, 0.15);
         }
         
-        /* Бургер-меню в стеклянном стиле */
+        /* Бургер-меню */
         .burger-menu {
             display: none;
             flex-direction: column;
@@ -222,26 +175,86 @@
             position: relative;
         }
         
-        /* Стеклянный фон для героя */
-        .hero-glass {
+        /* Фон с фотографией для первой секции */
+        .hero-bg {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 900px;
-            height: 70%;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(40px) saturate(200%);
-            -webkit-backdrop-filter: blur(40px) saturate(200%);
-            border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(
+                    45deg,
+                    rgba(26, 26, 26, 0.92) 0%,
+                    rgba(255, 135, 78, 0.25) 50%,
+                    rgba(26, 26, 26, 0.92) 100%
+                ),
+                url('я-10-23_21-44-13.jpg') center/cover no-repeat;
             z-index: 1;
+            opacity: 0.6;
+            filter: brightness(0.7) contrast(1.2) blur(4px);
+            animation: gradientShift 8s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background: 
+                    linear-gradient(
+                        45deg,
+                        rgba(26, 26, 26, 0.92) 0%,
+                        rgba(255, 135, 78, 0.25) 50%,
+                        rgba(26, 26, 26, 0.92) 100%
+                    ),
+                    url('я-10-23_21-44-13.jpg') center/cover no-repeat;
+            }
+            50% {
+                background: 
+                    linear-gradient(
+                        135deg,
+                        rgba(26, 26, 26, 0.92) 0%,
+                        rgba(255, 107, 53, 0.3) 50%,
+                        rgba(26, 26, 26, 0.92) 100%
+                    ),
+                    url('я-10-23_21-44-13.jpg') center/cover no-repeat;
+            }
         }
         
+        /* Анимированные точки для первой секции */
+        .hero-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            overflow: hidden;
+        }
+        
+        .dot {
+            position: absolute;
+            background: rgba(255, 135, 78, 0.6);
+            border-radius: 50%;
+            animation: floatDot 15s linear infinite;
+        }
+        
+        @keyframes floatDot {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) scale(1.2);
+                opacity: 0;
+            }
+        }
+        
+        /* Стеклянный контент для героя */
         .hero-content {
             max-width: 800px;
             text-align: center;
@@ -447,12 +460,52 @@
             font-weight: 400;
         }
         
-        /* Секция 2: Портфолио в стеклянном стиле */
+        /* Секция 2: Портфолио */
         .portfolio-section {
+            background: linear-gradient(135deg, 
+                #0d0d0d 0%, 
+                #1a1a1a 25%, 
+                #2a1e1a 50%, 
+                #1a1a1a 75%, 
+                #0d0d0d 100%);
             position: relative;
         }
         
-        /* Стеклянная сетка портфолио */
+        .portfolio-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            overflow: hidden;
+        }
+        
+        .portfolio-dot {
+            position: absolute;
+            background: rgba(255, 135, 78, 0.4);
+            border-radius: 50%;
+            animation: floatDotReverse 18s linear infinite;
+        }
+        
+        @keyframes floatDotReverse {
+            0% {
+                transform: translateY(-100px) translateX(100px) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(100vh) translateX(0) scale(1.2);
+                opacity: 0;
+            }
+        }
+        
+        /* СТЕКЛЯННЫЕ КАРТОЧКИ ПОРТФОЛИО */
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -462,7 +515,6 @@
             align-items: stretch;
         }
         
-        /* Стеклянные карточки портфолио */
         .portfolio-item {
             background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(30px) saturate(180%);
@@ -492,7 +544,7 @@
         /* Контент карточки */
         .portfolio-content {
             padding: 28px;
-            flex-grow: 1;
+            flex: 1;
             display: flex;
             flex-direction: column;
             background: linear-gradient(to bottom, 
@@ -514,8 +566,9 @@
             font-size: 1rem;
             margin-bottom: 20px;
             line-height: 1.6;
-            flex-grow: 1;
+            flex: 1;
             font-weight: 400;
+            min-height: 70px;
         }
         
         /* Теги в стеклянном стиле */
@@ -598,132 +651,77 @@
             margin-right: 12px;
         }
         
-        /* Модальное окно в стеклянном стиле */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
+        /* Секция 3: Технологии */
+        .technologies-section {
+            background: #0d0d0d;
+            position: relative;
+        }
+        
+        /* Фон с фотографией для третьей секции */
+        .technologies-bg {
+            position: absolute;
             top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: 
+                linear-gradient(
+                    45deg,
+                    rgba(13, 13, 13, 0.92) 0%,
+                    rgba(255, 135, 78, 0.2) 50%,
+                    rgba(13, 13, 13, 0.92) 100%
+                ),
+                url('я-10-23_21-44-13.jpg') center/cover no-repeat;
+            z-index: 1;
+            opacity: 0.5;
+            filter: brightness(0.6) contrast(1.2) blur(6px);
+            animation: gradientShift 8s ease-in-out infinite;
         }
-
-        .modal-content {
-            position: relative;
-            margin: auto;
-            display: block;
-            width: 90%;
-            max-width: 900px;
-            max-height: 85vh;
-            top: 50%;
-            transform: translateY(-50%);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 
-                0 30px 60px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            background: rgba(20, 20, 20, 0.9);
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
-        }
-
-        .close {
+        
+        .technologies-dots {
             position: absolute;
-            top: 25px;
-            right: 35px;
-            color: #fff;
-            font-size: 36px;
-            font-weight: 300;
-            cursor: pointer;
-            transition: 0.3s;
-            z-index: 1001;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .close:hover {
-            background: rgba(255, 135, 78, 0.3);
-            transform: scale(1.1);
-            border-color: rgba(255, 135, 78, 0.4);
-        }
-
-        .modal-nav {
-            position: absolute;
-            top: 50%;
+            top: 0;
+            left: 0;
             width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 25px;
-            transform: translateY(-50%);
-            z-index: 1001;
+            height: 100%;
+            z-index: 2;
+            overflow: hidden;
         }
-
-        .nav-btn {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            font-size: 22px;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .nav-btn:hover {
-            background: rgba(255, 135, 78, 0.3);
-            transform: scale(1.1);
-            border-color: rgba(255, 135, 78, 0.4);
-        }
-
-        .image-counter {
+        
+        .technologies-dot {
             position: absolute;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 500;
-            z-index: 1001;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 135, 78, 0.3);
+            border-radius: 50%;
+            animation: floatDotDiagonal 20s linear infinite;
         }
         
-        /* Секция 3: Технологии в стеклянном стиле */
-        .technologies-section {
-            position: relative;
+        @keyframes floatDotDiagonal {
+            0% {
+                transform: translateY(100vh) translateX(-100px) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100vw) scale(1.2);
+                opacity: 0;
+            }
         }
         
+        /* СТЕКЛЯННЫЕ КАРТОЧКИ ТЕХНОЛОГИЙ */
         .technologies-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 35px;
             position: relative;
             z-index: 3;
+            align-items: stretch;
         }
         
-        /* Стеклянные карточки технологий */
         .technology-card {
             background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(30px) saturate(180%);
@@ -739,6 +737,7 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            height: 100%;
         }
         
         .technology-card:hover {
@@ -769,6 +768,7 @@
             box-shadow: 
                 0 10px 25px rgba(0, 0, 0, 0.2),
                 inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            flex-shrink: 0;
         }
         
         .technology-card:hover .technology-icon {
@@ -802,6 +802,7 @@
             color: #ffffff;
             font-weight: 600;
             line-height: 1.3;
+            flex-shrink: 0;
         }
         
         .technology-card p {
@@ -809,488 +810,11 @@
             font-size: 1.05rem;
             line-height: 1.7;
             font-weight: 400;
+            flex: 1;
+            min-height: 100px;
         }
         
-        /* Дополнительный текст в стеклянном стиле */
-        .technologies-description {
-            max-width: 800px;
-            margin: 0 auto 60px;
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            padding: 40px;
-            border-radius: 28px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.25),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            text-align: center;
-            position: relative;
-            z-index: 3;
-        }
-        
-        .technologies-description h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #FF874E, #FF6B35);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 600;
-        }
-        
-        .technologies-description p {
-            color: rgba(255, 255, 255, 0.75);
-            font-size: 1.1rem;
-            line-height: 1.7;
-            font-weight: 400;
-        }
-        
-        /* СЕКЦИЯ 4: МЕСТОПОЛОЖЕНИЕ И КОНТАКТЫ */
-        .location-section {
-            position: relative;
-        }
-        
-        /* Контейнер для карты и информации */
-        .location-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 3;
-        }
-        
-        /* Стеклянная карта */
-        .map-container {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            border-radius: 28px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.25),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            height: 520px;
-        }
-        
-        .map-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.03), 
-                rgba(255, 255, 255, 0.01));
-            padding: 50px;
-            text-align: center;
-        }
-        
-        .map-placeholder i {
-            font-size: 4.5rem;
-            background: linear-gradient(135deg, #FF874E, #FF6B35);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 30px;
-        }
-        
-        .map-placeholder h3 {
-            font-size: 2rem;
-            color: #ffffff;
-            margin-bottom: 20px;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-        
-        .map-placeholder p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1.15rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            font-weight: 400;
-            max-width: 400px;
-        }
-        
-        /* Стеклянная кнопка карты */
-        .map-btn {
-            display: inline-block;
-            padding: 16px 35px;
-            background: rgba(255, 135, 78, 0.15);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            color: #ffffff;
-            text-decoration: none;
-            border-radius: 16px;
-            font-weight: 600;
-            font-size: 1.05rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255, 135, 78, 0.2);
-            box-shadow: 
-                0 12px 30px rgba(255, 135, 78, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-        }
-        
-        .map-btn:hover {
-            transform: translateY(-3px);
-            background: rgba(255, 135, 78, 0.25);
-            border-color: rgba(255, 135, 78, 0.4);
-            box-shadow: 
-                0 20px 40px rgba(255, 135, 78, 0.3),
-                0 0 0 1px rgba(255, 135, 78, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15);
-        }
-        
-        .map-btn i {
-            margin-right: 10px;
-        }
-        
-        /* Стеклянная контактная информация */
-        .location-info {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            border-radius: 28px;
-            padding: 45px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.25),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
-        }
-        
-        .location-info h3 {
-            font-size: 2rem;
-            margin-bottom: 40px;
-            background: linear-gradient(135deg, #FF874E, #FF6B35);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-align: center;
-            font-weight: 600;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 25px;
-            margin-bottom: 35px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        
-        .contact-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-        
-        /* Стеклянные иконки контактов */
-        .contact-icon {
-            width: 65px;
-            height: 65px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 18px;
-            font-size: 1.7rem;
-            color: #FF874E;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            flex-shrink: 0;
-            transition: all 0.3s ease;
-            box-shadow: 
-                0 8px 25px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
-        }
-        
-        .contact-item:hover .contact-icon {
-            background: rgba(255, 135, 78, 0.15);
-            border-color: rgba(255, 135, 78, 0.3);
-            transform: scale(1.05);
-        }
-        
-        .contact-content h4 {
-            font-size: 1.4rem;
-            color: #ffffff;
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-        
-        .contact-content p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 8px;
-            font-weight: 400;
-        }
-        
-        .contact-link {
-            color: #FF874E;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            display: inline-block;
-            font-size: 1.05rem;
-        }
-        
-        .contact-link:hover {
-            color: #FF6B35;
-            transform: translateX(5px);
-        }
-        
-        /* Рабочие часы */
-        .hours-list {
-            list-style: none;
-            margin-top: 15px;
-        }
-        
-        .hours-list li {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            color: rgba(255, 255, 255, 0.7);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 1rem;
-        }
-        
-        .hours-list li:last-child {
-            border-bottom: none;
-        }
-        
-        .hours-list .day {
-            font-weight: 500;
-        }
-        
-        .hours-list .time {
-            color: #FF874E;
-            font-weight: 500;
-        }
-        
-        /* Социальные сети */
-        .location-social {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 50px;
-        }
-        
-        .location-social .social-link {
-            width: 52px;
-            height: 52px;
-            font-size: 1.2rem;
-        }
-        
-        /* СЕКЦИЯ 5: ФОРМА ОБРАТНОЙ СВЯЗИ */
-        .feedback-section {
-            position: relative;
-        }
-        
-        /* Стеклянная форма */
-        .form-container {
-            max-width: 750px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(40px) saturate(200%);
-            -webkit-backdrop-filter: blur(40px) saturate(200%);
-            padding: 60px;
-            border-radius: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            position: relative;
-            z-index: 3;
-        }
-        
-        /* Стили формы */
-        .feedback-form {
-            width: 100%;
-        }
-        
-        .form-group {
-            margin-bottom: 30px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 12px;
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 500;
-            font-size: 1.1rem;
-        }
-        
-        /* Стеклянные поля ввода */
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 18px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 16px;
-            color: #ffffff;
-            font-size: 1.05rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 
-                inset 0 1px 3px rgba(0, 0, 0, 0.1),
-                0 1px 0 rgba(255, 255, 255, 0.05);
-        }
-        
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-        
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 135, 78, 0.5);
-            box-shadow: 
-                0 0 0 3px rgba(255, 135, 78, 0.15),
-                inset 0 1px 3px rgba(0, 0, 0, 0.2),
-                0 1px 0 rgba(255, 255, 255, 0.05);
-        }
-        
-        .checkbox-group {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-        }
-        
-        .checkbox-group input[type="checkbox"] {
-            width: 22px;
-            height: 22px;
-            margin-top: 4px;
-            flex-shrink: 0;
-            accent-color: #FF874E;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 6px;
-        }
-        
-        .checkbox-group label {
-            margin-bottom: 0;
-            line-height: 1.6;
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.8);
-            font-weight: 400;
-        }
-        
-        /* Стеклянная кнопка отправки */
-        .submit-btn {
-            width: 100%;
-            padding: 20px;
-            background: linear-gradient(135deg, 
-                rgba(255, 135, 78, 0.15), 
-                rgba(255, 107, 53, 0.1));
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            color: #ffffff;
-            border: 1px solid rgba(255, 135, 78, 0.2);
-            border-radius: 16px;
-            font-size: 1.15rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 20px;
-            box-shadow: 
-                0 15px 35px rgba(255, 135, 78, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        }
-        
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            background: linear-gradient(135deg, 
-                rgba(255, 135, 78, 0.25), 
-                rgba(255, 107, 53, 0.2));
-            border-color: rgba(255, 135, 78, 0.4);
-            box-shadow: 
-                0 25px 50px rgba(255, 135, 78, 0.3),
-                0 0 0 1px rgba(255, 135, 78, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15);
-        }
-        
-        .submit-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-        
-        /* Уведомление в стеклянном стиле */
-        #successMessage {
-            display: none;
-            background: rgba(46, 125, 50, 0.15);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            border: 1px solid rgba(76, 175, 80, 0.2);
-            border-radius: 24px;
-            padding: 40px;
-            text-align: center;
-            margin-bottom: 50px;
-            animation: fadeIn 0.5s ease;
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.25),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
-        }
-        
-        #successMessage i {
-            font-size: 4rem;
-            background: linear-gradient(135deg, #4CAF50, #2E7D32);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 25px;
-        }
-        
-        #successMessage h3 {
-            color: #ffffff;
-            margin-bottom: 15px;
-            font-size: 2rem;
-            font-weight: 600;
-        }
-        
-        #successMessage p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.15rem;
-            line-height: 1.6;
-        }
-        
-        @keyframes fadeIn {
-            from { 
-                opacity: 0; 
-                transform: translateY(-25px) scale(0.95); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0) scale(1); 
-            }
-        }
-        
-        .fa-spinner {
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Стеклянная кнопка "Наверх" */
+        /* Кнопка "Наверх" в стеклянном стиле */
         .back-to-top {
             position: fixed;
             bottom: 35px;
@@ -1326,16 +850,6 @@
         }
         
         /* Адаптивность */
-        @media (max-width: 1200px) {
-            .hero-glass {
-                width: 95%;
-            }
-            
-            .location-container {
-                gap: 40px;
-            }
-        }
-        
         @media (max-width: 992px) {
             .nav-links {
                 position: fixed;
@@ -1369,15 +883,6 @@
             
             .burger-menu {
                 display: flex;
-            }
-            
-            .location-container {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-            
-            .map-container {
-                height: 450px;
             }
             
             .hero-content {
@@ -1442,22 +947,8 @@
                 padding: 35px 25px;
             }
             
-            .form-container {
-                padding: 40px 30px;
-            }
-            
-            .location-info {
-                padding: 35px 25px;
-            }
-            
-            .contact-item {
-                gap: 20px;
-            }
-            
-            .contact-icon {
-                width: 55px;
-                height: 55px;
-                font-size: 1.5rem;
+            .technology-card p {
+                min-height: 80px;
             }
         }
         
@@ -1509,40 +1000,13 @@
                 font-size: 1.2rem;
             }
             
-            .form-container {
-                padding: 35px 25px;
-            }
-            
             .section-header h2 {
                 font-size: 1.9rem;
-            }
-            
-            .map-container {
-                height: 400px;
-            }
-            
-            .map-placeholder {
-                padding: 35px 25px;
-            }
-            
-            .map-placeholder i {
-                font-size: 3.5rem;
-            }
-            
-            .map-placeholder h3 {
-                font-size: 1.7rem;
-            }
-            
-            .map-placeholder p {
-                font-size: 1.05rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Эффект градиентного сияния -->
-    <div class="glow-effect"></div>
-    
     <!-- Навигационное меню -->
     <nav class="navbar" id="navbar">
         <a href="#home" class="logo">
@@ -1566,7 +1030,8 @@
 
     <!-- Секция 1: Герой -->
     <section class="hero-section section" id="home">
-        <div class="hero-glass"></div>
+        <div class="hero-bg"></div>
+        <div class="hero-dots" id="hero-dots"></div>
         
         <div class="hero-content">
             <h1>Привет! Я Валерия Баранова — <span class="highlight">графический дизайнер</span></h1>
@@ -1608,6 +1073,7 @@
 
     <!-- Секция 2: Портфолио -->
     <section class="portfolio-section section" id="portfolio">
+        <div class="portfolio-dots" id="portfolio-dots"></div>
         <div class="section-container">
             <div class="section-header">
                 <h2>Мои работы</h2>
@@ -1705,15 +1171,12 @@
 
     <!-- Секция 3: Технологии -->
     <section class="technologies-section section" id="technologies">
+        <div class="technologies-bg"></div>
+        <div class="technologies-dots" id="technologies-dots"></div>
         <div class="section-container">
             <div class="section-header">
                 <h2>Технологии, которыми я владею</h2>
                 <p>Современные инструменты и технологии, которые позволяют мне создавать качественный дизайн на профессиональном уровне.</p>
-            </div>
-            
-            <div class="technologies-description">
-                <h3>Мой технический арсенал</h3>
-                <p>За годы работы я освоила широкий спектр профессиональных инструментов, что позволяет мне выбирать оптимальные технологии для каждого проекта. Постоянно обучаюсь новому, слежу за трендами и обновлениями в индустрии дизайна.</p>
             </div>
             
             <div class="technologies-grid">
@@ -1768,231 +1231,21 @@
         </div>
     </section>
 
-    <!-- СЕКЦИЯ 4: МЕСТОПОЛОЖЕНИЕ И КОНТАКТЫ -->
-    <section class="location-section section" id="location">
-        <div class="section-container">
-            <div class="section-header">
-                <h2>Мое местоположение и контакты</h2>
-                <p>Свяжитесь со мной для обсуждения вашего проекта или сотрудничества. Работаю как удаленно, так и в офисе.</p>
-            </div>
-            
-            <div class="location-container">
-                <!-- Карта -->
-                <div class="map-container">
-                    <div class="map-placeholder" id="mapPlaceholder">
-                        <i class="fas fa-map-marked-alt"></i>
-                        <h3>Мое местоположение</h3>
-                        <p>Я работаю в Москве, но принимаю заказы со всей России и из-за рубежа. Для встреч доступен офис в центре города.</p>
-                        <button class="map-btn" id="openMapBtn">
-                            <i class="fas fa-external-link-alt"></i> Открыть в Google Картах
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Контактная информация -->
-                <div class="location-info">
-                    <h3>Контактная информация</h3>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-content">
-                            <h4>Адрес</h4>
-                            <p>Москва, Центральный округ</p>
-                            <p>ул. Тверская, 25</p>
-                            <p>Бизнес-центр "Тверской"</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="contact-content">
-                            <h4>Рабочие часы</h4>
-                            <p>Работаю по предварительной записи</p>
-                            <ul class="hours-list">
-                                <li><span class="day">Понедельник - Пятница:</span> <span class="time">10:00 - 19:00</span></li>
-                                <li><span class="day">Суббота:</span> <span class="time">11:00 - 16:00</span></li>
-                                <li><span class="day">Воскресенье:</span> <span class="time">Выходной</span></li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone-alt"></i>
-                        </div>
-                        <div class="contact-content">
-                            <h4>Телефон</h4>
-                            <p>+7 (999) 123-45-67</p>
-                            <a href="tel:+79991234567" class="contact-link">Позвонить</a>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="far fa-envelope"></i>
-                        </div>
-                        <div class="contact-content">
-                            <h4>Email</h4>
-                            <p>valeria@baranova-design.ru</p>
-                            <a href="mailto:valeria@baranova-design.ru" class="contact-link">Написать письмо</a>
-                        </div>
-                    </div>
-                    
-                    <div class="location-social">
-                        <a href="https://www.instagram.com/st__au/" class="social-link" target="_blank">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-telegram"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-behance"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- СЕКЦИЯ 5: ФОРМЫ ОБРАТНОЙ СВЯЗИ -->
-    <section class="feedback-section section" id="feedback">
-        <div class="section-container">
-            <div class="section-header">
-                <h2>Обратная связь</h2>
-                <p>Поделитесь своим мнением о моих работах, задайте вопрос или оставьте отзыв о сотрудничестве.</p>
-            </div>
-            
-            <!-- Уведомление об успешной отправке -->
-            <div id="successMessage">
-                <i class="fas fa-check-circle"></i>
-                <h3>Спасибо за ваш отзыв!</h3>
-                <p>Ваше сообщение успешно отправлено. Я обязательно рассмотрю его и свяжусь с вами при необходимости.</p>
-            </div>
-            
-            <!-- Форма обратной связи -->
-            <div class="form-container">
-                <form id="feedbackForm" class="feedback-form" action="https://getform.io/f/broxojla" method="POST">
-                    <!-- Скрытые поля -->
-                    <input type="hidden" name="form-name" value="portfolio-feedback">
-                    <input type="hidden" name="source" value="portfolio-website">
-                    
-                    <div class="form-group">
-                        <label for="name">Ваше имя *</label>
-                        <input type="text" id="name" name="name" required placeholder="Как к вам обращаться?">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Электронная почта *</label>
-                        <input type="email" id="email" name="email" required placeholder="example@mail.com">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="type">Тип обращения</label>
-                        <select id="type" name="type">
-                            <option value="" selected>Выберите тип...</option>
-                            <option value="feedback">Отзыв о работах</option>
-                            <option value="collaboration">Предложение о сотрудничестве</option>
-                            <option value="question">Вопрос по проекту</option>
-                            <option value="other">Другое</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message">Ваше сообщение *</label>
-                        <textarea id="message" name="message" rows="6" required placeholder="Расскажите, что вам понравилось в моих работах, задайте вопрос или предложите сотрудничество..."></textarea>
-                    </div>
-                    
-                    <div class="form-group checkbox-group">
-                        <input type="checkbox" id="consent" name="consent" required>
-                        <label for="consent">Я соглашаюсь на обработку моих персональных данных для ответа на мой запрос. *</label>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn" id="submitBtn">
-                        <i class="fas fa-paper-plane"></i> Отправить отзыв
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
     <!-- Кнопка "Наверх" -->
     <button class="back-to-top" id="backToTop">
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- Модальное окно для просмотра фотографий -->
-    <div id="imageModal" class="modal">
-        <span class="close">&times;</span>
-        <div class="modal-nav">
-            <button class="nav-btn prev-btn">&#10094;</button>
-            <button class="nav-btn next-btn">&#10095;</button>
-        </div>
-        <img class="modal-content" id="modalImage">
-        <div class="image-counter" id="imageCounter"></div>
-    </div>
-
     <script>
         // ===== ОСНОВНОЙ КОД НА JQUERY =====
         
-        // Массив с изображениями для галереи
-        const portfolioImages = [
-            'мелодио1.png',
-            'афиша шаг в сс.png',
-            'Frame 1.png',
-            'близнецы.png',
-            'буклет.png',
-            'A5 - 2.png'
-        ];
-
-        let currentImageIndex = 0;
-
-        // Функция открытия модального окна
-        function openModal(index) {
-            currentImageIndex = index;
-            
-            $('#modalImage').attr('src', portfolioImages[currentImageIndex]);
-            $('#imageCounter').text(`${currentImageIndex + 1} / ${portfolioImages.length}`);
-            $('#imageModal').fadeIn(300);
-            
-            // Блокировка прокрутки body при открытом модальном окне
-            $('body').css('overflow', 'hidden');
-        }
-
-        // Функция закрытия модального окна
-        function closeModal() {
-            $('#imageModal').fadeOut(300);
-            $('body').css('overflow', 'auto');
-        }
-
-        // Функция переключения изображений
-        function changeImage(direction) {
-            currentImageIndex += direction;
-            
-            // Зацикливание изображений
-            if (currentImageIndex >= portfolioImages.length) {
-                currentImageIndex = 0;
-            } else if (currentImageIndex < 0) {
-                currentImageIndex = portfolioImages.length - 1;
-            }
-            
-            // Плавное переключение
-            $('#modalImage').fadeOut(200, function() {
-                $(this).attr('src', portfolioImages[currentImageIndex]).fadeIn(200);
-            });
-            
-            $('#imageCounter').text(`${currentImageIndex + 1} / ${portfolioImages.length}`);
-        }
-
-        // ===== ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ =====
         $(document).ready(function() {
-            // 1. Настройка бургер-меню
+            // 1. Создание плавающих точек для всех секций
+            createHeroDots();
+            createPortfolioDots();
+            createTechnologiesDots();
+            
+            // 2. Настройка бургер-меню
             $('#burgerMenu').on('click', function(e) {
                 e.stopPropagation();
                 $(this).toggleClass('active');
@@ -2006,7 +1259,7 @@
                 }
             });
             
-            // 2. Плавная прокрутка по якорным ссылкам
+            // 3. Плавная прокрутка по якорным ссылкам
             $(document).on('click', 'a[href^="#"]', function(e) {
                 // Не применяем к ссылкам с пустым href
                 if ($(this).attr('href') === '#') return;
@@ -2028,11 +1281,11 @@
                     // Плавная прокрутка
                     $('html, body').animate({
                         scrollTop: $targetElement.offset().top - 80
-                    }, 800, 'easeInOutCubic');
+                    }, 800);
                 }
             });
             
-            // 3. Изменение стиля навбара при прокрутке
+            // 4. Изменение стиля навбара при прокрутке
             $(window).on('scroll', function() {
                 // Изменение навбара
                 if ($(this).scrollTop() > 50) {
@@ -2052,200 +1305,26 @@
                 updateActiveNavOnScroll();
             });
             
-            // 4. Кнопка "Наверх"
+            // 5. Кнопка "Наверх"
             $('#backToTop').on('click', function() {
                 $('html, body').animate({
                     scrollTop: 0
-                }, 800, 'easeInOutCubic');
+                }, 800);
             });
             
-            // 5. Обработчики для модального окна с изображениями
-            $('.portfolio-item').on('click', function() {
-                var imageIndex = $(this).data('image-index');
-                openModal(imageIndex);
-            });
-            
-            $('.close').on('click', closeModal);
-            
-            $('.prev-btn').on('click', function() {
-                changeImage(-1);
-            });
-            
-            $('.next-btn').on('click', function() {
-                changeImage(1);
-            });
-            
-            // 6. Закрытие модального окна при клике вне изображения
-            $(window).on('click', function(event) {
-                if ($(event.target).is('#imageModal')) {
-                    closeModal();
-                }
-                
-                // Закрытие меню при клике вне его
-                if (!$('#burgerMenu').is(event.target) && 
-                    !$('#navLinks').is(event.target) && 
-                    $('#navLinks').has(event.target).length === 0 &&
-                    $('#navLinks').hasClass('active')) {
-                    $('#burgerMenu').removeClass('active');
-                    $('#navLinks').removeClass('active');
-                    $('body').css('overflow', 'auto');
-                }
-            });
-            
-            // 7. Управление клавиатурой для модального окна
-            $(document).on('keydown', function(event) {
-                if ($('#imageModal').is(':visible')) {
-                    if (event.key === 'Escape') {
-                        closeModal();
-                    } else if (event.key === 'ArrowLeft') {
-                        changeImage(-1);
-                    } else if (event.key === 'ArrowRight') {
-                        changeImage(1);
-                    }
-                }
-            });
-            
-            // 8. Обработчики для социальных ссылок
-            $('.social-link').on('click', function(e) {
-                var href = $(this).attr('href');
-                
-                if (!href || href === '#') {
-                    e.preventDefault();
-                    var iconClass = $(this).find('i').attr('class');
-                    var platform = '';
-                    
-                    if (iconClass.includes('instagram')) platform = 'Instagram';
-                    else if (iconClass.includes('telegram')) platform = 'Telegram';
-                    else if (iconClass.includes('envelope')) platform = 'Email';
-                    else if (iconClass.includes('behance')) platform = 'Behance';
-                    else if (iconClass.includes('whatsapp')) platform = 'WhatsApp';
-                    
-                    // Стеклянное уведомление вместо alert
-                    showGlassNotification(`Открывается ${platform} профиль`);
-                }
-            });
-            
-            // 9. Обработчик для кнопки Instagram
-            $('#instagramBtn').on('click', function(e) {
-                if (!$(this).attr('href') || $(this).attr('href') === '#') {
-                    e.preventDefault();
-                    showGlassNotification('Переход на Instagram профиль! В реальном проекте здесь будет ссылка на ваш аккаунт.');
-                }
-            });
-            
-            // 10. Анимация при наведении на карточки портфолио
-            $('.portfolio-item').hover(
-                function() { // mouseenter
-                    $(this).css({
-                        'transform': 'scale(1.03)',
-                        'transition': 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
-                    });
-                    
-                    $(this).find('.portfolio-image').css({
-                        'transform': 'scale(1.08)',
-                        'transition': 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
-                    });
-                },
-                function() { // mouseleave
-                    $(this).css({
-                        'transform': 'scale(1)',
-                        'transition': 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
-                    });
-                    
-                    $(this).find('.portfolio-image').css({
-                        'transform': 'scale(1)',
-                        'transition': 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
-                    });
-                }
-            );
-            
-            // 11. Анимация при наведении на карточки технологий
-            $('.technology-card').hover(
-                function() { // mouseenter
-                    $(this).css({
-                        'transform': 'scale(1.03)',
-                        'transition': 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
-                    });
-                    
-                    $(this).find('.technology-icon').css({
-                        'transform': 'scale(1.1)',
-                        'transition': 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
-                    });
-                },
-                function() { // mouseleave
-                    $(this).css({
-                        'transform': 'scale(1)',
-                        'transition': 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
-                    });
-                    
-                    $(this).find('.technology-icon').css({
-                        'transform': 'scale(1)',
-                        'transition': 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
-                    });
-                }
-            );
-            
-            // 12. Обработчик для кнопки карты
-            $('#openMapBtn').on('click', function() {
-                // Координаты для Москвы (Тверская, 25)
-                const latitude = 55.761590;
-                const longitude = 37.609466;
-                const zoom = 15;
-                
-                // Открываем Google Maps в новом окне
-                const mapsUrl = `https://www.google.com/maps?q=${latitude},${longitude}&z=${zoom}`;
-                window.open(mapsUrl, '_blank');
-            });
-            
-            // 13. Обработчик отправки формы обратной связи
-            $('#feedbackForm').on('submit', function(e) {
-                e.preventDefault();
-                
-                var originalBtnText = $('#submitBtn').html();
-                var $submitBtn = $('#submitBtn');
-                
-                // Показываем состояние загрузки
-                $submitBtn.html('<i class="fas fa-spinner fa-spin"></i> Отправка...');
-                $submitBtn.prop('disabled', true);
-                
-                // В реальном проекте здесь будет AJAX-запрос
-                // Для демонстрации имитируем отправку
-                setTimeout(function() {
-                    // Показываем сообщение об успехе
-                    $('#successMessage').fadeIn(300);
-                    $('#feedbackForm').fadeOut(300);
-                    
-                    // Прокрутка к сообщению
-                    $('html, body').animate({
-                        scrollTop: $('#successMessage').offset().top - 100
-                    }, 800, 'easeInOutCubic');
-                    
-                    // Сброс формы
-                    $('#feedbackForm')[0].reset();
-                    
-                    // Автоматическое скрытие сообщения через 8 секунд
-                    setTimeout(function() {
-                        $('#successMessage').fadeOut(300);
-                        $('#feedbackForm').fadeIn(300);
-                    }, 8000);
-                    
-                    // Восстанавливаем кнопку
-                    $submitBtn.html(originalBtnText);
-                    $submitBtn.prop('disabled', false);
-                }, 1500);
-            });
-            
-            // 14. Анимация нажатия для всех кнопок
-            $('button').on('mousedown', function() {
-                $(this).css('transform', 'scale(0.95)');
-            }).on('mouseup mouseleave', function() {
-                $(this).css('transform', '');
-            });
-            
-            // 15. Выравнивание высоты карточек портфолио
+            // 6. Выравнивание высоты карточек
             setTimeout(function() {
-                equalizePortfolioHeights();
+                equalizeHeights('.portfolio-item');
+                equalizeHeights('.technology-card');
             }, 100);
+            
+            // 7. Ресайз окна - перевыравнивание карточек
+            $(window).on('resize', function() {
+                setTimeout(function() {
+                    equalizeHeights('.portfolio-item');
+                    equalizeHeights('.technology-card');
+                }, 100);
+            });
         });
         
         // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
@@ -2267,80 +1346,127 @@
             });
         }
         
-        // Функция выравнивания высоты карточек портфолио
-        function equalizePortfolioHeights() {
+        // Функция выравнивания высоты элементов
+        function equalizeHeights(selector) {
             var maxHeight = 0;
-            var portfolioItems = $('.portfolio-item');
+            var elements = $(selector);
             
             // Сброс высоты для пересчета
-            portfolioItems.css('min-height', '');
+            elements.css('min-height', '');
+            elements.css('height', '');
             
             // Находим максимальную высоту
-            portfolioItems.each(function() {
+            elements.each(function() {
                 var height = $(this).outerHeight();
                 if (height > maxHeight) {
                     maxHeight = height;
                 }
             });
             
-            // Устанавливаем минимальную высоту для всех карточек
-            portfolioItems.css('min-height', maxHeight + 'px');
+            // Устанавливаем одинаковую высоту для всех элементов
+            elements.css('min-height', maxHeight + 'px');
             
-            // Пересчитываем при изменении размера окна
-            $(window).on('resize', function() {
-                setTimeout(equalizePortfolioHeights, 100);
-            });
+            // Для технологии карточек устанавливаем и высоту
+            if (selector === '.technology-card') {
+                elements.css('height', maxHeight + 'px');
+            }
         }
         
-        // Функция показа стеклянного уведомления
-        function showGlassNotification(message) {
-            // Удаляем предыдущее уведомление, если есть
-            $('.glass-notification').remove();
+        // Функция создания плавающих точек для первой секции
+        function createHeroDots() {
+            var container = $('#hero-dots');
+            var dotCount = 15;
             
-            // Создаем новое уведомление
-            var notification = $('<div>').addClass('glass-notification').css({
-                'position': 'fixed',
-                'top': '50%',
-                'left': '50%',
-                'transform': 'translate(-50%, -50%)',
-                'background': 'rgba(255, 255, 255, 0.1)',
-                'backdropFilter': 'blur(30px) saturate(180%)',
-                'webkitBackdropFilter': 'blur(30px) saturate(180%)',
-                'border': '1px solid rgba(255, 255, 255, 0.15)',
-                'borderRadius': '20px',
-                'padding': '25px 35px',
-                'color': '#ffffff',
-                'fontSize': '1.1rem',
-                'fontWeight': '500',
-                'zIndex': '2000',
-                'textAlign': 'center',
-                'boxShadow': '0 20px 40px rgba(0, 0, 0, 0.3)',
-                'opacity': '0',
-                'transition': 'opacity 0.3s ease'
-            }).text(message);
-            
-            // Добавляем на страницу
-            $('body').append(notification);
-            
-            // Показываем
-            setTimeout(function() {
-                notification.css('opacity', '1');
-            }, 10);
-            
-            // Скрываем через 2 секунды
-            setTimeout(function() {
-                notification.css('opacity', '0');
-                setTimeout(function() {
-                    notification.remove();
-                }, 300);
-            }, 2000);
+            for (var i = 0; i < dotCount; i++) {
+                var size = Math.random() * 4 + 2;
+                var left = Math.random() * 100;
+                var duration = Math.random() * 10 + 15;
+                var delay = Math.random() * 5;
+                
+                // Случайный цвет точки
+                var colors = [
+                    'rgba(255, 135, 78, 0.6)',
+                    'rgba(255, 107, 53, 0.5)',
+                    'rgba(255, 167, 38, 0.4)'
+                ];
+                var color = colors[Math.floor(Math.random() * colors.length)];
+                
+                var dot = $('<div>').addClass('dot').css({
+                    'width': size + 'px',
+                    'height': size + 'px',
+                    'left': left + '%',
+                    'animation-duration': duration + 's',
+                    'animation-delay': delay + 's',
+                    'background': color
+                });
+                
+                container.append(dot);
+            }
         }
         
-        // Добавляем easing функцию для плавной анимации
-        $.easing.easeInOutCubic = function (x, t, b, c, d) {
-            if ((t /= d / 2) < 1) return c / 2 * t * t * t + b;
-            return c / 2 * ((t -= 2) * t * t + 2) + b;
-        };
+        // Функция создания плавающих точек для второй секции
+        function createPortfolioDots() {
+            var container = $('#portfolio-dots');
+            var dotCount = 12;
+            
+            for (var i = 0; i < dotCount; i++) {
+                var size = Math.random() * 5 + 1;
+                var left = Math.random() * 100;
+                var duration = Math.random() * 12 + 16;
+                var delay = Math.random() * 7;
+                
+                // Случайный цвет точки
+                var colors = [
+                    'rgba(255, 135, 78, 0.4)',
+                    'rgba(255, 107, 53, 0.3)',
+                    'rgba(255, 167, 38, 0.3)'
+                ];
+                var color = colors[Math.floor(Math.random() * colors.length)];
+                
+                var dot = $('<div>').addClass('portfolio-dot').css({
+                    'width': size + 'px',
+                    'height': size + 'px',
+                    'left': left + '%',
+                    'animation-duration': duration + 's',
+                    'animation-delay': delay + 's',
+                    'background': color
+                });
+                
+                container.append(dot);
+            }
+        }
+        
+        // Функция создания плавающих точек для третьей секции
+        function createTechnologiesDots() {
+            var container = $('#technologies-dots');
+            var dotCount = 10;
+            
+            for (var i = 0; i < dotCount; i++) {
+                var size = Math.random() * 3 + 1;
+                var left = Math.random() * 100;
+                var duration = Math.random() * 15 + 20;
+                var delay = Math.random() * 10;
+                
+                // Случайный цвет точки
+                var colors = [
+                    'rgba(255, 135, 78, 0.3)',
+                    'rgba(255, 107, 53, 0.2)',
+                    'rgba(255, 167, 38, 0.2)'
+                ];
+                var color = colors[Math.floor(Math.random() * colors.length)];
+                
+                var dot = $('<div>').addClass('technologies-dot').css({
+                    'width': size + 'px',
+                    'height': size + 'px',
+                    'left': left + '%',
+                    'animation-duration': duration + 's',
+                    'animation-delay': delay + 's',
+                    'background': color
+                });
+                
+                container.append(dot);
+            }
+        }
     </script>
 </body>
 </html>
