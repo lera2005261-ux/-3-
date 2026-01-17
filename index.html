@@ -167,119 +167,44 @@
             align-items: center;
         }
         
-        /* Секция 1: Герой */
+        /* НОВАЯ ПЕРВАЯ СЕКЦИЯ */
         .hero-section {
+            min-height: 100vh;
+            padding: 100px 5% 80px;
+            position: relative;
+            overflow: hidden;
             display: flex;
             align-items: center;
-            justify-content: center;
-            position: relative;
+            background: #0d0d0d;
         }
         
-        /* Фон с фотографией для первой секции */
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
+        /* Контейнер для новой секции */
+        .hero-container {
+            max-width: 1400px;
             width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(
-                    45deg,
-                    rgba(26, 26, 26, 0.92) 0%,
-                    rgba(255, 135, 78, 0.25) 50%,
-                    rgba(26, 26, 26, 0.92) 100%
-                ),
-                url('я-10-23_21-44-13.jpg') center/cover no-repeat;
-            z-index: 1;
-            opacity: 0.6;
-            filter: brightness(0.7) contrast(1.2) blur(4px);
-            animation: gradientShift 8s ease-in-out infinite;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% {
-                background: 
-                    linear-gradient(
-                        45deg,
-                        rgba(26, 26, 26, 0.92) 0%,
-                        rgba(255, 135, 78, 0.25) 50%,
-                        rgba(26, 26, 26, 0.92) 100%
-                    ),
-                    url('я-10-23_21-44-13.jpg') center/cover no-repeat;
-            }
-            50% {
-                background: 
-                    linear-gradient(
-                        135deg,
-                        rgba(26, 26, 26, 0.92) 0%,
-                        rgba(255, 107, 53, 0.3) 50%,
-                        rgba(26, 26, 26, 0.92) 100%
-                    ),
-                    url('я-10-23_21-44-13.jpg') center/cover no-repeat;
-            }
-        }
-        
-        /* Анимированные точки для первой секции */
-        .hero-dots {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-            overflow: hidden;
-        }
-        
-        .dot {
-            position: absolute;
-            background: rgba(255, 135, 78, 0.6);
-            border-radius: 50%;
-            animation: floatDot 15s linear infinite;
-        }
-        
-        @keyframes floatDot {
-            0% {
-                transform: translateY(100vh) translateX(0) scale(0.5);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.8;
-            }
-            90% {
-                opacity: 0.6;
-            }
-            100% {
-                transform: translateY(-100px) translateX(100px) scale(1.2);
-                opacity: 0;
-            }
-        }
-        
-        /* Стеклянный контент для героя */
-        .hero-content {
-            max-width: 800px;
-            text-align: center;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
             position: relative;
             z-index: 3;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(50px) saturate(200%);
-            -webkit-backdrop-filter: blur(50px) saturate(200%);
-            padding: 70px 60px;
-            border-radius: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
         
-        h1 {
-            font-size: 3.5rem;
+        /* Левая часть с текстом */
+        .hero-text {
+            position: relative;
+        }
+        
+        .hero-text h1 {
+            font-size: 3.8rem;
             margin-bottom: 30px;
             background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             line-height: 1.1;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: -0.5px;
         }
         
@@ -289,86 +214,246 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             display: inline-block;
-            font-weight: 700;
+            font-weight: 800;
         }
         
-        .description {
+        .hero-description {
             font-size: 1.3rem;
             margin-bottom: 40px;
             color: rgba(255, 255, 255, 0.85);
             line-height: 1.7;
             font-weight: 400;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            max-width: 500px;
         }
         
-        /* Дополнительный текст в стеклянном стиле */
-        .additional-text {
+        /* Правая часть с изображением */
+        .hero-image-container {
+            position: relative;
+            perspective: 1000px;
+        }
+        
+        /* Стеклянная рамка для изображения */
+        .image-frame {
+            position: relative;
             background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            padding: 35px;
-            border-radius: 24px;
-            margin-top: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border-radius: 28px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
             box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            text-align: left;
+                0 25px 50px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
         }
         
-        .additional-text h3 {
-            font-size: 1.4rem;
-            margin-bottom: 20px;
+        .image-frame:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(-5deg);
+        }
+        
+        /* Основное изображение портфолио */
+        .portfolio-image-main {
+            width: 100%;
+            height: auto;
+            border-radius: 18px;
+            display: block;
+            transform: translateZ(20px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .image-frame:hover .portfolio-image-main {
+            transform: translateZ(30px) scale(1.02);
+        }
+        
+        /* Декоративные элементы вокруг изображения */
+        .image-decoration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .decoration-dot {
+            position: absolute;
             background: linear-gradient(135deg, #FF874E, #FF6B35);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            border-radius: 50%;
+            animation: floatDeco 6s ease-in-out infinite;
+        }
+        
+        .dot-1 {
+            top: -15px;
+            left: -15px;
+            width: 30px;
+            height: 30px;
+            opacity: 0.7;
+            animation-delay: 0s;
+        }
+        
+        .dot-2 {
+            bottom: -10px;
+            right: -10px;
+            width: 20px;
+            height: 20px;
+            opacity: 0.5;
+            animation-delay: 1s;
+        }
+        
+        .dot-3 {
+            top: 50%;
+            left: -20px;
+            width: 15px;
+            height: 15px;
+            opacity: 0.6;
+            animation-delay: 2s;
+        }
+        
+        .dot-4 {
+            bottom: 20%;
+            right: -15px;
+            width: 25px;
+            height: 25px;
+            opacity: 0.4;
+            animation-delay: 3s;
+        }
+        
+        @keyframes floatDeco {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-10px) scale(1.1);
+            }
+        }
+        
+        /* Информация о изображении */
+        .image-info {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            background: rgba(26, 26, 26, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            padding: 25px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 350px;
+            transform: translateZ(15px);
+            z-index: 2;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .image-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #ffffff;
             font-weight: 600;
         }
         
-        .additional-text p {
-            color: rgba(255, 255, 255, 0.75);
-            font-size: 1.05rem;
-            line-height: 1.7;
-            margin-bottom: 18px;
-            font-weight: 400;
+        .image-info p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
         }
         
-        /* Социальные ссылки в стеклянном стиле */
-        .social-links {
+        .image-stats {
             display: flex;
-            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #FF874E;
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 5px;
+        }
+        
+        /* Стеклянные кнопки */
+        .hero-buttons {
+            display: flex;
             gap: 20px;
             margin-top: 40px;
+            flex-wrap: wrap;
         }
         
-        .social-link {
-            width: 56px;
-            height: 56px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-radius: 16px;
-            color: #FF874E;
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 1.3rem;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-        }
-        
-        .social-link:hover {
-            background: rgba(255, 135, 78, 0.15);
+        .btn-primary {
+            background: linear-gradient(135deg, 
+                rgba(255, 135, 78, 0.15), 
+                rgba(255, 107, 53, 0.1));
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
             color: #ffffff;
-            transform: translateY(-3px) scale(1.1);
-            border-color: rgba(255, 135, 78, 0.3);
+            text-decoration: none;
+            padding: 18px 35px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 135, 78, 0.2);
             box-shadow: 
-                0 12px 30px rgba(255, 135, 78, 0.25),
+                0 15px 35px rgba(255, 135, 78, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, 
+                rgba(255, 135, 78, 0.25), 
+                rgba(255, 107, 53, 0.2));
+            transform: translateY(-4px) scale(1.05);
+            border-color: rgba(255, 135, 78, 0.4);
+            box-shadow: 
+                0 25px 50px rgba(255, 135, 78, 0.3),
+                0 0 0 1px rgba(255, 135, 78, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 18px 35px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.35),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
         
@@ -376,7 +461,8 @@
         .scroll-down {
             position: absolute;
             bottom: 50px;
-            right: 50px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -397,7 +483,7 @@
         .scroll-down:hover {
             background: rgba(255, 135, 78, 0.15);
             color: #ffffff;
-            transform: translateY(-5px);
+            transform: translateX(-50%) translateY(-5px);
             border-color: rgba(255, 135, 78, 0.3);
             box-shadow: 
                 0 15px 35px rgba(255, 135, 78, 0.25),
@@ -424,6 +510,63 @@
             }
             60% {
                 transform: translateY(-4px);
+            }
+        }
+        
+        /* Анимированный фон для секции */
+        .hero-bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 135, 78, 0.1), transparent 70%);
+            filter: blur(40px);
+            animation: floatShape 20s ease-in-out infinite;
+        }
+        
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+        
+        .shape-2 {
+            width: 300px;
+            height: 300px;
+            bottom: -50px;
+            right: -50px;
+            animation-delay: 5s;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.08), transparent 70%);
+        }
+        
+        .shape-3 {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            right: 10%;
+            animation-delay: 10s;
+            background: radial-gradient(circle, rgba(255, 167, 38, 0.05), transparent 70%);
+        }
+        
+        @keyframes floatShape {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
             }
         }
         
@@ -675,7 +818,6 @@
             z-index: 1;
             opacity: 0.5;
             filter: brightness(0.6) contrast(1.2) blur(6px);
-            animation: gradientShift 8s ease-in-out infinite;
         }
         
         .technologies-dots {
@@ -867,7 +1009,6 @@
             z-index: 1;
             opacity: 0.4;
             filter: brightness(0.5) contrast(1.2) blur(8px);
-            animation: gradientShift 8s ease-in-out infinite;
         }
         
         .feedback-dots {
@@ -1707,14 +1848,33 @@
                 display: flex;
             }
             
-            .hero-content {
-                padding: 50px 40px;
+            /* Адаптация новой первой секции */
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 60px;
+                text-align: center;
             }
             
-            h1 {
+            .hero-text h1 {
                 font-size: 2.8rem;
             }
             
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+            
+            .image-info {
+                left: 50%;
+                transform: translateX(-50%) translateZ(15px);
+                max-width: 300px;
+            }
+            
+            /* Остальные секции */
             .section-header h2 {
                 font-size: 2.5rem;
             }
@@ -1745,22 +1905,46 @@
         }
         
         @media (max-width: 768px) {
-            .hero-content {
-                padding: 40px 30px;
-            }
-            
-            h1 {
+            /* Новая первая секция */
+            .hero-text h1 {
                 font-size: 2.4rem;
             }
             
-            .description {
+            .hero-description {
                 font-size: 1.15rem;
             }
             
-            .additional-text {
-                padding: 25px;
+            .btn-primary,
+            .btn-secondary {
+                padding: 16px 28px;
+                font-size: 1rem;
             }
             
+            .image-info {
+                padding: 20px;
+                max-width: 250px;
+                bottom: 20px;
+            }
+            
+            .image-info h3 {
+                font-size: 1.2rem;
+            }
+            
+            .stat-value {
+                font-size: 1.1rem;
+            }
+            
+            .shape-1 {
+                width: 300px;
+                height: 300px;
+            }
+            
+            .shape-2 {
+                width: 200px;
+                height: 200px;
+            }
+            
+            /* Остальные секции */
             .section-header h2 {
                 font-size: 2.2rem;
             }
@@ -1845,18 +2029,50 @@
         }
         
         @media (max-width: 576px) {
-            .hero-content {
-                padding: 35px 25px;
-            }
-            
-            h1 {
+            /* Новая первая секция */
+            .hero-text h1 {
                 font-size: 2rem;
             }
             
-            .description {
+            .hero-description {
                 font-size: 1.1rem;
             }
             
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .image-frame {
+                padding: 15px;
+            }
+            
+            .image-info {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                transform: none;
+                margin-top: 20px;
+                max-width: 100%;
+            }
+            
+            .decoration-dot {
+                display: none;
+            }
+            
+            .scroll-down {
+                padding: 12px 20px;
+                bottom: 30px;
+            }
+            
+            /* Остальные секции */
             .portfolio-grid {
                 grid-template-columns: 1fr;
                 gap: 25px;
@@ -2007,50 +2223,82 @@
         </div>
     </nav>
 
-    <!-- Секция 1: Герой -->
-    <section class="hero-section section" id="home">
-        <div class="hero-bg"></div>
-        <div class="hero-dots" id="hero-dots"></div>
+    <!-- НОВАЯ ПЕРВАЯ СЕКЦИЯ -->
+    <section class="hero-section" id="home">
+        <!-- Анимированный фон -->
+        <div class="hero-bg-animation">
+            <div class="bg-shape shape-1"></div>
+            <div class="bg-shape shape-2"></div>
+            <div class="bg-shape shape-3"></div>
+        </div>
         
-        <div class="hero-content">
-            <h1>Привет! Я Валерия Баранова — <span class="highlight">графический дизайнер</span></h1>
-            <p class="description">
-                Специализируюсь на брендинге, айдентике и цифровой иллюстрации. Превращаю сложные идеи в чистые, 
-                эстетичные визуальные концепции, которые не только привлекают внимание, но и решают конкретные 
-                бизнес-задачи.
-            </p>
-            
-            <div class="additional-text" id="contact">
-                <h3>О моей работе</h3>
-                <p>С 2018 года я помогаю брендам находить свой уникальный визуальный язык. Моя философия дизайна основана на балансе между функциональностью и эстетикой, где каждая деталь имеет значение.</p>
-                <p>Я работаю с клиентами по всему миру, создавая дизайн, который говорит на языке целевой аудитории. От небольшого стартапа до крупной компании — каждый проект для меня важен и получает максимальное внимание.</p>
-                <p>Мой подход сочетает глубокий анализ рынка, понимание психологии восприятия и современные тренды дизайна. Результат — работа, которая выделяется, запоминается и приносит результаты.</p>
-            </div>
+        <div class="hero-container">
+            <!-- Левая часть: Текст -->
+            <div class="hero-text">
+                <h1>Привет! Я Валерия Баранова — <span class="highlight">графический дизайнер</span></h1>
                 
-            <div class="social-links">
-                <a href="https://www.instagram.com/st__au/" class="social-link" target="_blank">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#" class="social-link">
-                    <i class="fab fa-telegram"></i>
-                </a>
-                <a href="#" class="social-link">
-                    <i class="far fa-envelope"></i>
-                </a>
-                <a href="#" class="social-link">
-                    <i class="fab fa-behance"></i>
-                </a>
+                <p class="hero-description">
+                    Специализируюсь на создании визуальных концепций, которые сочетают эстетику 
+                    и функциональность. Каждый проект — это уникальная история, рассказанная 
+                    через дизайн.
+                </p>
+                
+                <div class="hero-buttons">
+                    <a href="#portfolio" class="btn-primary">
+                        <i class="fas fa-eye"></i> Смотреть работы
+                    </a>
+                    <a href="#feedback" class="btn-secondary">
+                        <i class="fas fa-paper-plane"></i> Обсудить проект
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Правая часть: Изображение портфолио -->
+            <div class="hero-image-container">
+                <div class="image-frame">
+                    <!-- Декоративные элементы -->
+                    <div class="image-decoration">
+                        <div class="decoration-dot dot-1"></div>
+                        <div class="decoration-dot dot-2"></div>
+                        <div class="decoration-dot dot-3"></div>
+                        <div class="decoration-dot dot-4"></div>
+                    </div>
+                    
+                    <!-- Основное изображение портфолио -->
+                    <img src="ПОРТФОЛИО.png" alt="Портфолио Валерии Барановой" class="portfolio-image-main">
+                    
+                    <!-- Информация о портфолио -->
+                    <div class="image-info">
+                        <h3>Мое портфолио</h3>
+                        <p>Собрание лучших работ в области графического дизайна, брендинга и цифровой иллюстрации.</p>
+                        
+                        <div class="image-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">50+</span>
+                                <span class="stat-label">Проектов</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">15+</span>
+                                <span class="stat-label">Счастливых клиентов</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">3+</span>
+                                <span class="stat-label">Года опыта</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
         <!-- Стрелка прокрутки -->
         <a href="#portfolio" class="scroll-down">
-            <span>Мои работы</span>
+            <span>Исследовать работы</span>
             <i>↓</i>
         </a>
     </section>
 
-    <!-- Секция 2: Портфолио -->
+    <!-- СЕКЦИЯ 2: Портфолио -->
     <section class="portfolio-section section" id="portfolio">
         <div class="portfolio-dots" id="portfolio-dots"></div>
         <div class="section-container">
@@ -2494,7 +2742,6 @@
         
         $(document).ready(function() {
             // 1. Создание плавающих точек для всех секций
-            createHeroDots();
             createPortfolioDots();
             createTechnologiesDots();
             createLocationDots();
@@ -2620,6 +2867,31 @@
             
             // 11. Карточки зон работы
             initWorkZones();
+            
+            // 12. Параллакс эффект для изображения портфолио в первой секции
+            $(window).on('scroll', function() {
+                var scrollPosition = $(window).scrollTop();
+                var heroSection = $('.hero-section');
+                var heroHeight = heroSection.height();
+                
+                if (scrollPosition < heroHeight) {
+                    var parallaxValue = scrollPosition * 0.3;
+                    $('.image-frame').css('transform', 'translateY(' + parallaxValue + 'px) rotateX(0) rotateY(0)');
+                }
+            });
+            
+            // 13. Анимация появления элементов при загрузке
+            setTimeout(function() {
+                $('.hero-text').css({
+                    'opacity': '1',
+                    'transform': 'translateX(0)'
+                });
+                
+                $('.hero-image-container').css({
+                    'opacity': '1',
+                    'transform': 'translateX(0)'
+                });
+            }, 100);
         });
         
         // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
@@ -2627,9 +2899,8 @@
         // Функция обновления активного пункта меню при прокрутке
         function updateActiveNavOnScroll() {
             var scrollPosition = $(window).scrollTop();
-            var windowHeight = $(window).height();
             
-            $('.section').each(function() {
+            $('section[id]').each(function() {
                 var sectionTop = $(this).offset().top - 100;
                 var sectionHeight = $(this).outerHeight();
                 var sectionId = $(this).attr('id');
@@ -2780,38 +3051,6 @@
                     paragraph.css('flex-grow', '1');
                 }
             });
-        }
-        
-        // Функция создания плавающих точек для первой секции
-        function createHeroDots() {
-            var container = $('#hero-dots');
-            var dotCount = 15;
-            
-            for (var i = 0; i < dotCount; i++) {
-                var size = Math.random() * 4 + 2;
-                var left = Math.random() * 100;
-                var duration = Math.random() * 10 + 15;
-                var delay = Math.random() * 5;
-                
-                // Случайный цвет точки
-                var colors = [
-                    'rgba(255, 135, 78, 0.6)',
-                    'rgba(255, 107, 53, 0.5)',
-                    'rgba(255, 167, 38, 0.4)'
-                ];
-                var color = colors[Math.floor(Math.random() * colors.length)];
-                
-                var dot = $('<div>').addClass('dot').css({
-                    'width': size + 'px',
-                    'height': size + 'px',
-                    'left': left + '%',
-                    'animation-duration': duration + 's',
-                    'animation-delay': delay + 's',
-                    'background': color
-                });
-                
-                container.append(dot);
-            }
         }
         
         // Функция создания плавающих точек для второй секции
@@ -3193,6 +3432,25 @@
                 $('#zoneInfoPanel').addClass('active');
             });
         }
+        
+        // Добавляем CSS анимации для плавного появления элементов в первой секции
+        $('<style>')
+            .text(`
+                .hero-text, .hero-image-container {
+                    opacity: 0;
+                    transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), 
+                                transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+                
+                .hero-text {
+                    transform: translateX(-50px);
+                }
+                
+                .hero-image-container {
+                    transform: translateX(50px);
+                }
+            `)
+            .appendTo('head');
     </script>
 </body>
 </html>
